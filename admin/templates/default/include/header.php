@@ -9,8 +9,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>物理实验管理--教师管理页面</title>
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<link rel="stylesheet" href="./include/font-awesome-4.7.0/css/font-awesome.min.css">
+	<?php echo "<link rel='stylesheet' type='text/css' href='./templates/default/css/style.css'>";?>
+	<?php echo "<link rel='stylesheet' href='./templates/default/css/font-awesome-4.7.0/css/font-awesome.min.css'>";?>
 </head>
 <body>
 	<div class="header">
@@ -21,7 +21,7 @@
 				<li><a>历史数据</a></li>
 			</ul>
 			<ul class="nav_option">
-				<li><a>用 户 [ <?php echo($_SESSION['user_name']);?> ]</a></li>
+				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>用 户 [ ".$_SESSION['user_name']."]</a></li>";?>
 				<li><span class="symbol-item">|</span></li>
 				<li><a href="../../logout.php">注 销</a></li>
 			</ul>

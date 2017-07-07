@@ -7,6 +7,23 @@
 	}
 	
 	include_once dirname(__FILE__).'/database.class.php';
+	
+	function _alert($msg){
+		echo "<script>alert('$msg');</script>";
+	}
+
+	function _alert_back($msg){
+		echo"<script>alert('$msg');history.back();</script>";
+	}
+
+	function _location($info,$url){
+		if(!empty($info)){
+			echo "<script>alert('$info');location.href='$url';</script>";
+			exit();
+		}else{
+			header('Location:'.$url);
+		}
+	}
 
 
 	function check_login($user_name, $password){
@@ -39,7 +56,43 @@
 		else echo "wrong time!";		
  	}
 
- 	function load_info(){
+ 	function ymd_date(){
+ 		date_default_timezone_set('Asia/Shanghai');
+ 		return date('Y/m/d');
+ 	}
+
+
+ 	function detail_data($exp_name,$group_num){
+ 		$obj = new database($exp_name);
+		$result = $obj->detail_data($group_num);
+		return $result;
+ 	}
+
+
+	function pass($exp_name,$option,$group_num){
+ 		$obj = new database($exp_name);
+ 		$result = $obj->pass($option,$group_num);
+ 		return $result;
+ 	}
+
+ 	function fail($exp_name,$option,$group_num){
+ 		$obj = new database($exp_name);
+ 		$result = $obj->fail($option,$group_num);
+ 		return $result;
+ 	}
+
+ 	function solve_help($exp_name,$group_num){
+ 		$obj = new database($exp_name);
+ 		$obj->solve_help($group_num);
+ 	}
+
+ 	function course_status($course_id,$user_id){
+ 		$obj = new database();
+ 		$obj->course_status_start($course_id,$user_id);
+ 	}
+
+ 	function init_info_oscillograph(){
+ 		//非公共函数
  		$out = "";
  		for( $i = 1; $i<=40; $i++){		
 			$out .="
@@ -51,55 +104,35 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><button onclick='show_detail_table(this)' class='button-detail'>详 情</button></td>
+					<td><button onclick='show_detail_table(this,2)' class='button-detail'>详 情</button></td>
 				</tr>";
 		}
 		echo $out;
  	}
-
- 	function evaluating($flag = 0){
- 		//初始状态下带评测栏的显示情况
- 		$out = "";
- 		$out .= "
- 			<h4 class='title'>有<span class='count_evaluating'>0</span>条待评测（按提交顺序）:</h4>
- 			<ul class='group_list'></ul>";
-		echo $out;
- 	}
-
- 	function seek_help(){
+ 
+ 	function init_help(){
+ 		//初始化求助栏
  		$out = "";
  		$out .= "
 			<h4 class='title'>有<span class='count_help'>0</span>条求助信息:</h4>
- 			<ul class='group_list'>";
-		$out .= "<li><a href='javascript:void(0)' onclick='eval_spread()' title='展开'>>></a></li></ul>";
+ 			<ul class='group_list' name='0'>
+ 			</ul>";
 		echo $out;
  		
  	}
 
- 	function detail_data($group_num){
- 		$obj = new database;
-		$result = $obj->detail_data($group_num);
-		return $result;
+
+ 	function init_evaluating(){
+ 		//初始化待评测栏
+ 		$out = "";
+ 		$out .= "
+ 			<h4 class='title'>有<span class='count_evaluating'>0</span>条待评测（按提交顺序）:</h4>
+ 			<ul class='group_list' name='0'></ul>";
+		echo $out;
  	}
 
-
-	function pass($option,$group_num){
- 		$obj = new database;
- 		$result = $obj->pass($option,$group_num);
- 		return $result;
- 	}
-
- 	function fail($option,$group_num){
- 		$obj = new database;
- 		$result = $obj->fail($option,$group_num);
- 		return $result;
- 	}
-
- 	function solve_help($group_num){
- 		$obj = new database;
- 		$obj->solve_help($group_num);
- 	}
 ?>
+
 
 
 

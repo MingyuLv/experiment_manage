@@ -10,7 +10,7 @@
 		define('exp',true);
 		//调用函数库的标记
 
-		require './function/global.func.php';
+		require './function/common.php';
 
 		session_destroy();
 		_location(null,'./login.php');

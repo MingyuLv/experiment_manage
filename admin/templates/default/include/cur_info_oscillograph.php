@@ -4,16 +4,16 @@
 
 ?>
 
-<script type="text/javascript" src="./js/function.js"></script>
+<script type="text/javascript" src="./templates/default/js/function.js"></script>
 
-<div class="container" >
+<div class="container" name="oscillograph">
 	<div class="left_item">
 		<div class="widget evaluating">
-			<?php  evaluating();?>
+			<?php  init_evaluating();?>
 		</div>
 		
 		<div class="widget help">
-			<?php seek_help();?>
+			<?php init_help();?>
 		</div>
 	</div>
    
@@ -32,7 +32,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	   			<?php load_info();?>
+	   			<?php init_info_oscillograph();?>
 	        </tbody>
 	    </table>
     </div>
@@ -84,8 +84,8 @@
         </table>
 
         <div class="popup-button">
-            <button type="button" class="button_1" onclick="pass(flag1,flag2,1)">通过</button>
-            <button type="button" class="button_1" onclick="fail(flag1,flag2,1)">不通过</button>
+            <button type="button" class="button_1" onclick="pass(1,2)">通过</button>
+            <button type="button" class="button_1" onclick="fail(1,2)">不通过</button>
         </div>
 
         <table class="tb-content" style='width:400px'>
@@ -113,15 +113,12 @@
         </table>
 		 
 		<div class="popup_button">
-            <button type="button" class="button_2" onclick="pass(flag1,flag2,2)" >通过</button>
-            <button type="button" class="button_2" onclick="fail(flag1,flag2,2)" >不通过</button>
+            <button type="button" class="button_2" onclick="pass(2,2)" >通过</button>
+            <button type="button" class="button_2" onclick="fail(2,2)" >不通过</button>
         </div>
 
     </div>
 </div>
 
-<script type="text/javascript"> 
-	var flag1 = 0;
-	var flag2 = 0;
-	window.onload = infoAjax(flag1,flag2);
-</script>
+
+<script type="text/javascript">window.onload=infoAjax(2);</script>

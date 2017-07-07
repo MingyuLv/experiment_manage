@@ -9,19 +9,20 @@
 	define('exp',true);
 	//调用后台函数文件的标记
 
-	require '../../function/common.php';
+	require dirname(__FILE__).'/../../function/common.php';
 
+	$exp_name = $_GET['exp_name'];
 	//调用与action对应的函数
 	if( $_GET['action']=='detail_data'){
 		if(isset($_GET['group_num'])) {
-			$result = detail_data($_GET['group_num']);
+			$result = detail_data($exp_name,$_GET['group_num']);
 			$result = $result->fetch_assoc();
 			// var_dump($result);
 			echo json_encode($result);
 		}
 	}else if( $_GET['action']=='pass'){
 		    if( isset($_GET['group_num']) && isset($_GET['option'])){
-			$result =  pass($_GET['option'],$_GET['group_num']);
+			$result =  pass($exp_name,$_GET['option'],$_GET['group_num']);
 			$arr = array(
 				'status'=>$result
 				);
@@ -29,7 +30,7 @@
 		 }
 	}else if( $_GET['action']=='fail'){
 		if( isset($_GET['group_num']) && isset($_GET['option'])){
-			$result = fail($_GET['option'],$_GET['group_num']);
+			$result = fail($exp_name,$_GET['option'],$_GET['group_num']);
 			$arr = array(
 				'status'=>$result
 				);
@@ -37,8 +38,11 @@
 		}
 	}else if( $_GET['action']=='solve_help'){
 		if(isset($_GET['group_num'])){
-			solve_help($_GET['group_num']);
+			solve_help($exp_name,$_GET['group_num']);
 		}
+	}else if( $_GET['action']=='course_status'){
+		if( isset($_GET['course_id']) && isset($_GET['user_id']))
+		course_status($_GET['course_id'],$_GET['user_id']);
 	}
 ?>
 

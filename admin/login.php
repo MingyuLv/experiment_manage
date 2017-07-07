@@ -4,7 +4,6 @@
 	define('exp',true);
 
 	require dirname(__FILE__).'/function/common.php';
-	require dirname(__FILE__).'/function/global.func.php';
 
 
 	if( isset($_GET['action']) && $_GET['action']=='login'){
@@ -13,7 +12,8 @@
 			//验证通过
 			$_SESSION['level'] = $result['level'];
 			$_SESSION['user_name'] = $result['name'];
-			_location(null,'./templates/default/index.php');
+			$_SESSION['uid'] = $result['uid'];
+			_location(null,'./index.php');
 
 		}else{
 			_alert_back('用户名或密码错误，忘记密码可联系管理员');
