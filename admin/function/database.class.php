@@ -6,7 +6,7 @@ class database{
 	private $tablePrefix = 'physics';		//表前缀
 	private $pwdSalt = 'my first project';		//提高加密水平
 
-	function __construct($name){
+	function __construct($name=null){
 		require_once dirname(__FILE__).'/../config/database.php';
 		$this->tb_name = $name;
 		$this->db = new mysqli(HOSTNAME,HOSTUSER,HOSTPWD,HOSTDB);
@@ -62,7 +62,8 @@ class database{
 	function fail($option,$group_num){
 		$sql = "SELECT `fail_times` FROM `{$this->tablePrefix}_course_{$this->tb_name}` WHERE `group_num`={$group_num}";
 		$fail_times = $this->db->query($sql);
-		$fail_times = (int)($fail_times->fetch_assoc()) + 1;
+		$fail_times = $fail_times->fetch_assoc();
+		$fail_times = (int)($fail_times['fail_times']) + 1;
 		$sql = "UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `status_{$option}`=0,`fail_times`={$fail_times},`evaluation`=0 WHERE `group_num`={$group_num}";
 		$result = $this->db->query($sql);
 		if($result) return 1;
@@ -77,6 +78,15 @@ class database{
 	function course_status_start($course_id,$user_id){
 		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=1,`user_id`={$user_id} WHERE `course_id`={$course_id}";
 		$result = $this->db->query($sql);
+	}
+
+	function if_cur_course($user_id){
+		$sql = "SELECT `cur_course` FROM `{$this->tablePrefix}_user` WHERE `uid`={$user_id}";
+		$result = $this->db->query($sql);
+		if( $result){
+			return 1;
+		}else return 0;
+
 	}
 
 }

@@ -11,7 +11,8 @@
 
 	require dirname(__FILE__).'/../../function/common.php';
 
-	$exp_name = $_GET['exp_name'];
+	if( isset($_GET['exp_name'])) 
+		$exp_name = $_GET['exp_name'];
 	//调用与action对应的函数
 	if( $_GET['action']=='detail_data'){
 		if(isset($_GET['group_num'])) {
@@ -21,28 +22,36 @@
 			echo json_encode($result);
 		}
 	}else if( $_GET['action']=='pass'){
-		    if( isset($_GET['group_num']) && isset($_GET['option'])){
-			$result =  pass($exp_name,$_GET['option'],$_GET['group_num']);
-			$arr = array(
-				'status'=>$result
-				);
-			echo json_encode($arr);
-		 }
+
+		$result =  pass($exp_name,$_GET['option'],$_GET['group_num']);
+		$arr = array(
+			'status'=>$result
+			);
+		echo json_encode($arr); 
+
 	}else if( $_GET['action']=='fail'){
-		if( isset($_GET['group_num']) && isset($_GET['option'])){
-			$result = fail($exp_name,$_GET['option'],$_GET['group_num']);
-			$arr = array(
-				'status'=>$result
-				);
-			echo json_encode($arr);
-		}
+		
+		$result = fail($exp_name,$_GET['option'],$_GET['group_num']);
+		$arr = array(
+			'status'=>$result
+			);
+		echo json_encode($arr);
+
 	}else if( $_GET['action']=='solve_help'){
-		if(isset($_GET['group_num'])){
-			solve_help($exp_name,$_GET['group_num']);
-		}
+		
+		solve_help($exp_name,$_GET['group_num']);
+
 	}else if( $_GET['action']=='course_status'){
-		if( isset($_GET['course_id']) && isset($_GET['user_id']))
+		
 		course_status($_GET['course_id'],$_GET['user_id']);
+
+	}else if( $_GET['action']=='if_cur_course'){
+
+		$result = if_cur_course($_GET['user_id']);
+		$arr = array(
+			'status' => $result,
+			);
+		echo json_encode($arr);
 	}
 ?>
 

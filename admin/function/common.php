@@ -91,6 +91,12 @@
  		$obj->course_status_start($course_id,$user_id);
  	}
 
+ 	function if_cur_course($user_id){
+ 		$obj = new database();
+ 		$result = $obj->if_cur_course($user_id);
+ 		return $result;
+ 	}
+
  	function init_info_oscillograph(){
  		//非公共函数
  		$out = "";

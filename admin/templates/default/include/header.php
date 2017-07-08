@@ -16,14 +16,14 @@
 	<div class="header">
 		<div class="nav">
 			<ul class="nav_list">
-				<li><a class="fa fa-home" href="#">首 页</a></li>
-				<li><a>实时课堂</a></li>
+				<li><a class="fa fa-home" href="./index.php">首 页</a></li>
+				<li><a>课堂管理</a></li>
 				<li><a>历史数据</a></li>
 			</ul>
 			<ul class="nav_option">
-				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>用 户 [ ".$_SESSION['user_name']."]</a></li>";?>
+				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>用 户 [ ".$_SESSION['user_name']." ]</a></li>";?>
 				<li><span class="symbol-item">|</span></li>
-				<li><a href="../../logout.php">注 销</a></li>
+				<li><a href="./logout.php">注 销</a></li>
 			</ul>
 		</div><!--end nav -->
 	</div><!--end header -->

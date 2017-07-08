@@ -19,15 +19,38 @@ function startCourse(obj,course_id){
 	document.getElementById("popup-bg").style.display = "block";
 	experiment_name = obj.getAttribute("name");
 	// console.log(experiment_name);
-	form_action_name = document.getElementsByClassName("mask-form");
+	var form_action_name = document.getElementsByClassName("mask-form");
+	//如果有课程还在进行则修改action的url
+	var obj = createXMLHttpRequest();
+	obj.open("GET","./templates/default/infoAjax.php?action=if_cur_course&user_id="+user_id,true);
+	obj.onreadystatechange = function(){
+		if( obj.readyState == 4 && obj.status == 200){
+			var doc = obj.responseText;
+			doc = parseJson(doc);
+			if( doc['status']=='1'){
+				form_action_name[0].setAttribute("action","./index.php");
+				return;
+			}
+		}
+	}
+	obj.send();
 
-	var xmlobj = createXMLHttpRequest();		//修改该课程的状态
+	//修改该课程的状态
+	var xmlobj = createXMLHttpRequest();		
 	xmlobj.open("GET","./templates/default/infoAjax.php?action=course_status&course_id="+course_id+"&user_id="+user_id,true);
 	xmlobj.send();
 
 	form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name);
 }
 
+function if_cur_course(){
+	//如果有课程还在进行则必须先关闭该课程
+	var form_action_name = document.getElementsByClassName("mask-form");
+	form_action_name =  form_action_name[0].getAttribute("action");
+	if( form_action_name == './index.php') 
+		alert( "您还有课程未结束！请先结束该课程");
+
+}
 //关闭课程确认窗口
 function close_popup(){
 	document.getElementById("popup-bg").style.display="none";

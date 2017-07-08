@@ -30,7 +30,7 @@
 					<span class="class-icon"><i class="fa fa-drivers-license-o"></i></span>
 					<input type="text" class="class-input" placeholder="班级（选填）" id="classNum" name="classNum">
 				</div>
-				<button type="submit" class="mask-submit">确认开始</button>
+				<button type="submit" class="mask-submit" onclick="if_cur_course()">确认开始</button>
 			</form>
 		</div>
 	</div>

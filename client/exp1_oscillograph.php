@@ -37,7 +37,10 @@
 		$group_num = $_GET['group_num'];
 		$stu_num =  $_GET['stu_num'];
 		$stu_name = $_GET['stu_name'];
-		$sql = "UPDATE `physics_course_oscillograph` SET `stu_num`={$stu_num}, `stu_name`={$stu_name} WHERE `group_num`={$group_num}";
+		var_dump($group_num);
+		var_dump($stu_num);
+		var_dump($stu_name);
+		$sql = "UPDATE `physics_course_oscillograph` SET `stu_num`='{$stu_num}', `stu_name`='{$stu_name}' WHERE `group_num`='{$group_num}'";	
 		$result = $db->query($sql);
 		if(!$result) {
 			$arr = array( 
