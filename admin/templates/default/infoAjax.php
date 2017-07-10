@@ -37,21 +37,27 @@
 			);
 		echo json_encode($arr);
 
-	}else if( $_GET['action']=='solve_help'){
-		
+	}else if( $_GET['action']=='solve_help'){		
 		solve_help($exp_name,$_GET['group_num']);
 
-	}else if( $_GET['action']=='course_status'){
-		
+	}else if( $_GET['action']=='course_status'){		
 		course_status($_GET['course_id'],$_GET['user_id']);
 
 	}else if( $_GET['action']=='if_cur_course'){
-
 		$result = if_cur_course($_GET['user_id']);
 		$arr = array(
 			'status' => $result,
 			);
 		echo json_encode($arr);
+	}else if( $_GET['action']=='start_course'){
+		//var_dump($_GET['user_id']);
+		
+		echo $_GET['classNum'];
+		$result = start_course($_GET['user_id'],$_GET['course_name'],$_GET['classNum']);
+		echo($result);
+	}else if( $_GET['action']=='close_course'){
+		$result = close_course($_GET['user_id'],$_GET['course_name']);
+		echo $result;
 	}
 ?>
 

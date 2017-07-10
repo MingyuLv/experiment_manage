@@ -92,10 +92,30 @@
  	}
 
  	function if_cur_course($user_id){
+ 		//查询当前教师是否有正在进行的课程
  		$obj = new database();
  		$result = $obj->if_cur_course($user_id);
+ 		//var_dump($result);
  		return $result;
  	}
+
+ 	function cur_course_name($user_id){
+ 		$obj = new database();
+ 		$result = $obj->cur_course_name($user_id);
+ 		return $result;
+ 	}
+
+ 	function start_course($user_id, $course_name, $classNum){
+ 		$obj = new database();
+ 		$result = $obj->start_course($user_id,$course_name,$classNum);
+ 		return $result;
+ 	}
+
+	function close_course($user_id,$course_name){
+		$obj = new database();
+ 		$result = $obj->close_course($user_id,$course_name);
+ 		return $result;
+	}
 
  	function init_info_oscillograph(){
  		//非公共函数

@@ -83,10 +83,39 @@ class database{
 	function if_cur_course($user_id){
 		$sql = "SELECT `cur_course` FROM `{$this->tablePrefix}_user` WHERE `uid`={$user_id}";
 		$result = $this->db->query($sql);
-		if( $result){
+		$result = $result->fetch_assoc();
+		if( $result['cur_course']!= null){
 			return 1;
 		}else return 0;
-
 	}
 
+	function cur_course_name($user_id){
+		$sql = "SELECT `name` FROM `{$this->tablePrefix}_status` WHERE `user_id`={$user_id}";
+		$result = $this->db->query($sql);
+		$result = $result->fetch_assoc();
+		return $result['name'];
+	}
+
+	function start_course($user_id, $course_name, $classNum){
+		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=1,`user_id`={$user_id},`class_num`={$classNum} WHERE `name`='{$course_name}'";
+		$result = $this->db->query($sql);
+		$sql = "SELECT `course_id` FROM `{$this->tablePrefix}_status` WHERE `name`='{$course_name}'";
+		$result = $this->db->query($sql);
+		$result = $result->fetch_assoc();
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']}";
+		$result = $this->db->query($sql);
+		if( $result) return 1;
+	}
+
+	function close_course($user_id, $course_name){
+		var_dump($user_id);
+		var_dump($course_name);
+		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=0,`user_id`=null,`class_num`=null WHERE `name`='{$course_name}'";
+		$result = $this->db->query($sql);
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`=null WHERE `uid`='{$user_id}'";
+		$result1 = $this->db->query($sql);
+		if($result && $result1) return 1;
+		else 
+			return 0;
+	}
 }

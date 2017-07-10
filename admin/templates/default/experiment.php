@@ -1,7 +1,7 @@
 <?php
 	
-	if(!isset($_POST['classNum'])) exit();
-	//防止通过url恶意调用
+	
+	
 
 	define('templates',true);
 	//调用前端组件的你标记
@@ -10,6 +10,9 @@
 
 	require dirname(__FILE__).'/../../function/database.class.php';
 	require dirname(__FILE__).'/../../function/common.php';
+
+	if( !if_cur_course($_SESSION['uid'])) exit;
+	//防止通过url恶意调用
 	
 	if(!isset($_SESSION['user_name'])){
 		_location('请先登录','../../login.php');

@@ -3,8 +3,7 @@
 	if (!defined('templates')) exit;
 	//防止恶意调用
 ?>
-
-<script type="text/javascript" src="./templates/default/js/function.js"></script>
+	<script type="text/javascript" src="./templates/default/js/function.js"></script>
 
 <div class="container">
 	<div class="course">

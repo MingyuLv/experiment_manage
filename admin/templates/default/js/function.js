@@ -16,6 +16,7 @@ function startCourse(obj,course_id){
 	var user_id = (document.getElementById("uid")).getAttribute("name");
 	var experiment_name = document.getElementById("experiment_name");
 	experiment_name.innerHTML = obj.innerHTML; 
+	experiment_name.setAttribute("name",obj.getAttribute("name"));
 	document.getElementById("popup-bg").style.display = "block";
 	experiment_name = obj.getAttribute("name");
 	// console.log(experiment_name);
@@ -39,18 +40,53 @@ function startCourse(obj,course_id){
 	var xmlobj = createXMLHttpRequest();		
 	xmlobj.open("GET","./templates/default/infoAjax.php?action=course_status&course_id="+course_id+"&user_id="+user_id,true);
 	xmlobj.send();
-
 	form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name);
 }
 
 function if_cur_course(){
 	//如果有课程还在进行则必须先关闭该课程
+	var user_id = (document.getElementById("uid")).getAttribute("name");
+	var experiment_name = (document.getElementById("experiment_name")).getAttribute("name");
 	var form_action_name = document.getElementsByClassName("mask-form");
 	form_action_name =  form_action_name[0].getAttribute("action");
 	if( form_action_name == './index.php') 
 		alert( "您还有课程未结束！请先结束该课程");
+	else{
+		var class_num = (document.getElementById("classNum")).value;
+		if(class_num == "") class_num = 'null';
+
+		var obj = createXMLHttpRequest();
+		obj.open("GET","./templates/default/infoAjax.php?action=start_course&user_id="+user_id+"&course_name="+experiment_name+"&classNum="+class_num,true);
+		obj.send();
+		
+		form_action_name = document.getElementsByClassName("mask-form");
+		form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name+"&class_num="+class_num) ;
+	}
+	//开始课程时，对数据库做相应更改
 
 }
+
+function close_course(){
+	var user_id = (document.getElementById("uid")).getAttribute("name");
+	var experiment_name = (document.getElementsByClassName("container")[0]).getAttribute("name");
+	//alert(experiment_name);
+	if(confirm('要结束当前课程并保存实验数据吗？')){
+		var obj = createXMLHttpRequest();
+		obj.open("GET","./templates/default/infoAjax.php?action=close_course&user_id="+user_id+"&course_name="+experiment_name,true);
+		obj.onreadystatechange = function(){
+			//alert(obj.readyState);
+			if( obj.readyState == 4 && obj.status == 200){
+				var data = obj.responseText;
+				
+					window.location.href = "./index.php";
+				
+			}
+		}
+		obj.send();
+	}
+
+}
+
 //关闭课程确认窗口
 function close_popup(){
 	document.getElementById("popup-bg").style.display="none";
