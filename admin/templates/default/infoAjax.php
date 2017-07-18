@@ -56,7 +56,27 @@
 		$result = start_course($_GET['user_id'],$_GET['course_name'],$_GET['classNum']);
 		echo($result);
 	}else if( $_GET['action']=='close_course'){
-		$result = close_course($_GET['user_id'],$_GET['course_name']);
+		$close = close_course($_GET['user_id'],$_GET['course_name']);
+		$save = save_data($_GET['course_name'],$_GET['user_id']);
+		// echo("close:".$close);
+		// echo("\nsave:".$save);
+
+		if ($close && $save) 
+			$result = 1;
+		else $result = 0;
+		echo $result;
+	}else if( $_GET['action']=='change_pwd'){
+		$result = change_pwd($_GET['user_id'],$_GET['old_pwd'],$_GET['new_pwd']);
+		echo $result;
+	}else if( $_GET['action']=='cur_course_name'){
+		$result = cur_course_name_close($_GET['user_id']);
+		//echo 'here';
+		echo $result;
+	}else if( $_GET['action']=='show_detail_via_stu_num'){
+		$result = show_detail_via_stu_num($_GET['stu_num'],$_GET['exp_name']);
+		echo $result;
+	}else if( $_GET['action']=='show_detail_via_date'){
+		$result = show_detail_via_date($_GET['exp_time'], $_GET['exp_name']);
 		echo $result;
 	}
 ?>

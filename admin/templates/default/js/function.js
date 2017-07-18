@@ -13,14 +13,21 @@ function createXMLHttpRequest(){
 }
 
 function startCourse(obj,course_id){
+	if( !if_course_time()){
+		alert("开课时间最早为上课前半小时！");
+		return;
+	}
 	var user_id = (document.getElementById("uid")).getAttribute("name");
 	var experiment_name = document.getElementById("experiment_name");
-	experiment_name.innerHTML = obj.innerHTML; 
+	obj1 = (obj.getElementsByTagName("span"))[0];
+	experiment_name.innerHTML = obj1.innerHTML; 
 	experiment_name.setAttribute("name",obj.getAttribute("name"));
 	document.getElementById("popup-bg").style.display = "block";
+
 	experiment_name = obj.getAttribute("name");
 	// console.log(experiment_name);
 	var form_action_name = document.getElementsByClassName("mask-form");
+
 	//如果有课程还在进行则修改action的url
 	var obj = createXMLHttpRequest();
 	obj.open("GET","./templates/default/infoAjax.php?action=if_cur_course&user_id="+user_id,true);
@@ -28,19 +35,27 @@ function startCourse(obj,course_id){
 		if( obj.readyState == 4 && obj.status == 200){
 			var doc = obj.responseText;
 			doc = parseJson(doc);
+			console.log(doc);
 			if( doc['status']=='1'){
 				form_action_name[0].setAttribute("action","./index.php");
 				return;
+			}else{
+					//修改该课程的状态
+				var xmlobj = createXMLHttpRequest();		
+				xmlobj.open("GET","./templates/default/infoAjax.php?action=course_status&course_id="+course_id+"&user_id="+user_id,true);
+				xmlobj.send();
+				//alert('exp_name: '+experiment_name);
+				form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name);
 			}
 		}
 	}
 	obj.send();
 
-	//修改该课程的状态
-	var xmlobj = createXMLHttpRequest();		
-	xmlobj.open("GET","./templates/default/infoAjax.php?action=course_status&course_id="+course_id+"&user_id="+user_id,true);
-	xmlobj.send();
-	form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name);
+
+}
+
+function if_course_time(){
+	return 1;
 }
 
 function if_cur_course(){
@@ -49,9 +64,11 @@ function if_cur_course(){
 	var experiment_name = (document.getElementById("experiment_name")).getAttribute("name");
 	var form_action_name = document.getElementsByClassName("mask-form");
 	form_action_name =  form_action_name[0].getAttribute("action");
-	if( form_action_name == './index.php') 
+	// alert('user_id: '+user_id+'\nexp_name: '+experiment_name);
+	//console.log(form_action_name);
+	if( form_action_name === './index.php'){ 
 		alert( "您还有课程未结束！请先结束该课程");
-	else{
+	}else{
 		var class_num = (document.getElementById("classNum")).value;
 		if(class_num == "") class_num = 'null';
 
@@ -60,16 +77,32 @@ function if_cur_course(){
 		obj.send();
 		
 		form_action_name = document.getElementsByClassName("mask-form");
-		form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name+"&class_num="+class_num) ;
+		console.log(form_action_name);
+		form_action_name[1].setAttribute("action","./index.php?exp_name="+experiment_name+"&class_num="+class_num) ;
+		// alert('exp_name: '+experiment_name+'\nclass_num: '+class_num);
+		// alert('here');
 	}
 	//开始课程时，对数据库做相应更改
 
 }
 
 function close_course(){
+	var experiment_name;
 	var user_id = (document.getElementById("uid")).getAttribute("name");
-	var experiment_name = (document.getElementsByClassName("container")[0]).getAttribute("name");
-	//alert(experiment_name);
+
+	var xmlobj = createXMLHttpRequest();
+	xmlobj.open("GET","./templates/default/infoAjax.php?action=cur_course_name&user_id="+user_id,false);
+	xmlobj.onreadystatechange = function(){
+		if( xmlobj.readyState == 4 && xmlobj.status == 200){
+			//alert('here');
+			experiment_name = xmlobj.responseText;
+			//alert("experiment_name:"+experiment_name);
+		}
+	}
+	xmlobj.send();
+
+	console.log(experiment_name);
+	// alert('user_id: '+user_id+'\nexp_name: '+experiment_name);
 	if(confirm('要结束当前课程并保存实验数据吗？')){
 		var obj = createXMLHttpRequest();
 		obj.open("GET","./templates/default/infoAjax.php?action=close_course&user_id="+user_id+"&course_name="+experiment_name,true);
@@ -77,19 +110,27 @@ function close_course(){
 			//alert(obj.readyState);
 			if( obj.readyState == 4 && obj.status == 200){
 				var data = obj.responseText;
-				
+				//console.log(data);
+				if( data == 1){
+					alert('提交成功');
 					window.location.href = "./index.php";
-				
+				}
+				else alert('提交失败');		
 			}
 		}
 		obj.send();
 	}
-
 }
 
 //关闭课程确认窗口
 function close_popup(){
 	document.getElementById("popup-bg").style.display="none";
+}
+
+function close_popup_result(){
+	var div_rm = (document.getElementById("popup-bg")).parentNode;
+	var body = document.getElementsByTagName("body")[0];
+	body.removeChild(div_rm);
 }
 
 
@@ -536,4 +577,89 @@ function solve_help(obj,status_count){
 		}
 		xmlobj.send();
 	}
+}
+
+function change_pwd(){
+	document.getElementById("popup-changepwd").style.display="block";
+}
+
+function changepwd_submit(){
+	var user_id = (document.getElementById("uid")).getAttribute("name");
+	var old_pwd = document.getElementById("old_pwd").value;
+	var new_pwd = document.getElementById("new_pwd").value;
+	var pwd_check = document.getElementById("pwd_check").value;
+
+	if(old_pwd=="" || new_pwd==""  || pwd_check=="") {
+		alert("输入不能为空！");
+	}else if(new_pwd !== pwd_check){
+		alert("两次输入不一致，请重新输入");
+	}else{
+		var obj = createXMLHttpRequest();
+		obj.open("GET","./templates/default/infoAjax.php?action=change_pwd&user_id="+user_id+"&old_pwd="+old_pwd+"&new_pwd="+new_pwd,true);
+		obj.onreadystatechange = function(){
+			if( obj.readyState == 4 && obj.status == 200){
+			//	alert(obj.responseText);
+				if (obj.responseText==1){
+					alert("修改成功");
+					 close_popup_changepwd();
+				}else{
+					alert('旧密码错误');
+				}
+			}
+		}
+		obj.send();
+	}
+}
+
+function close_popup_changepwd(){
+	document.getElementById("popup-changepwd").style.display="none";
+}
+
+function detail_via_stu_num(this_node){
+	var stu_num = (this_node.parentNode.parentNode)
+		stu_num = stu_num.getElementsByClassName('flag_stu_num')[0];
+		stu_num = stu_num.innerHTML;
+
+
+	var exp_name = (this_node.parentNode.parentNode)
+		exp_name = exp_name.getElementsByClassName('exp_name')[0];
+		exp_name = exp_name.getAttribute("name");
+
+
+	var obj = createXMLHttpRequest();
+		obj.open("GET","./templates/default/infoAjax.php?action=show_detail_via_stu_num&stu_num="+stu_num+"&exp_name="+exp_name);
+		obj.onreadystatechange = function(){
+			if( obj.readyState == 4 && obj.status == 200){
+				var detail = document.createElement("div");
+				    detail.innerHTML = obj.responseText;
+				var body = document.getElementsByTagName("body");
+				body[0].appendChild(detail);
+				//ocument.write(obj.responseText);
+			}
+		}
+	obj.send();
+}
+
+function detail_via_date(this_node){
+	var exp_time = (this_node.parentNode.parentNode)
+		exp_time = exp_time.getElementsByClassName('exp_time')[0];
+		exp_time = exp_time.getAttribute("name");
+
+
+	var exp_name = (this_node.parentNode.parentNode)
+		exp_name = exp_name.getElementsByClassName('exp_name')[0];
+		exp_name = exp_name.getAttribute("name");
+
+	var obj = createXMLHttpRequest();
+		obj.open("GET","./templates/default/infoAjax.php?action=show_detail_via_date&exp_time="+exp_time+"&exp_name="+exp_name);
+		obj.onreadystatechange = function(){
+			if( obj.readyState == 4 && obj.status == 200){
+				var detail = document.createElement("div");
+				    detail.innerHTML = obj.responseText;
+				var body = document.getElementsByTagName("body");
+				body[0].appendChild(detail);
+				//ocument.write(obj.responseText);
+			}
+		}
+	obj.send();
 }

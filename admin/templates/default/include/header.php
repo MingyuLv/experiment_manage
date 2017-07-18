@@ -23,7 +23,8 @@
 					<div class="dropdown">
 					<?php
 						if( if_cur_course($_SESSION['uid'])){
-							echo "<a href='./index.php?exp_name=".cur_course_name($_SESSION['uid'])."'>实时数据</a>";
+							echo "<a href='./index.php?exp_name=".cur_course_name($_SESSION['uid'])."'>实时监控</a>";
+							echo "<a href='javascript:void(0)'>成绩评定</a>";
 							echo "<a href='javascript:void(0)' onclick='close_course()'>结束当前课堂</a>";
 						}else{
 							echo "<p>没有正在进行的课程！</p>";
@@ -34,24 +35,41 @@
 				<li class='trigger_dropdown'>
 					<a>历史数据</a>
 					<div class="dropdown">
-						<a href="javascript:void(0)">按日期查找</a>
-						<a href="javascript:void(0)">按学号查找</a>
+						<a href="./index.php?search=date">按日期</a>
+						<a href="./index.php?search=stu_num">按学号</a>
 					</div>
 				</li>
 				<li class='trigger_dropdown'>
 					<a>账户管理</a>
 					<div class="dropdown">
-						<a href="javascript:void(0)">修改密码</a>
+						<a href="javascript:void(0)" onclick="change_pwd()">修改密码</a>
 						<!-- <a href="javascript:void(0)"></a> -->
 					</div>
 				</li>
 			</ul>
 			<ul class="nav_option">
-				<li><a href="./logout.php">退 出 】</a></li>
+				<li><a href="./logout.php">退 出 &nbsp;】</a></li>
 				<li><span class="symbol-item" style="font-weight: bold">|</span></li>
-				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>【 ".$_SESSION['user_name']."</a>";?>
+				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>【 &nbsp;".$_SESSION['user_name']."</a>";?>
 					
 				<?php echo"</li>";?>
 			</ul>
 		</div><!--end nav -->
 	</div><!--end header -->
+
+	<div class="popup-bg-changepwd" id="popup-changepwd">
+		<div class="mask">
+			<button class="mask-close" onclick="close_popup_changepwd()"><span aria-hidden="true">×</span></button>
+			<p class="t">修改密码</p>			
+		
+			<form class="mask-form">
+				<div class="class_number">
+					<div><span class="title">旧密码：</span><input type="password" class="class-input" id="old_pwd" ></div>
+					<div><span class="title">新密码：</span><input type="password" class="class-input" id="new_pwd"></div>
+					<div><span class="title">确认密码：</span><input type="password" class="class-input" id=	"pwd_check"></div>
+				</div>
+				<button type="submit" class="mask-submit" onclick="changepwd_submit()">确认修改</button>
+			</form>
+		
+		</div>
+	</div><!--end change_pwd -->
