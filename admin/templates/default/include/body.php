@@ -5,7 +5,12 @@
 ?>
 	<script type="text/javascript" src="./templates/default/js/function.js"></script>
 
+
+<div class="body-bg"></div>
+
+
 <div class="container">
+
 	<div class="course">
 		<div class="index_card_container">
 			<a href="javascript:void(0)" onclick="startCourse(this,1)" name="oscillograph" class="course_card">
@@ -44,13 +49,13 @@
 					<div class="course-card-price">￥288.00</div>
 				</div>
 			</a>
-			<div class="course_card_img course_img_1 "></div>	
+			<div class="course_card_img course_img_2 "></div>	
 		</div>
 
 
 		<div class="index_card_container">
 			<a href="javascript:void(0)" onclick="startCourse(this,3)" name="" class="course_card">
-				<div class="course_card_top color_green">
+				<div class="course_card_top color_orange">
 					<i class="fa fa-credit-card"></i>
 					<span>用气垫摆测量转动惯量</span>
 				</div>
@@ -65,12 +70,12 @@
 					<div class="course-card-price">￥288.00</div>
 				</div>
 			</a>
-			<div class="course_card_img course_img_1 "></div>	
+			<div class="course_card_img course_img_3 "></div>	
 		</div>
 
 		<div class="index_card_container">
 			<a href="javascript:void(0)" onclick="startCourse(this,4)" name="" class="course_card">
-				<div class="course_card_top color_red">
+				<div class="course_card_top color_blue">
 					<i class="fa fa-credit-card"></i>
 					<span>分光计的使用及光栅衍射</span>
 				</div>
@@ -85,7 +90,7 @@
 					<div class="course-card-price">￥288.00</div>
 				</div>
 			</a>
-			<div class="course_card_img course_img_1 "></div>	
+			<div class="course_card_img course_img_4 "></div>	
 		</div>
 		
 		<div class="index_card_container">
@@ -105,7 +110,7 @@
 					<div class="course-card-price">￥288.00</div>
 				</div>
 			</a>
-			<div class="course_card_img course_img_1 "></div>	
+			<div class="course_card_img course_img_5 "></div>	
 		</div>
 		
 		<div class="index_card_container">

@@ -48,9 +48,9 @@
 				</li>
 			</ul>
 			<ul class="nav_option">
-				<li><a href="./logout.php">退 出 &nbsp;】</a></li>
-				<li><span class="symbol-item" style="font-weight: bold">|</span></li>
-				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>【 &nbsp;".$_SESSION['user_name']."</a>";?>
+				<li><a href="./logout.php">退出 &nbsp;」</a></li>
+				<li><span class="symbol-item">|</span></li>
+				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>「 &nbsp;".$_SESSION['user_name']."</a>";?>
 					
 				<?php echo"</li>";?>
 			</ul>

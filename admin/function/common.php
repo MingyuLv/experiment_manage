@@ -208,6 +208,24 @@
 		}
 		echo $out;
  	}
+
+ 	function init_info_potentioneter(){
+ 		$out = "";
+ 		for( $i = 1; $i<=40; $i++){		
+			$out .="
+				<tr>
+					<td>".$i."</td>
+					<td style='width:90px'></td>
+					<td style='width:90px'></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><button onclick='show_detail_table(this,2)' class='button-detail'>详 情</button></td>
+				</tr>";
+		}
+		echo $out;
+ 	}
  
  	function init_help(){
  		//初始化求助栏

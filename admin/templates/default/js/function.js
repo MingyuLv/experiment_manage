@@ -616,8 +616,7 @@ function close_popup_changepwd(){
 }
 
 function detail_via_stu_num(this_node){
-	var stu_num = (this_node.parentNode.parentNode)
-		stu_num = stu_num.getElementsByClassName('flag_stu_num')[0];
+	var stu_num = document.getElementsByClassName('flag_stu_num')[0];
 		stu_num = stu_num.innerHTML;
 
 
