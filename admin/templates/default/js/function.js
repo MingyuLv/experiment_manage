@@ -272,7 +272,7 @@ function infoAjax(status_count){
 		}
 	}
 
-	// setTimeout("infoAjax("+status_count+");",4000);
+	setTimeout("infoAjax("+status_count+");",4000);
 	xmlobj.send();
 }
 
