@@ -16,7 +16,11 @@
 <body>
 	<div class="header">
 		<div class="nav">
-			<ul class="nav_list">
+		<?php
+			echo "<ul class='nav_list'";
+			if(defined('index')) echo "style='margin-left: 0'";
+			echo ">";
+		?>
 				<li><a class="fa fa-home" href="./index.php">首 页</a></li>
 				<li class="trigger_dropdown">
 					<a href="javascript:void(0)">课堂管理</a>
@@ -47,8 +51,12 @@
 					</div>
 				</li>
 			</ul>
-			<ul class="nav_option">
-				<li><a href="./logout.php">退出 &nbsp;」</a></li>
+		<?php
+			echo "<ul class='nav_option'";
+			if(defined('index')) echo"style='margin-right: 0'";
+			echo ">";
+		?>
+				<li><a href="./logout.php">退 出 &nbsp;」</a></li>
 				<li><span class="symbol-item">|</span></li>
 				<?php echo "<li><a name=".$_SESSION['uid']." id='uid'>「 &nbsp;".$_SESSION['user_name']."</a>";?>
 					

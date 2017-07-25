@@ -6,6 +6,7 @@
 	if( !isset($_SESSION['user_name'])) _location("请先登录","../../login.php");
 
 	define('templates',true);
+	define('index',true);
 	//防止模板文件被恶意调用
 	
 	include dirname(__FILE__).'/include/header.php';

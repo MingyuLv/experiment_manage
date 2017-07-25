@@ -27,7 +27,7 @@
 			if($row['status_'.$i] === '1'){
 				$status = "通过<span class='icon_ok'><i class='fa fa-check'></i></span>";
 			}else if($row['status_'.$i] === '0') {
-				$status = '未通过'; 
+				$status = "<span class='icon_fail'>未通过</span>"; 
 			}else if($row['status_'.$i] === '2'){
 				$status = '待评测'; 
 			}else {$status = "";}
