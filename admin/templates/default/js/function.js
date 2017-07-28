@@ -127,8 +127,17 @@ function close_popup(){
 	document.getElementById("popup-bg").style.display="none";
 }
 
+function search_close_popup(){
+	var node = document.getElementById("popup-bg");
+	node.parentNode.removeChild(node);
+}
+
+function close_popup_adduser(){
+	document.getElementById("popup-bg-adduser").style.display="none";
+}
+
 function close_popup_result(){
-	var div_rm = (document.getElementById("popup-bg")).parentNode;
+	var div_rm = (document.getElementById("search-popup-bg")).parentNode;
 	var body = document.getElementsByTagName("body")[0];
 	body.removeChild(div_rm);
 }
@@ -467,9 +476,11 @@ function show_detail_option(li,status_count){
 				}else{
 					//console.log('可用');
 					bt[0].removeAttribute("disabled");
-					bt[0].style.background = "buttonface";
+					bt[0].style.background = "#f0f2f0";
+					bt[0].style.cursor="pointer";
 					bt[1].removeAttribute("disabled");
-					bt[1].style.background = "buttonface";
+					bt[1].style.background = "#f0f2f0";
+					bt[1].style.cursor="pointer";
 				}
 			}
 
@@ -661,4 +672,72 @@ function detail_via_date(this_node){
 			}
 		}
 	obj.send();
+}
+
+function admin_change_pwd(node){
+	var user_name = node.parentNode.parentNode.getElementsByTagName('td')[1];
+		user_name = user_name.innerHTML;
+	var number = node.parentNode.parentNode.getElementsByTagName('td')[0];
+		number = number.innerHTML; 
+	var new_pwd = prompt("为用户"+user_name+"设置新密码：");
+	if(new_pwd != null ){
+
+		var obj = createXMLHttpRequest();
+			obj.open("GET","./templates/default/infoAjax.php?action=admin_change_pwd&new_pwd="+new_pwd+"&number="+number);
+			obj.onreadystatechange = function(){
+				if( obj.readyState == 4 && obj.status == 200){
+					if( obj.responseText == 1){
+						alert('修改成功');
+						window.location.href = './index.php?user_manage=true';
+					}
+				}
+			}
+		obj.send();
+	}
+
+}
+
+function admin_delete_user(node){
+	var user_name = node.parentNode.parentNode.getElementsByTagName('td')[1];
+		user_name = user_name.innerHTML;
+	var number = node.parentNode.parentNode.getElementsByTagName('td')[0];
+		number = number.innerHTML; 
+	if(confirm('确定要从系统中删除用户'+user_name+"吗？")){
+		var obj = createXMLHttpRequest();
+		obj.open("GET","./templates/default/infoAjax.php?action=admin_delete_user&number="+number);
+		obj.onreadystatechange = function(){
+			if( obj.readyState == 4 && obj.status == 200){
+				// console.log(obj.responseText);
+				if( obj.responseText == 1){
+					alert('操作成功');
+					window.location.href = './index.php?user_manage=true';
+				}
+			}
+		}
+		obj.send();
+	}
+}
+
+function add_user(){
+	document.getElementById('popup-bg-adduser').style.display = "block";
+}
+
+function add_user_submit(){
+	var number = document.getElementById("number").value;
+	var user_name = document.getElementById("added_user_name").value;	
+	var pwd = document.getElementById("pwd").value;
+
+	var obj = createXMLHttpRequest();
+		obj.open("GET","./templates/default/infoAjax.php?action=add_user&number="+number+"&user_name="+user_name+"&pwd="+pwd);
+		obj.onreadystatechange = function(){
+			if( obj.readyState == 4 && obj.status == 200){
+				 console.log(obj.responseText);
+				if( obj.responseText == 1){
+					alert('添加成功');
+					window.location.href = './index.php?user_manage=true';
+				}
+			}
+		}
+	obj.send();
+
 }

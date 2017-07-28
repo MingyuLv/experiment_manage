@@ -228,4 +228,34 @@ class database{
 		$result = $this->db->query($sql);
 		return  $result;
 	}
+
+	function user_manage(){
+		$sql = "SELECT * FROM `{$this->tablePrefix}_user`";
+		$result = $this->db->query($sql);
+		return  $result;
+	}
+
+	function admin_change_pwd($new_pwd, $number){
+		// echo $new_pwd;
+		// echo $number;
+		$pwd_hash = md5($this->db->real_escape_string($new_pwd).$this->pwdSalt);
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `password`='$pwd_hash', `pwd`='$new_pwd' WHERE `number`='$number'";
+		$result = $this->db->query($sql);
+		if($result) return 1;
+		else return 0;
+	}
+	function admin_delete_user($number){
+		$sql = "DELETE FROM `{$this->tablePrefix}_user` WHERE `number`='$number'";
+		$result = $this->db->query($sql);
+		if($result) return 1;
+		else return 0;
+	}
+
+	function add_user($number, $user_name, $pwd){
+		$pwd_hash = md5($this->db->real_escape_string($pwd).$this->pwdSalt);
+		$sql = "INSERT INTO `{$this->tablePrefix}_user` (`level`,`number`,`name`,`password`,`pwd`) VALUES ('2','$number','$user_name','$pwd_hash','$pwd')";
+		$result = $this->db->query($sql);
+		if($result) return 1;
+		else return 0;
+	}
 }

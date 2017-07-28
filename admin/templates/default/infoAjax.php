@@ -78,6 +78,15 @@
 	}else if( $_GET['action']=='show_detail_via_date'){
 		$result = show_detail_via_date($_GET['exp_time'], $_GET['exp_name']);
 		echo $result;
+	}else if( $_GET['action']=='admin_change_pwd'){
+		$result = admin_change_pwd($_GET['new_pwd'], $_GET['number']);
+		echo $result;
+	}else if( $_GET['action']=='admin_delete_user'){
+		$result = admin_delete_user($_GET['number']);
+		echo $result;
+	}else if( $_GET['action']=='add_user'){
+		$result = add_user($_GET['number'],$_GET['user_name'],$_GET['pwd']);
+		echo $result;
 	}
 ?>
 

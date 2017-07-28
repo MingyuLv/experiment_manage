@@ -21,7 +21,7 @@
 			echo "<script>alert('$info');location.href='$url';</script>";
 			exit();
 		}else{
-			header('Location:'.$url);
+			header('Location:'.$url);	
 		}
 	}
 
@@ -150,8 +150,10 @@
 	 				if($flag==1){
 	 					
 				 		$name = $data['stu_name'];
-				 		$out .= "学号：<span class='flag_stu_num'>".$stu_num."</span>&nbsp;";
+				 		$out .= "<div class='search-stu-info'>";
+				 		$out .= "学号：<span class='flag_stu_num'>".$stu_num."</span>";
 				 		$out .= "姓名：".$name."\n";
+				 		$out .= "</div>";
 				 		$flag = 0;
 	 				}
 	 				$out .= "<tr name='".$data['order']."'>";	
@@ -161,7 +163,7 @@
 		 				$out .= "<td>".$data['help_times']."</td>";
 		 				$out .= "<td>".$data['fail_times']."</td>";
 		 				$out .= "<td>".$data['grade']."</td>";
-		 				$out .= "<td><button onclick='detail_via_stu_num(this)'>查看</button></td>";
+		 				$out .= "<td><button onclick='detail_via_stu_num(this)' class='button-detail'>查看</button></td>";
 	 				$out .= "</tr>";
 	 			}
 	 		
@@ -175,14 +177,19 @@
  		$obj = new database();
  		$result = $obj->search_info_date($date);
  		if($result){
-	 					
+	 			$flag = 1;		
 	 			while($data = $result->fetch_assoc()){
+	 				if($flag == 1){
+	 					$out .= "<div class='search-stu-info' style='padding-left: 310px'>";
+	 					$out .= "查询日期：&nbsp;&nbsp;&nbsp;".$date."</div>";
+	 					$flag += 1;
+	 				}
 	 				$out .= "<tr name='".$data['order']."'>";	
 	 					$time = substr($data['time'],11,12);
 	 					$out .= "<td class='exp_time' name='".$data['time']."'>".$time."</td>";
 		 				$out .= "<td class='exp_name' name='".$data['exp_name_en']."'>".$data['exp_name']."</td>";
 		 				$out .= "<td>".$data['teacher']."</td>";
-		 				$out .= "<td><button onclick='detail_via_date(this)'>查看</button></td>";
+		 				$out .= "<td><button onclick='detail_via_date(this)' class='button-detail'>查看</button></td>";
 	 				$out .= "</tr>";
 	 			}
 	 	
@@ -259,10 +266,10 @@
 	 			$out .= "
 					<div class='popup-bg' id='popup-bg' style='display: block'>
 						 <div class='popup-detail' >
-						 <button class='detail-close' onclick='close_popup_result()'><span aria-hidden='true'>×</span></button>
+						 <button class='detail-close' onclick='search_close_popup()'><span aria-hidden='true'>×</span></button>
 
-				 
-				        <table class='tb-content'>
+				 		 <div class='table_titile' style='margin-top: 80px; margin-bottom: 35px'>一、测量正弦波</div>
+				         <table class='tb-content'>
 				            <thead>
 					            <tr>
 					                <th>Vp-p（标准）</th>
@@ -296,7 +303,9 @@
 				            </tr>
 				            </tbody>
 				        </table>
-
+	
+						<div class='table_titile'>二、李萨如图形</div>
+				        
 				        <table class='tb-content' style='width:400px'>
 				            <tr>
 				                <th>Nx</th>
@@ -339,44 +348,46 @@
 		switch($exp_name){
  			case 'oscillograph':
  				$out .= "
-					<div class='popup-bg' id='popup-bg' style='display: block; '>
-						 <div class='popup-detail' style='width: 100%; height: 100%' >
-						 <button class='detail-close' onclick='close_popup_result()'><span aria-hidden='true'>×</span></button>
+					<div class='search-popup-bg' id='popup-bg' style='display: block; '>
+						 <div class='search-detail-top'></div>
+						 <div class='search-popup-detail'>
+						 <a class='search-detail-close' onclick='close_popup_result()'><span aria-hidden='true' style='margin-right: 125px'><i class='fa fa-reply' style='margin-right: 20px'></i>返回</span></a>
 						
-						<table style='overflow:scroll'>
-						<tr> 
-							<th>学号</th>
-							<th>姓名</th>
-							<th>分数</th>
-							<th>求助次数</th>
-							<th>失败次数</th>
-						    <th>Vp-p（标准）</th>
-			                <th>f（标准）</th>
-			                <th>V/DIV</th>
-			                <th>Dy</th>
-			                <th>V'p-p</th>
-			                <th>Ev</th>
-			                <th>TIME/DIV</th>
-			                <th>n</th>
-			                <th>Dx</th>
-			                <th>T'</th>
-			                <th>f'</th>
-			                <th>Ef</th>
-			                <th>Nx1</th>
-			                <th>Ny1</th>
-			                <th>fy1</th>
-			                <th>Nx2</th>
-			                <th>Ny2</th>
-			                <th>fy2</th>
-			                <th>Nx3</th>
-			                <th>Ny3</th>
-			                <th>fy3</th>
-			                <th>Nx4</th>
-			                <th>Ny4</th>
-			                <th>fy4</th>
-						</tr>";
-
-
+						<table class='search_detail'>
+							<thead>
+							<tr> 
+								<th>学号</th>
+								<th>姓名</th>
+								<th>分数</th>
+								<th>求助次数</th>
+								<th>失败次数</th>
+							    <th>Vp-p（标准）</th>
+				                <th>f（标准）</th>
+				                <th>V/DIV</th>
+				                <th>Dy</th>
+				                <th>V'p-p</th>
+				                <th>Ev</th>
+				                <th>TIME/DIV</th>
+				                <th>n</th>
+				                <th>Dx</th>
+				                <th>T'</th>
+				                <th>f'</th>
+				                <th>Ef</th>
+				                <th>Nx1</th>
+				                <th>Ny1</th>
+				                <th>fy1</th>
+				                <th>Nx2</th>
+				                <th>Ny2</th>
+				                <th>fy2</th>
+				                <th>Nx3</th>
+				                <th>Ny3</th>
+				                <th>fy3</th>
+				                <th>Nx4</th>
+				                <th>Ny4</th>
+				                <th>fy4</th>
+							</tr>
+							</thead>";
+				$out .= "<tbody>";
 	 			while( $date = $result->fetch_assoc()){
 	 				//echo ($date['stu_num'].' '.$exp_time.' '.$exp_name);
 	 				$date = $obj->return_from_exp_data($date['stu_num'],$exp_time);
@@ -384,39 +395,39 @@
 	 				
 	 				$out .= "
 	 					<tr>
-		 					<th>".$date['stu_num']."</th>
-							<th>".$date['stu_name']."</th>
-							<th>".$date['grade']."</th>
-							<th>".$date['help_times']."</th>
-							<th>".$date['fail_times']."</th>
-						    <th>".$date['v_std']."</th>
-			                <th>".$date['f_std']."</th>
-			                <th".$date['V_DIV']."</th>
-			                <th>".$date['Dy']."</th>
-			                <th>".$date['v_up']."</th>
-			                <th>".$date['E_v']."</th>
-			                <th>".$date['TIME_DIV']."</th>
-			                <th>".$date['n']."</th>
-			                <th>".$date['Dx']."</th>
-			                <th>".$date['T']."</th>
-			                <th>".$date['f_up']."</th>
-			                <th>".$date['E_f']."</th>
-			                <th>".$date['Nx1']."</th>
-			                <th>".$date['Ny1']."</th>
-			                <th>".$date['fy1']."</th>
-			                <th>".$date['Nx2']."</th>
-			                <th>".$date['Ny2']."</th>
-			                <th>".$date['fy2']."</th>
-			                <th>".$date['Nx3']."</th>
-			                <th>".$date['Ny3']."</th>
-			                <th>".$date['fy3']."</th>
-			                <th>".$date['Nx4']."</th>
-			                <th>".$date['Ny4']."</th>
-			                <th>".$date['fy4']."</th>
+		 					<td>".$date['stu_num']."</td>
+							<td>".$date['stu_name']."</td>
+							<td>".$date['grade']."</td>
+							<td>".$date['help_times']."</td>
+							<td>".$date['fail_times']."</td>
+						    <td>".$date['v_std']."</td>
+			                <td>".$date['f_std']."</td>
+			                <td>".$date['V_DIV']."</td>
+			                <td>".$date['Dy']."</td>
+			                <td>".$date['v_up']."</td>
+			                <td>".$date['E_v']."</td>
+			                <td>".$date['TIME_DIV']."</td>
+			                <td>".$date['n']."</td>
+			                <td>".$date['Dx']."</td>
+			                <td>".$date['T']."</td>
+			                <td>".$date['f_up']."</td>
+			                <td>".$date['E_f']."</td>
+			                <td>".$date['Nx1']."</td>
+			                <td>".$date['Ny1']."</td>
+			                <td>".$date['fy1']."</td>
+			                <td>".$date['Nx2']."</td>
+			                <td>".$date['Ny2']."</td>
+			                <td>".$date['fy2']."</td>
+			                <td>".$date['Nx3']."</td>
+			                <td>".$date['Ny3']."</td>
+			                <td>".$date['fy3']."</td>
+			                <td>".$date['Nx4']."</td>
+			                <td>".$date['Ny4']."</td>
+			                <td>".$date['fy4']."</td>
 		                </tr>";
 	 			}
-
-				   $out .= "  
+				   $out .= " 
+				   	   </tbody> 
 				       </table>
 				    </div>
 				</div>";
@@ -428,7 +439,55 @@
  		return $out;
  	}
 
+ 	function user_manage(){
+ 		$obj = new database();
+ 		$result = $obj->user_manage();
+ 		$out = "";
+ 		while( $data = $result->fetch_assoc()){
+ 			if($data['level']=='2') $level = '普通用户';
+ 			else if($data['level']=='1') $level = '管理员';
+	 		$out .= "
+				<tr>
+					<td>".$data['number']."</td>
+					<td id='user_name'>".$data['name']."</td>
+					<td>".$data['pwd']."</td>
+					<td>".$level."</td>";
+					
+			if($data['level']=='1'){
+				 $out .= "
+			    	<td>
+						<a href='javascript:void(0)'  onclick='add_user()' style='margin-left: 56px'>添加用户</a>				
+					</td>";
+			}else if($data['level']=='2'){
+			    $out .= "
+			    	<td>
+						<a href='javascript:void(0)'  onclick='admin_delete_user(this)'>删除</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href='javascript:void(0)' onclick='admin_change_pwd(this)'>修改密码</a>
+					</td>";
+			}
+			$out .= "</tr>";
+		}
+		return $out;
+ 	}
 
+ 	function admin_change_pwd($new_pwd, $number){
+ 		$obj = new database();
+ 		$result = $obj->admin_change_pwd($new_pwd, $number);
+ 		return $result;
+ 	}
+
+ 	function admin_delete_user($number){
+ 		$obj = new database();
+ 		$result = $obj->admin_delete_user($number);
+ 		return $result;
+ 	}
+
+ 	function add_user($number, $user_name, $pwd){
+ 		$obj = new database();
+ 		$result = $obj->add_user($number, $user_name, $pwd);
+ 		return $result;
+ 	}
 
 ?>
 

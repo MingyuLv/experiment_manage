@@ -47,6 +47,12 @@
 					<a>账户管理</a>
 					<div class="dropdown">
 						<a href="javascript:void(0)" onclick="change_pwd()">修改密码</a>
+						<?php 
+							if(isset($_SESSION['level']) && $_SESSION['level']=='1'){
+								echo "<a href='./index.php?user_manage=true'>系统用户管理</a>";
+							}
+
+						?>
 						<!-- <a href="javascript:void(0)"></a> -->
 					</div>
 				</li>

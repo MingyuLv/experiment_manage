@@ -19,7 +19,7 @@
 				<?php init_help();?>
 			</div>
 		</div>
-	   
+	  
 		<div class="info_table">
 		    <table class="cur_data" id="cur_data">
 		        <thead >
@@ -50,6 +50,8 @@
 	            <span>姓名：<span id="stu_name"></span></span>
 	            <span>学号：<span id="stu_num"></span></span>
 	        </div>
+
+			<div class="table_titile">一、测量正弦波</div>
 
 	        <table class="tb-content">
 	            <thead>
@@ -86,10 +88,12 @@
 	            </tbody>
 	        </table>
 
-	        <div class="popup-button">
+	        <div class="popup_button">
 	            <button type="button" class="button_1" onclick="pass(1,2)">通过</button>
-	            <button type="button" class="button_1" onclick="fail(1,2)">不通过</button>
+	            <button type="button" class="button_1" onclick="fail(1,2)" style="margin-right: 35px">不通过</button>
 	        </div>
+
+ 			<div class="table_titile">二、李萨如图形</div>
 
 	        <table class="tb-content" style='width:400px'>
 	            <tr>
@@ -117,7 +121,7 @@
 			 
 			<div class="popup_button">
 	            <button type="button" class="button_2" onclick="pass(2,2)" >通过</button>
-	            <button type="button" class="button_2" onclick="fail(2,2)" >不通过</button>
+	            <button type="button" class="button_2" onclick="fail(2,2)" style="margin-right: 135px">不通过</button>
 	        </div>
 
 	    </div>
