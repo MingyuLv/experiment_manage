@@ -24,14 +24,15 @@
 		    <table class="cur_data" id="cur_data">
 		        <thead >
 		            <tr>
-		                <th>组号</th>
+		                <th width="40px">组号</th>
 		                <th>学号</th>
 		                <th>姓名</th>
-		                <th>测量正弦波</th>
-		                <th>李萨如图像</th>
-		                <th>求助次数</th>
-		                <th>未通过次数</th>
-		                <th>原始数据</th>
+		                <th width="100px">测量正弦波</th>
+		                <th width="100px">李萨如图像</th>
+		                <th width="65px">求助</th>
+		                <th width="65px">未通过</th>
+		                <th width="75px">成绩</th>
+	                	<th width="134px">选项</th>
 		            </tr>
 		        </thead>
 		        <tbody>
@@ -56,18 +57,18 @@
 	        <table class="tb-content">
 	            <thead>
 		            <tr>
-		                <th>Vp-p（标准）</th>
-		                <th>f（标准）</th>
-		                <th>V/DIV</th>
+		                <th width="10%">Vp-p标(V)</th>
+		                <th>f标(Hz)</th>
+		                <th>V/DIV<br>(V)</th>
 		                <th>Dy</th>
-		                <th>V'p-p</th>
-		                <th>Ev</th>
-		                <th>TIME/DIV</th>
+		                <th width="13%">V'p-p<br>(V)</th>
+		                <th>Vp-p误差</th>
+		                <th>TIME<br>/DIV</th>
 		                <th>n</th>
 		                <th>Dx</th>
-		                <th>T'</th>
-		                <th>f'</th>
-		                <th>Ef</th>
+		                <th>T'(ms)</th>
+		                <th>f'(Hz)</th>
+		                <th width="10%">f误差</th>
 		            </tr>
 	            </thead>
 	            <tbody>
@@ -95,9 +96,9 @@
 
  			<div class="table_titile">二、李萨如图形</div>
 
-	        <table class="tb-content" style='width:400px'>
+	        <table class="tb-content" style='width:350px'>
 	            <tr>
-	                <th>Nx</th>
+	                <th width="100px">Nx</th>
 	                <td></td>
 	                <td></td>
 	                <td></td>
@@ -130,6 +131,33 @@
 <div class="body1">
 	<div class="body-bg-1"></div>
 </div><!--end body1-->
+
+<!-- 老师评分弹窗 -->
+<div class="popup-bg-mark" id="popup-bg-mark">
+	<div class="popup-detail-mark">
+		<button class="detail-close" onclick="close_popup_mark()"><span aria-hidden="true">×</span></button>
+		<p class="t">成绩评定</p>			
+		<div>
+			<p class="mark_stu_info">
+				<span class="mark-title">组号</span><span class="mark-content" id="mark_group_num"></span>
+				<span class="mark-title">姓名</span><span class="mark-content" id="mark_name"></span>
+				<span class="mark-title">机评结果</span><span class="mark-content" id="grade_by_machine"></span>
+			</p>
+
+			<p style="margin-top: 45px"><span>修改意见</span></p>
+			<textarea class="remark" rows="6" cols="42" placeholder="在这里备注..." id="remark"></textarea>
+			<div style="margin-top: 15px; padding: 0">
+				<p class="modify">
+					<span class="class-icon"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
+					<input type="text" class="class-input" placeholder="修改分数" id="grade_modified">
+				</p>
+			</div>
+
+			<button type="submit" class="mark-submit" onclick="mark_modify()">提交</button>
+		</div>
+
+	</div>
+</div>
 
 
 <script type="text/javascript">window.onload=infoAjax(2);</script>

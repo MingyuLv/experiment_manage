@@ -26,7 +26,7 @@ class database{
 	}
 	function new_info(){
 	//实时更新老师的管理页面，根据字段`ifShow`
-		$sql = "SELECT * FROM `{$this->tablePrefix}_course_{$this->tb_name}` WHERE `ifShow`=0 ORDER BY `group_num`" ;
+		$sql = "SELECT * FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY `group_num`" ;
 		$result = $this->db->query($sql);
 		//$this->db->query("UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `ifShow`=1 WHERE `ifShow`=0");
 		return $result;
@@ -140,19 +140,23 @@ class database{
 		while($result = $data->fetch_assoc()){
 			//var_dump($result['stu_num']);
 			if($result['stu_num']==null) continue;
+			// var_dump($result['remark']);
 			$sql = "INSERT INTO `{$this->tablePrefix}_data_oscillograph` (
 				   `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`v_std`,`f_std`,`v_up`,`E_v`,`f_up`,`E_f`,
-				   `V_DIV`,`Dy`,`TIME_DIV`,`n`,`Dx`,`T`,`Nx1`,`Ny1`,`fy1`,`Nx2`,`Ny2`,`fy2`,`Nx3`,`Ny3`,`fy3`,`Nx4`,`Ny4`,`fy4` ) VALUES (
+				   `V_DIV`,`Dy`,`TIME_DIV`,`n`,`Dx`,`T`,`Nx1`,`Ny1`,`fy1`,`Nx2`,`Ny2`,`fy2`,`Nx3`,`Ny3`,`fy3`,`Nx4`,`Ny4`,`fy4`,`remark` ) VALUES (
 				   '$user_id','示波器与李萨如图形','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}',
 				   '{$result['fail_times']}','{$result['v_std']}','{$result['f_std']}','{$result['v_up']}','{$result['E_v']}','{$result['f_up']}','{$result['E_f']}',
 				   '{$result['V_DIV']}','{$result['Dy']}','{$result['TIME_DIV']}','{$result['n']}','{$result['Dx']}','{$result['T']}','{$result['Nx1']}','{$result['Ny1']}',
 				   '{$result['fy1']}','{$result['Nx2']}','{$result['Ny2']}','{$result['fy2']}','{$result['Nx3']}','{$result['Ny3']}','{$result['fy3']}','{$result['Nx4']}',
-				   '{$result['Ny4']}','{$result['fy4']}'  )"; 
+				   '{$result['Ny4']}','{$result['fy4']}','{$result['remark']}' 
+				)"; 
 			$re = $this->db->query($sql);
-				//echo('here');
+			// echo('here1');
 			//var_dump('here');
-			if(!$re) return 0;	
+			if(!$re) return 0;
+			//添加学生的data	
 			$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_student` (`stu_num`,`stu_name`,`exp_name_ch`,`exp_name_en`,`help_times`,`fail_times`,`grade`,`time`) VALUES ('{$result['stu_num']}','{$result['stu_name']}','示波器与李萨如图形','oscillograph','{$result['help_times']}','{$result['fail_times']}','{$result['grade']}','$time')");
+			// echo('here2');
 			if(!$re) return 0;
 
 		}
@@ -168,7 +172,32 @@ class database{
 	}
 
 	function save_data_potentioneter($time, $user_id){
+		$data = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_potentioneter`");
+		while($result = $data->fetch_assoc()){
+			//var_dump($result['stu_num']);
+			if($result['stu_num']==null) continue;
+			$sql = "INSERT INTO `{$this->tablePrefix}_data_potentioneter` (
+			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`E`,`E_std`,`E_e`,`U_ab`,`U_0`,`I_s`,`Rab`,`Is`,`U0`,`Uab`,`Lx1`,`Lx2`,`Lx3`,`Lx4`,`Lx5`,`Lx6`,`Lx_ave`,`remark`
+			) VALUES (
+				'$user_id','电位差计','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}','{$result['fail_times']}','{$result['E']}','{$result['E_std']}','{$result['E_e']}','{$result['U_ab']}','{$result['U_0']}','{$result['I_s']}','{$result['Rab']}','{$result['Is']}','{$result['U0']}','{$result['Uab']}','{$result['Lx1']}','{$result['Lx2']}','{$result['Lx3']}','{$result['Lx4']}','{$result['Lx5']}','{$result['Lx6']}','{$result['Lx_ave']}','{$result['remark']}'
+			)"; 
+			$re = $this->db->query($sql);
+			if(!$re) return 0;	
+			// echo('here1');
+			$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_student` (`stu_num`,`stu_name`,`exp_name_ch`,`exp_name_en`,`help_times`,`fail_times`,`grade`,`time`) VALUES ('{$result['stu_num']}','{$result['stu_name']}','电位差计','potentioneter','{$result['help_times']}','{$result['fail_times']}','{$result['grade']}','$time' )");
+			if(!$re) return 0;
+			//echo('here2');
 
+		}
+		//找到teacher的名字
+		$teacher = $this->db->query("SELECT `name` FROM `{$this->tablePrefix}_user` WHERE `uid`='$user_id'");
+		$teacher = $teacher->fetch_assoc();
+		$teacher = $teacher['name'];
+		//插入一条课堂记录
+		$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_course` (`exp_name`,`time`,`teacher`,`exp_name_en`)VALUES ('电位差计','$time','$teacher','potentioneter')");
+		if(!$re) return 0;
+
+		return 1;
 	}
 
 	function change_pwd($user_id,$old_pwd,$new_pwd){
@@ -257,5 +286,23 @@ class database{
 		$result = $this->db->query($sql);
 		if($result) return 1;
 		else return 0;
+	}
+
+	function remark_submit($group_num, $remark, $grade_modified){
+		// echo($remark);
+		// var_dump($grade_modified);
+		if($remark != ''){
+			// echo"here1";
+			$re1 = $this->db->query("UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `remark`='$remark' WHERE `group_num`='$group_num'");
+			if(!$re1) return 0;
+		}
+		if($grade_modified != ''){
+			// echo("here2");
+			$re2 = $this->db->query("UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `grade`='$grade_modified' WHERE `group_num`='$group_num'");
+			if(!$re2) return 0;
+		}
+		
+		return 1;
+	
 	}
 }

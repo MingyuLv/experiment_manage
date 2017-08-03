@@ -87,6 +87,9 @@
 	}else if( $_GET['action']=='add_user'){
 		$result = add_user($_GET['number'],$_GET['user_name'],$_GET['pwd']);
 		echo $result;
+	}else if( $_GET['action']=="mark_submit"){
+		$result = remark_submit($_GET['exp_name'],$_GET['group_num'],$_GET['remark'],$_GET['grade_modified']);
+		echo $result;
 	}
 ?>
 

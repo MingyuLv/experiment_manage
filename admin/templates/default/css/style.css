@@ -182,6 +182,7 @@ ul.nav_option .symbol-item{
 
 /*弹窗背景*/
 .popup-bg{
+	/*display: block;*/
 	display: none;
 	position: fixed;
 	background: rgba(0,0,0,0.6);
@@ -328,7 +329,7 @@ button.mask-submit{
 
 
 .left_item{
-	margin-left: -40px;
+	margin-left: -60px;
 	position: fixed;
 	width: 300px;
 }
@@ -397,14 +398,14 @@ ul.group_list{
 }
 
 table.cur_data{
-	width: 800px;
+	width: 900px;
 	border-spacing: 0;
 	/*表格单元的外边距*/
 	border-collapse: collapse;
 	/*合并表格边框*/
     border:2px solid #e7e7e7;
     /*background-color: transparent;*/
-    margin-left: 315px;
+    margin-left: 280px;
     box-shadow: 4px 5px 30px #eae8e8;
 }
 
@@ -439,6 +440,7 @@ table.cur_date > tbody > tr:nth-child(odd) > th {
 	border-radius: 3px;
 	background: transparent;
 	cursor: pointer;
+	margin-right: 5px;
 }
 
 .cur_data .icon_ok{
@@ -541,6 +543,7 @@ table.tb-content td{
 	color: rgba(21, 20, 20, 0.67);
     border: 1px solid #ddd;    
     text-align: center;
+    padding: 3px;
 }
 
 .popup-bg-changepwd{
@@ -877,11 +880,11 @@ span.flag_stu_num{
 
 .dark_banner{
 	position: absolute;
-	background: url('./templates/default/image/wrap.png');	
+	background: url('../image/wrap.png');	
 	background-size: cover;
 	margin-top: -60px;
 	margin-left: -20px;
-	width: 20px;
+	width: 17px;
 	height: 14px;
 }
 .login-bg{
@@ -1052,4 +1055,171 @@ table.search_detail > tbody > tr:nth-child(odd) > td{
 	margin-top: 70px;
 	margin: 0 auto;
 	width: 90%;
+}
+
+.detail-info-div{
+	margin: 0 auto;
+	padding: 0;
+	margin-top: 30px;
+	border: 1px solid;
+	width: 80%;
+	height: 40%;
+}
+
+.detail-info-div div{
+	margin: 1px;
+}
+
+.detail-info-div span{
+	margin: 0;	
+	border: 1px solid;
+
+}
+
+.potentioneter-stu-result{
+	position: absolute;
+	width: 230px;
+	right: 0;
+	margin-top: -120px; 
+
+}
+
+.potentioneter-stu-result p{
+	display: block;
+	margin: 0;
+	margin-top: 4px	;
+	margin-left: 0;
+	text-align: left;
+	color: rgba(21, 20, 20, 0.67)
+
+}
+
+.popup-bg-mark{
+	display: none;
+	position: fixed;
+	background: rgba(0,0,0,0.6);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 999;
+}
+
+.popup-detail-mark{
+	display: block;
+	position: fixed;
+	background: #fff;
+	padding: 30px 40px;
+	width: 430px;
+	height: 500px;
+	margin: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border-radius: 10px;
+	/*css3属性*/
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.popup-detail-mark > p{
+    font-size: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.mark-title{
+	color: #778a99;
+    padding-right: 10px;
+    border-right: 2px solid #1ad062;
+}
+
+.mark-content{
+	color: #778a99;
+	margin-right: 5px;
+	margin-left: -3px;
+}
+
+.popup-detail-mark span{
+	padding-left: 10px;
+    color: #778a99;
+}
+.popup-detail-mark div{
+	margin-top: 30px;
+}
+
+.popup-detail-mark > div > p{
+	margin-top: 25px;
+} 
+
+.remark{
+	margin-left: 8px;
+	color: #778a99;
+	font-size: 15px;
+	border-radius: 3px;
+	border: 1.5px solid #e0e3e0;
+}
+
+.modify{
+	display: table;
+	margin: 0;
+	margin-left: 8px;
+}
+
+.modify .class-icon{
+	position: relative;
+	display: table-cell;
+	width: 25px;
+   	padding: 2px 4px 0px 5px;
+    border: 1px solid #dfdfdf;
+    border-right: 0;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.modify .class-icon i{
+	position: absolute;
+	left: 10px;
+	top: 4px;
+}
+
+.modify .class-input{
+	display: table-cell;
+    padding-left: 10px;
+    width: 75px;
+    height: 27px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border: 1px solid #dfdfdf;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #778a99;
+	font-size: 13px;
+}
+
+.mark-submit{
+	float: right;
+	position: relative;
+	margin-top: 25px;
+	right: 18px;
+	display: block;
+    background: #17974a;
+    height: 31px;
+    width: 100px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.mark_stu_info{
+	display: block;
+	width: 110%;
 }

@@ -210,13 +210,34 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><button onclick='show_detail_table(this,2)' class='button-detail'>详 情</button></td>
+					<td></td>
+					<td></td>
 				</tr>";
 		}
 		echo $out;
  	}
 
  	function init_info_potentioneter(){
+ 		$out = "";
+ 		for( $i = 1; $i<=40; $i++){		
+			$out .="
+				<tr>
+					<td>".$i."</td>
+					<td style='width:90px'></td>
+					<td style='width:90px'></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>";
+		}
+		echo $out;
+ 	}
+
+ 	function init_info_thermal_conductivity(){
+ 		//非公共函数
  		$out = "";
  		for( $i = 1; $i<=40; $i++){		
 			$out .="
@@ -333,6 +354,69 @@
 				    </div>
 				</div>";
 				break;
+			case 'potentioneter':
+	 			$result = $result->fetch_assoc();
+	 			$out .= "
+					<div class='popup-bg' id='popup-bg' style='display: block'>
+						 <div class='popup-detail' >
+						 <button class='detail-close' onclick='search_close_popup()'><span aria-hidden='true'>×</span></button>
+
+				 		 <div class='table_titile' style='margin-top: 80px; margin-bottom: 35px'>一、定标</div>
+				         <table class='tb-content'>
+							<thead>
+					            <tr>
+					                <th>U_ab</th>
+					                <th>U_0</th>
+					                <th>I_s</th>
+					                <th>Rab</th>
+					                <th>Is</th>
+					                <th>U0</th>
+					                <th>Uab</th>
+					                <th>E(误差)</th>
+					            </tr>
+				            </thead>
+				            <tbody>
+					            <tr>
+					                <td>".$result['U_ab']."</td>
+					                <td>".$result['U_0']."</td>
+					                <td>".$result['I_s']."</td>
+					                <td>".$result['Rab']."</td>
+					                <td>".$result['Is']."</td>
+					                <td>".$result['U0']."</td>
+					                <td>".$result['Uab']."</td>
+					                <td>".$result['E_e']."</td>	
+				            	</tr>
+				            </tbody>
+				        </table>
+	
+						<div class='table_titile'>二、测量电动势</div>
+				        
+				        <table class='tb-content' style='width:400px'>
+				            <tr>
+				                <th>次数n</th>
+				                <th>1</th>
+				                <th>2</th>
+				                <th>3</th>
+				                <th>4</th>
+				                <th>5</th>
+				                <th>6</th>
+				                <th>平均值lx</th>
+					        </tr>
+							<tr>
+								<td></td>
+				                <td>".$result['Lx1']."</td>
+				                <td>".$result['Lx2']."</td>
+				                <td>".$result['Lx3']."</td>
+				                <td>".$result['Lx4']."</td>
+				                <td>".$result['Lx5']."</td>
+				                <td>".$result['Lx6']."</td>
+				                <td>".$result['Lx_ave']."</td>
+				            </tr>
+				        </table>		 
+
+				    </div>
+				</div>";
+				break;
 			default: 
 				break;
  		}
@@ -344,11 +428,12 @@
  		$obj = new database($exp_name);
  		$result = $obj->show_detail_via_date($exp_time);
  		$out = "";
+ 		//var_dump($result);
 
 		switch($exp_name){
  			case 'oscillograph':
  				$out .= "
-					<div class='search-popup-bg' id='popup-bg' style='display: block; '>
+					<div class='search-popup-bg' id='search-popup-bg' style='display: block; '>
 						 <div class='search-detail-top'></div>
 						 <div class='search-popup-detail'>
 						 <a class='search-detail-close' onclick='close_popup_result()'><span aria-hidden='true' style='margin-right: 125px'><i class='fa fa-reply' style='margin-right: 20px'></i>返回</span></a>
@@ -388,42 +473,44 @@
 							</tr>
 							</thead>";
 				$out .= "<tbody>";
-	 			while( $date = $result->fetch_assoc()){
-	 				//echo ($date['stu_num'].' '.$exp_time.' '.$exp_name);
-	 				$date = $obj->return_from_exp_data($date['stu_num'],$exp_time);
-	 				$date = $date->fetch_assoc();
+	 			while( $data = $result->fetch_assoc()){
+	 				//echo ($data['stu_num'].' '.$exp_time.' '.$exp_name);
+	 				$data = $obj->return_from_exp_data($data['stu_num'],$exp_time);
+	 				$data = $data->fetch_assoc();
+	 			
+	 				if($data == null) continue;		//这句话很重要
 	 				
 	 				$out .= "
 	 					<tr>
-		 					<td>".$date['stu_num']."</td>
-							<td>".$date['stu_name']."</td>
-							<td>".$date['grade']."</td>
-							<td>".$date['help_times']."</td>
-							<td>".$date['fail_times']."</td>
-						    <td>".$date['v_std']."</td>
-			                <td>".$date['f_std']."</td>
-			                <td>".$date['V_DIV']."</td>
-			                <td>".$date['Dy']."</td>
-			                <td>".$date['v_up']."</td>
-			                <td>".$date['E_v']."</td>
-			                <td>".$date['TIME_DIV']."</td>
-			                <td>".$date['n']."</td>
-			                <td>".$date['Dx']."</td>
-			                <td>".$date['T']."</td>
-			                <td>".$date['f_up']."</td>
-			                <td>".$date['E_f']."</td>
-			                <td>".$date['Nx1']."</td>
-			                <td>".$date['Ny1']."</td>
-			                <td>".$date['fy1']."</td>
-			                <td>".$date['Nx2']."</td>
-			                <td>".$date['Ny2']."</td>
-			                <td>".$date['fy2']."</td>
-			                <td>".$date['Nx3']."</td>
-			                <td>".$date['Ny3']."</td>
-			                <td>".$date['fy3']."</td>
-			                <td>".$date['Nx4']."</td>
-			                <td>".$date['Ny4']."</td>
-			                <td>".$date['fy4']."</td>
+		 					<td>".$data['stu_num']."</td>
+							<td>".$data['stu_name']."</td>
+							<td>".$data['grade']."</td>
+							<td>".$data['help_times']."</td>
+							<td>".$data['fail_times']."</td>
+						    <td>".$data['v_std']."</td>
+			                <td>".$data['f_std']."</td>
+			                <td>".$data['V_DIV']."</td>
+			                <td>".$data['Dy']."</td>
+			                <td>".$data['v_up']."</td>
+			                <td>".$data['E_v']."</td>
+			                <td>".$data['TIME_DIV']."</td>
+			                <td>".$data['n']."</td>
+			                <td>".$data['Dx']."</td>
+			                <td>".$data['T']."</td>
+			                <td>".$data['f_up']."</td>
+			                <td>".$data['E_f']."</td>
+			                <td>".$data['Nx1']."</td>
+			                <td>".$data['Ny1']."</td>
+			                <td>".$data['fy1']."</td>
+			                <td>".$data['Nx2']."</td>
+			                <td>".$data['Ny2']."</td>
+			                <td>".$data['fy2']."</td>
+			                <td>".$data['Nx3']."</td>
+			                <td>".$data['Ny3']."</td>
+			                <td>".$data['fy3']."</td>
+			                <td>".$data['Nx4']."</td>
+			                <td>".$data['Ny4']."</td>
+			                <td>".$data['fy4']."</td>
 		                </tr>";
 	 			}
 				   $out .= " 
@@ -432,7 +519,81 @@
 				    </div>
 				</div>";
  				
-	 		break;
+	 			break;
+
+	 		case 'potentioneter':
+	 			$out  .= "
+		 			<div class='search-popup-bg' id='search-popup-bg' style='display: block; '>
+							 <div class='search-detail-top'></div>
+							 <div class='search-popup-detail'>
+							 <a class='search-detail-close' onclick='close_popup_result()'><span aria-hidden='true' style='margin-right: 125px'><i class='fa fa-reply' style='margin-right: 20px'></i>返回</span></a>
+							
+							<table class='search_detail'>
+								<thead>
+								<tr> 
+									<th>学号</th>
+									<th>姓名</th>
+									<th>分数</th>
+									<th>求助次数</th>
+									<th>失败次数</th>
+								    <th>E</th>
+					                <th>E真实值</th>
+					                <th>E误差</th>
+					                <th>U_ab</th>
+					                <th>U_0</th>
+					                <th>I_s</th>
+					                <th>U0</th>
+					                <th>Uab</th>
+					                <th>Lx1</th>
+					                <th>Lx2</th>
+					                <th>Lx3</th>
+					                <th>Lx4</th>
+					                <th>Lx5</th>
+					                <th>Lx6</th>
+					                <th>Lx_ave</th>
+								</tr>
+								</thead>";
+					$out .= "<tbody>";
+		 			while( $data = $result->fetch_assoc()){
+		 				//echo ($data['stu_num'].' '.$exp_time.' '.$exp_name);
+		 				
+		 				$data = $obj->return_from_exp_data($data['stu_num'],$exp_time);
+		 				$data = $data->fetch_assoc();
+		 			
+		 				if($data == null) continue;
+		 				
+		 				$out .= "
+		 					<tr>
+			 					<td>".$data['stu_num']."</td>
+								<td>".$data['stu_name']."</td>
+								<td>".$data['grade']."</td>
+								<td>".$data['help_times']."</td>
+								<td>".$data['fail_times']."</td>
+							    <td>".$data['E']."</td>
+				                <td>".$data['E_std']."</td>
+				                <td>".$data['E_e']."</td>
+				                <td>".$data['U_ab']."</td>
+				                <td>".$data['U_0']."</td>
+				                <td>".$data['I_s']."</td>
+				                <td>".$data['U0']."</td>
+				                <td>".$data['Uab']."</td>
+				                <td>".$data['Lx1']."</td>
+				                <td>".$data['Lx2']."</td>
+				                <td>".$data['Lx3']."</td>
+				                <td>".$data['Lx4']."</td>
+				                <td>".$data['Lx5']."</td>
+				                <td>".$data['Lx6']."</td>
+				                <td>".$data['Lx_ave']."</td>
+			                </tr>";
+						          
+		 			}
+					   $out .= " 
+					   	   </tbody> 
+					       </table>
+					    </div>
+					</div>";
+	 				
+		 			break;
 
 	 		default: break;
  		}
@@ -486,6 +647,12 @@
  	function add_user($number, $user_name, $pwd){
  		$obj = new database();
  		$result = $obj->add_user($number, $user_name, $pwd);
+ 		return $result;
+ 	}
+
+ 	function remark_submit($exp_name, $group_num, $remark, $grade_modified){
+ 		$obj = new database($exp_name);
+ 		$result = $obj->remark_submit($group_num, $remark, $grade_modified);
  		return $result;
  	}
 

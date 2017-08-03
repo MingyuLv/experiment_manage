@@ -28,7 +28,6 @@
 					<?php
 						if( if_cur_course($_SESSION['uid'])){
 							echo "<a href='./index.php?exp_name=".cur_course_name($_SESSION['uid'])."'>实时监控</a>";
-							echo "<a href='javascript:void(0)'>成绩评定</a>";
 							echo "<a href='javascript:void(0)' onclick='close_course()'>结束当前课堂</a>";
 						}else{
 							echo "<p>没有正在进行的课程！</p>";

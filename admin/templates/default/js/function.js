@@ -40,10 +40,7 @@ function startCourse(obj,course_id){
 				form_action_name[0].setAttribute("action","./index.php");
 				return;
 			}else{
-					//修改该课程的状态
-				var xmlobj = createXMLHttpRequest();		
-				xmlobj.open("GET","./templates/default/infoAjax.php?action=course_status&course_id="+course_id+"&user_id="+user_id,true);
-				xmlobj.send();
+				document.getElementById("submit_flag").setAttribute("onclick","if_cur_course("+user_id+");");
 				//alert('exp_name: '+experiment_name);
 				form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name);
 			}
@@ -58,7 +55,7 @@ function if_course_time(){
 	return 1;
 }
 
-function if_cur_course(){
+function if_cur_course(course_id){
 	//如果有课程还在进行则必须先关闭该课程
 	var user_id = (document.getElementById("uid")).getAttribute("name");
 	var experiment_name = (document.getElementById("experiment_name")).getAttribute("name");
@@ -69,6 +66,12 @@ function if_cur_course(){
 	if( form_action_name === './index.php'){ 
 		alert( "您还有课程未结束！请先结束该课程");
 	}else{
+
+		//修改该课程的状态
+		var xmlobj = createXMLHttpRequest();		
+		xmlobj.open("GET","./templates/default/infoAjax.php?action=course_status&course_id="+course_id+"&user_id="+user_id,true);
+		xmlobj.send();
+
 		var class_num = (document.getElementById("classNum")).value;
 		if(class_num == "") class_num = 'null';
 
@@ -103,14 +106,14 @@ function close_course(){
 
 	console.log(experiment_name);
 	// alert('user_id: '+user_id+'\nexp_name: '+experiment_name);
-	if(confirm('要结束当前课程并保存实验数据吗？')){
+	if(confirm('请确认已结束成绩评定工作！\n是否结束当前课程并保存实验数据？')){
 		var obj = createXMLHttpRequest();
 		obj.open("GET","./templates/default/infoAjax.php?action=close_course&user_id="+user_id+"&course_name="+experiment_name,true);
 		obj.onreadystatechange = function(){
 			//alert(obj.readyState);
 			if( obj.readyState == 4 && obj.status == 200){
 				var data = obj.responseText;
-				//console.log(data);
+				console.log(data);
 				if( data == 1){
 					alert('提交成功');
 					window.location.href = "./index.php";
@@ -175,19 +178,39 @@ function infoAjax(status_count){
 			}
 			tag[i+1] = 'helptimes';
 			tag[i+2] = 'failtimes';
-			var len_tag = i+2+1;
+			tag[i+3] = 'grade';
+			var len_tag = i+2+1+1;
 		//alert('here');
 		//console.log(xml_doc);
-			if( node_list.length!=0 ){
+		
 				for( var i = 0; i<node_list.length; i++){
 					var td = tr[i+1].getElementsByTagName("td");
 					//console.log(td);
-					for( var j = 1; j<=len_tag; j++){
-						td[j].innerHTML = node_list[i].getElementsByTagName(tag[j-1])[0].innerHTML;
+					if((node_list[i].getElementsByTagName("stunum")[0]).innerHTML != ""){
+						//有学生在该组时才显示信息
+						for( var j = 1; j<=len_tag; j++){
+							td[j].innerHTML = node_list[i].getElementsByTagName(tag[j-1])[0].innerHTML;
+						}
+					
+
+						//添加"详情"和"评分"按钮
+						if(!(td[len_tag+1].hasChildNodes())){
+							var button_insert_1 = document.createElement("button");
+								button_insert_1.setAttribute("onclick","show_detail_table(this,2)");
+								button_insert_1.setAttribute("class","button-detail");
+								button_insert_1.innerHTML = "详情";
+							var button_insert_2 = document.createElement("button");
+								button_insert_2.setAttribute("onclick","mark(this)");
+								button_insert_2.setAttribute("class","button-detail");
+								button_insert_2.innerHTML = "评分";
+							td[len_tag+1].appendChild(button_insert_1);
+							td[len_tag+1].appendChild(button_insert_2);
+						}
+
 					}
 				}
-			}
-	
+			
+
 			//处理等待评测的组号
 			var evaluating = xml_doc.getElementsByTagName("evaluating");
 			var len = evaluating.length;
@@ -459,7 +482,7 @@ function show_detail_option(li,status_count){
 	xmlobj.onreadystatechange = function(){
 		if( xmlobj.readyState == 4 && xmlobj.status == 200){
 			var result = xmlobj.responseText;
-			//console.log(result);
+			console.log(result);
 			result = parseJson(result);
 
 			for( var i = 1; i<=status_count; i++){
@@ -485,8 +508,11 @@ function show_detail_option(li,status_count){
 			}
 
 			exp_name = (document.getElementsByClassName("container"))[0].getAttribute("name");
+
 			if(exp_name=='oscillograph'){
 				show_detail_oscillograph(result);
+			}else if( exp_name='potentioneter'){
+				show_detail_potentioneter(result);
 			}
 
 		}
@@ -497,6 +523,12 @@ function show_detail_option(li,status_count){
 
 function show_detail_oscillograph(result){
 	var tb = document.getElementsByClassName("tb-content");
+
+	//将改变过的td颜恢复到初始状态
+	td = tb[0].getElementsByTagName("td");
+	for(var i = 1; i<td.length; i++){
+		td[i].style.color = "rgba(21, 20, 20, 0.67";
+	}
 			
 		td = tb[0].getElementsByTagName("td");
 		td[0].innerHTML = result['v_std'];
@@ -512,6 +544,26 @@ function show_detail_oscillograph(result){
 		td[10].innerHTML = result['f_up'];
 		td[11].innerHTML = result['E_f'];
 
+		//Dx和Dy应该保留一位小数
+		var len = result['Dy'].length;
+		if( result['Dy'][len-2] != '.') {
+			td[3].style.color = "rgb(244, 88, 88)";
+		}
+		len = result['Dx'].length;
+		if( result['Dx'][len-2] != '.') {
+			td[8].style.color = "rgb(244, 88, 88)";
+		}
+		//误差大于10%标记为红色
+		// console.log(parseFloat(result['E_v']));
+		// console.log(parseFloat(result['E_f']));
+		if( parseFloat(result['E_v'])>10){
+			td[5].style.color = "rgb(244, 88, 88)";
+		}
+		if( parseFloat(result['E_f'])>10){
+			td[11].style.color = "rgb(244, 88, 88)";
+		}
+
+
 		td = tb[1].getElementsByTagName("td");
 		td[0].innerHTML = result['Nx1'];
 		td[1].innerHTML = result['Nx2'];
@@ -525,6 +577,179 @@ function show_detail_oscillograph(result){
 		td[9].innerHTML = result['fy2'];
 		td[10].innerHTML = result['fy3'];
 		td[11].innerHTML = result['fy4'];
+
+		//满足fx/fy=Ny/Nx （fx固定为500）
+		if( 500/result['fy1'] != result['Ny1']/result['Nx1']) {
+			td[0].style.color = "rgb(244, 88, 88)";
+			td[4].style.color = "rgb(244, 88, 88)";
+			td[8].style.color = "rgb(244, 88, 88)";
+		}
+
+		if( 500/result['fy2'] != result['Ny2']/result['Nx2']) {
+			td[1].style.color = "rgb(244, 88, 88)";
+			td[5].style.color = "rgb(244, 88, 88)";
+			td[9].style.color = "rgb(244, 88, 88)";
+		}
+
+		if( 500/result['fy3'] != result['Ny3']/result['Nx3']) {
+			td[2].style.color = "rgb(244, 88, 88)";
+			td[6].style.color = "rgb(244, 88, 88)";
+			td[10].style.color = "rgb(244, 88, 88)";
+		}
+
+		if( 500/result['fy4'] != result['Ny4']/result['Nx4']) {
+			td[3].style.color = "rgb(244, 88, 88)";
+			td[7].style.color = "rgb(244, 88, 88)";
+			td[11].style.color = "rgb(244, 88, 88)";
+		}
+
+}
+function show_detail_potentioneter(result){
+		var tb = document.getElementsByClassName("tb-content");
+		//将改变过的td颜恢复到初始状态
+		td = tb[0].getElementsByTagName("td");
+		for(var i = 1; i<td.length; i++){
+			td[i].style.color = "rgba(21, 20, 20, 0.67";
+		}
+		
+		td = tb[0].getElementsByTagName("td");
+		td[0].innerHTML = result['U_ab'];
+		td[1].innerHTML = result['U_0'];
+		td[2].innerHTML = result['I_s'];
+		td[3].innerHTML = result['Rab'];
+		td[4].innerHTML = result['Is'];
+		td[5].innerHTML = result['U0'];
+		td[6].innerHTML = result['Uab'];
+		td[7].innerHTML = result['E'];
+
+		//l's(m)，ls(m)，lx(m)三个长度物理量应该保留四个小数位数
+		var len = result['I_s'].length;
+		if(result['I_s'][len-5] != '.'){
+			td[2].style.color = "rgb(244, 88, 88)";
+		}
+		len = result['Is'].length;
+		if(result['Is'][len-5] != '.'){
+			td[4].style.color = "rgb(244, 88, 88)";
+		}
+
+		//U0(V/m-1)和UAB(V)保留5位有效数字
+		len = result['U0'].length;
+		var count = 0;
+		for( i = 0; i < len; i++){
+			if( result['U0'][i] !='0' && result['U0'][i]!='.'){
+				for( var j = i; j<len; j++){
+					if(result['U0'][j] != '.') count++;
+				}
+				console.log(count)
+				break;
+			}
+		}
+		if(count!=5){
+			td[5].style.color = "rgb(244, 88, 88)";
+		}
+
+
+		len = result['Uab'].length;
+		count= 0;
+		for( i = 0; i < len; i++){
+			if( result['Uab'][i] !='0' && result['Uab'][i]!='.'){
+				for( var j = i; j<len; j++){
+					if(result['Uab'][j] != '.') count++;
+				}
+				console.log(count);
+				break;
+			}
+		}
+		if(count!=5){
+			td[6].style.color = "rgb(244, 88, 88)";
+		}
+
+
+
+		td = tb[1].getElementsByTagName("td");
+		td[0].innerHTML = result['Lx1'];
+		td[1].innerHTML = result['Lx2'];
+		td[2].innerHTML = result['Lx3'];
+		td[3].innerHTML = result['Lx4'];
+		td[4].innerHTML = result['Lx5'];
+		td[5].innerHTML = result['Lx6'];
+		td[6].innerHTML = result['Lx_ave'];
+		for(var i = 0; i<td.length; i++){
+			len = td[i].innerHTML.length;
+			if(td[i].innerHTML[len-5] != '.'){
+				td[i].style.color = "rgb(244, 88, 88)";
+			}
+		}
+
+		var measure_E = document.getElementById("measure_E");
+		len = measure_E.innerHTML.length;
+		console.log(len);
+		if(measure_E.innerHTML[len-5] != '.'){
+			measure_E.style.color = "rgb(244, 88, 88)";
+		}
+
+		var Exs = document.getElementById("Exs");
+			Exs = parseFloat(Exs.innerHTML);
+			Ex = parseFloat(measure_E.innerHTML);
+		var error_E = Math.abs((Ex-Exs)/Exs);
+		console.log(error_E);
+		if(error_E > 0.1){
+			document.getElementById("error_E").style.color = "rgb(244, 88, 88)";
+		}
+		document.getElementById("error_E").innerHTML = (error_E*100).toFixed(2)+"%";
+		
+}
+
+function mark(node){
+	//评分
+	(document.getElementById("popup-bg-mark")).style.display = "block";
+	var grade_by_machine = node.parentNode.parentNode.getElementsByTagName("td")[7].innerHTML;
+	console.log(grade_by_machine);
+	document.getElementById("mark_group_num").innerHTML =  node.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
+	document.getElementById("mark_name").innerHTML =  node.parentNode.parentNode.getElementsByTagName("td")[2].innerHTML;
+	if( grade_by_machine=='未评定'){
+		document.getElementById("grade_by_machine").innerHTML = '0';
+	}else{
+		document.getElementById("grade_by_machine").innerHTML = grade_by_machine;
+	}
+
+}
+
+function mark_modify(){
+	var remark = document.getElementById("remark").value;
+	var grade_modified = document.getElementById("grade_modified").value;
+	if( remark == '' && grade_modified == ''){
+		alert('未填写任何可提交的信息！');
+		return;
+	}
+	//判断分数是否未数字
+	for(var i = 0; i < grade_modified.length; i++){
+		if(grade_modified[i]>'9' || grade_modified[i]<'0'){
+			alert("输入的分数有误！");
+			return;
+		}
+	}
+	var exp_name = (document.getElementsByClassName("container"))[0].getAttribute("name");
+	var group_num = document.getElementById("mark_group_num").innerHTML;
+
+	var xmlobj = createXMLHttpRequest();
+	xmlobj.open("GET","./templates/default/infoAjax.php?action=mark_submit&group_num="+group_num+"&exp_name="+exp_name
+		+"&remark="+remark+"&grade_modified="+grade_modified,true);
+	xmlobj.onreadystatechange = function(){
+		if( xmlobj.readyState == 4 && xmlobj.status == 200){
+			var result = xmlobj.responseText;
+				console.log(result);
+			if( result == 1){
+				alert("提交成功！");
+				document.getElementsByClassName("popup-bg-mark")[0].style.display = "none";
+				infoAjax(2);
+				
+			}else{ 
+				alert("提交失败！");
+			}
+		}
+	}
+	xmlobj.send();
 }
 
 function pass(option,status_count){
@@ -626,6 +851,10 @@ function close_popup_changepwd(){
 	document.getElementById("popup-changepwd").style.display="none";
 }
 
+function close_popup_mark(){
+	document.getElementById("popup-bg-mark").style.display="none";
+}
+
 function detail_via_stu_num(this_node){
 	var stu_num = document.getElementsByClassName('flag_stu_num')[0];
 		stu_num = stu_num.innerHTML;
@@ -668,6 +897,8 @@ function detail_via_date(this_node){
 				    detail.innerHTML = obj.responseText;
 				var body = document.getElementsByTagName("body");
 				body[0].appendChild(detail);
+				//覆盖父元素滚动条
+				(document.getElementsByClassName("search-popup-bg")[0]).style.width = window.screen.width+"px";
 				//ocument.write(obj.responseText);
 			}
 		}
@@ -741,3 +972,4 @@ function add_user_submit(){
 	obj.send();
 
 }
+

@@ -114,7 +114,7 @@
 			</div>
 			
 			<div class="index_card_container">
-				<a href="javascript:void(0)" onclick="startCourse(this,6)" name="" class="course_card">
+				<a href="javascript:void(0)" onclick="startCourse(this,6)" name="thermal_conductivity" class="course_card">
 					<div class="course_card_top color_purple">
 						<i class="fa fa-credit-card"></i>
 						<span>稳态法测量物体的导热系数</span>
@@ -153,7 +153,7 @@
 					<span class="class-icon"><i class="fa fa-drivers-license-o"></i></span>
 					<input type="text" class="class-input" placeholder="班级（如有的话）" id="classNum" name="classNum">
 				</div>
-				<button type="submit" class="mask-submit" onclick="if_cur_course()">确认开始</button>
+				<button type="submit" class="mask-submit" id="submit_flag" onclick="if_cur_course()">确认开始</button>
 			</form>
 		</div>
 	</div>
