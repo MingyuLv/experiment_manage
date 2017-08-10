@@ -656,6 +656,87 @@
  		return $result;
  	}
 
+ 	function set_parameter($exp_name){
+ 		$obj = new database($exp_name);
+ 		$result = $obj->set_parameter($exp_name);
+ 		$out = "";
+ 		switch($exp_name){
+ 			case 'oscillograph':
+		 		while( $data = $result->fetch_assoc()){
+		 			$out .= "
+		 				<tr>
+		 					<td>".$data['group_num']."</td>
+		 					<td>".$data['v_std']."</td>
+		 					<td>".$data['f_std']."</td>
+		 					<td><button onclick='change_parameter(this)' class='button-detail'>修改</button></td>
+		 				</tr>";
+		 		}
+		 		return $out;
+		 		break;
+		 	case 'potentioneter':
+		 		while( $data = $result->fetch_assoc()){
+		 			$out .= "
+		 				<tr>
+		 					<td>".$data['group_num']."</td>
+		 					<td>".$data['E_std']."</td>
+		 					<td><button onclick='change_parameter(this)' class='button-detail'>修改</button></td>
+		 				</tr>";
+		 		}
+		 		return $out;
+		 		break;
+	 	}
+ 	}
+
+ 	function query_parameter($exp_name){
+ 		$obj = new database($exp_name);
+ 		$out = "";
+	 	switch($exp_name){
+	 		case 'oscillograph':
+ 				$result = $obj->query_parameter_oscillograph($exp_name);
+		 		while( $data = $result->fetch_assoc()){
+		 			$out .= "
+		 				<tr>
+		 					<td>".$data['group_num']."</td>
+		 					<td>".$data['v_std']."</td>
+		 					<td>".$data['f_std']."</td>
+		 					<td><button onclick='change_parameter(this)' class='button-detail'>修改</button></td>
+		 				</tr>";
+		 		}
+		 		break;
+		 	case 'potentioneter':
+		 		$result = $obj->query_parameter_potentioneter($exp_name);
+		 		while( $data = $result->fetch_assoc()){
+		 			$out .= "
+		 				<tr>
+		 					<td>".$data['group_num']."</td>
+		 					<td>".$data['E_std']."</td>
+		 					<td><button onclick='change_parameter(this)' class='button-detail'>修改</button></td>
+		 				</tr>";
+		 		}
+		 		break;
+		 	default: break;
+
+	 	}
+	 	return $out;
+ 	}
+
+ 	function change_parameter_oscillograph($group_num, $v_std, $f_std){
+ 		$obj = new database();
+ 		$result = $obj->change_parameter_oscillograph($group_num, $v_std, $f_std);
+ 		return $result;
+ 	}
+
+ 	function change_parameter_potentioneter($group_num, $E_std){
+ 		$obj = new database();
+ 		$result = $obj->change_parameter_potentioneter($group_num, $E_std);
+ 		return $result;
+ 	}
+
+ 	function modified_course_status($exp_name, $user_id){
+ 		$obj = new database();
+ 		return  ($obj->modified_course_status($exp_name, $user_id));
+ 	}
+
 ?>
 
 

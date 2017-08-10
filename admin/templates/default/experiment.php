@@ -10,9 +10,7 @@
 
 	require dirname(__FILE__).'/../../function/database.class.php';
 	require dirname(__FILE__).'/../../function/common.php';
-    
-    echo("");	//结束之前的实验后再重开另一个实验经常会出现页面空白的问题？
-
+ 
 	if( !if_cur_course($_SESSION['uid'])) exit;
 	//防止通过url恶意调用
 	

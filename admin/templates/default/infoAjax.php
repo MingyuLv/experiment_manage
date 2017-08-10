@@ -90,6 +90,16 @@
 	}else if( $_GET['action']=="mark_submit"){
 		$result = remark_submit($_GET['exp_name'],$_GET['group_num'],$_GET['remark'],$_GET['grade_modified']);
 		echo $result;
+	}else if( $_GET['action']=="change_parameter"){
+		if( $_GET['exp_name']=="oscillograph"){
+			$result = change_parameter_oscillograph($_GET['group_num'], $_GET['v_std'], $_GET['f_std']);
+		}else if( $_GET['exp_name']=='potentionter'){
+			$result = change_parameter_potentioneter($_GET['group_num'], $_GET['E_std']);
+		}
+		echo $result;
+	}else if( $_GET['action']=='modified_course_status'){
+		$result = modified_course_status($_GET['exp_name'],$_GET['user_id']);
+		echo $result;
 	}
 ?>
 

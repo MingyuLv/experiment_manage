@@ -31,8 +31,8 @@
 		                <th width="100px">李萨如图像</th>
 		                <th width="65px">求助</th>
 		                <th width="65px">未通过</th>
-		                <th width="75px">成绩</th>
-	                	<th width="134px">选项</th>
+		                <th width="120px">成绩</th>
+	                	<th width="100px">原始数据</th>
 		            </tr>
 		        </thead>
 		        <tbody>

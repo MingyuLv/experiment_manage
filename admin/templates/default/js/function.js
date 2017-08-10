@@ -37,12 +37,12 @@ function startCourse(obj,course_id){
 			doc = parseJson(doc);
 			console.log(doc);
 			if( doc['status']=='1'){
-				form_action_name[0].setAttribute("action","./index.php");
+				form_action_name[1].setAttribute("action","./index.php");
 				return;
 			}else{
 				document.getElementById("submit_flag").setAttribute("onclick","if_cur_course("+user_id+");");
 				//alert('exp_name: '+experiment_name);
-				form_action_name[0].setAttribute("action","./index.php?exp_name="+experiment_name);
+				form_action_name[1].setAttribute("action","./index.php?exp_name="+experiment_name);
 			}
 		}
 	}
@@ -60,7 +60,7 @@ function if_cur_course(course_id){
 	var user_id = (document.getElementById("uid")).getAttribute("name");
 	var experiment_name = (document.getElementById("experiment_name")).getAttribute("name");
 	var form_action_name = document.getElementsByClassName("mask-form");
-	form_action_name =  form_action_name[0].getAttribute("action");
+	form_action_name =  form_action_name[1].getAttribute("action");
 	// alert('user_id: '+user_id+'\nexp_name: '+experiment_name);
 	//console.log(form_action_name);
 	if( form_action_name === './index.php'){ 
@@ -68,9 +68,6 @@ function if_cur_course(course_id){
 	}else{
 
 		//修改该课程的状态
-		var xmlobj = createXMLHttpRequest();		
-		xmlobj.open("GET","./templates/default/infoAjax.php?action=course_status&course_id="+course_id+"&user_id="+user_id,true);
-		xmlobj.send();
 
 		var class_num = (document.getElementById("classNum")).value;
 		if(class_num == "") class_num = 'null';
@@ -80,13 +77,28 @@ function if_cur_course(course_id){
 		obj.send();
 		
 		form_action_name = document.getElementsByClassName("mask-form");
-		console.log(form_action_name);
-		form_action_name[1].setAttribute("action","./index.php?exp_name="+experiment_name+"&class_num="+class_num) ;
+		form_action_name[1].setAttribute("action","./index.php?exp_name="+experiment_name+"&parameter_setting=true&action=set");
 		// alert('exp_name: '+experiment_name+'\nclass_num: '+class_num);
 		// alert('here');
 	}
-	//开始课程时，对数据库做相应更改
+}
 
+function modified_course_status(exp_name){
+	//修改该课程的状态,为"实时课堂"按钮提供依据
+	var user_id = (document.getElementById("uid")).getAttribute("name");
+
+	// alert('here');
+	
+	var xmlobj = createXMLHttpRequest();		
+	xmlobj.open("GET","./templates/default/infoAjax.php?action=modified_course_status&exp_name="+exp_name+"&user_id="+user_id,true);
+	xmlobj.onreadystatechange = function(){
+		if( xmlobj.readyState == 4 && xmlobj.status == 200){
+			console.log(xmlobj.responseText);
+			// alert(xmlobj.responseText);
+			window.location.href= './index.php?exp_name='+exp_name;	
+		}
+	}
+	xmlobj.send();
 }
 
 function close_course(){
@@ -199,14 +211,14 @@ function infoAjax(status_count){
 								button_insert_1.setAttribute("onclick","show_detail_table(this,2)");
 								button_insert_1.setAttribute("class","button-detail");
 								button_insert_1.innerHTML = "详情";
-							var button_insert_2 = document.createElement("button");
-								button_insert_2.setAttribute("onclick","mark(this)");
-								button_insert_2.setAttribute("class","button-detail");
-								button_insert_2.innerHTML = "评分";
 							td[len_tag+1].appendChild(button_insert_1);
-							td[len_tag+1].appendChild(button_insert_2);
 						}
 
+						var button_insert_2 = document.createElement("button");
+							button_insert_2.setAttribute("onclick","mark(this)");
+							button_insert_2.setAttribute("class","button-detail button-modified");
+							button_insert_2.innerHTML = "修改";
+						td[len_tag].appendChild(button_insert_2);
 					}
 				}
 			
@@ -704,6 +716,11 @@ function mark(node){
 	//评分
 	(document.getElementById("popup-bg-mark")).style.display = "block";
 	var grade_by_machine = node.parentNode.parentNode.getElementsByTagName("td")[7].innerHTML;
+	var i;
+	for(i = 0; i < grade_by_machine.length; i++){
+		if(grade_by_machine[i] == '<') break;
+	}
+	grade_by_machine = grade_by_machine.substring(0,i);
 	console.log(grade_by_machine);
 	document.getElementById("mark_group_num").innerHTML =  node.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
 	document.getElementById("mark_name").innerHTML =  node.parentNode.parentNode.getElementsByTagName("td")[2].innerHTML;
@@ -971,5 +988,70 @@ function add_user_submit(){
 		}
 	obj.send();
 
+}
+
+function change_parameter(node){
+	(document.getElementById("popup-bg-parameter")).style.display = "block";
+	var group_num = node.parentNode.parentNode;
+		group_num = group_num.getElementsByTagName("td")[0].innerHTML;
+
+	document.getElementById("para_group_num").innerHTML = group_num;
+
+	
+}
+
+function change_para_submit_oscillograph(){
+	//验证输入的参数格式正确与否
+	//...
+	//...
+
+	var group_num = document.getElementById("para_group_num").innerHTML;
+		
+	var f_std = document.getElementById("f_std").value;
+	var v_std = document.getElementById("v_std").value;
+	console.log(f_std);
+	console.log(v_std);
+	
+
+	var obj = createXMLHttpRequest();
+	obj.open("GET","./templates/default/infoAjax.php?action=change_parameter&exp_name=oscillograph&group_num="+group_num+"&f_std="+f_std+"&v_std="+v_std);
+	obj.onreadystatechange = function(){
+		if( obj.readyState == 4 && obj.status == 200){
+			console.log(obj.responseText);
+			if( obj.responseText == 1){
+				alert('修改成功');
+				var mask = document.getElementsByClassName("mask-form"); 
+				window.location.href = "./index.php?exp_name=oscillograph&parameter_setting=true&action=modified";
+			}else{
+				alert('操作失败');
+			}
+		}
+	}
+	obj.send();	
+}
+
+function change_para_submit_potentioneter(){
+	var group_num = document.getElementById("para_group_num").innerHTML;		
+	var E_std = document.getElementById("E_std").value;
+
+	var obj = createXMLHttpRequest();
+	obj.open("GET","./templates/default/infoAjax.php?action=change_parameter&exp_name=potentionter&group_num="+group_num+"&E_std="+E_std);
+	obj.onreadystatechange = function(){
+		if( obj.readyState == 4 && obj.status == 200){
+			console.log(obj.responseText);
+			if( obj.responseText == 1){
+				alert('修改成功');
+				var mask = document.getElementsByClassName("mask-form"); 
+				window.location.href = "./index.php?exp_name=potentioneter&parameter_setting=true&action=modified";
+			}else{
+				alert('操作失败');
+			}
+		}
+	}
+	obj.send();	
+}
+
+function close_popup_para(){
+	(document.getElementById("popup-bg-parameter")).style.display = "none";
 }
 

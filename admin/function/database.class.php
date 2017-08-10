@@ -99,11 +99,6 @@ class database{
 	function start_course($user_id, $course_name, $classNum){
 		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=1,`user_id`={$user_id},`class_num`={$classNum} WHERE `name`='{$course_name}'";
 		$result = $this->db->query($sql);
-		$sql = "SELECT `course_id` FROM `{$this->tablePrefix}_status` WHERE `name`='{$course_name}'";
-		$result = $this->db->query($sql);
-		$result = $result->fetch_assoc();
-		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']}";
-		$result = $this->db->query($sql);
 		if( $result) return 1;
 	}
 
@@ -303,6 +298,64 @@ class database{
 		}
 		
 		return 1;
-	
+	}
+
+	function set_parameter($exp_name){
+		switch($exp_name){
+			case 'oscillograph':
+				for( $i = 1; $i <= 40; $i++){
+					$v_std = rand(1,8)*0.5 + 1;
+					$v_std = sprintf("%.1f",$v_std);   //Vp-p在1V到5V之间，间隔0.5V
+					$f_std = rand(1,18)*50 + 100;	   //f在100hz到1000hz之间，间隔步进50hz。
+					$this->db->query("UPDATE `{$this->tablePrefix}_course_oscillograph` SET `v_std`='$v_std',`f_std`='$f_std' WHERE `group_num`='$i'");
+				}
+				$result = $this->db->query("SELECT `group_num`,`v_std`,`f_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+				break;
+			case 'potentioneter':
+				for( $i = 1; $i <= 40; $i++){
+					$E_std = rand(1,8)*0.5 + 1;
+					$E_std = sprintf("%.1f",$E_std);   //Exs范围： 
+					$this->db->query("UPDATE `{$this->tablePrefix}_course_oscillograph` SET `E_std`='$E_std' WHERE `group_num`='$i'");
+				}
+				$result = $this->db->query("SELECT `group_num`,`E_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+				break;
+			default:
+				$result = null; 
+				break;
+		}
+		return $result;
+	}
+
+	function query_parameter_oscillograph(){
+		$result = $this->db->query("SELECT `group_num`,`v_std`,`f_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+		return $result;
+	}
+
+	function query_parameter_potentioneter(){
+		$result = $this->db->query("SELECT `group_num`,`E_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+		return $result;
+	}
+
+	function change_parameter_oscillograph($group_num, $v_std, $f_std){
+		$result = $this->db->query("UPDATE `{$this->tablePrefix}_course_oscillograph` SET `v_std`='$v_std',`f_std`='$f_std' WHERE `group_num`='$group_num'");
+		if( $result) return 1;
+		else return 0;
+	}
+
+	function change_parameter_potentioneter($group_num, $E_std){
+		$result = $this->db->query("UPDATE `{$this->tablePrefix}_course_potentioneter` SET `E_std`='$E_std' WHERE `group_num`='$group_num'");
+		if( $result) return 1;
+		else return 0;
+	}
+
+	function modified_course_status($exp_name, $user_id){
+		$sql = "SELECT `course_id` FROM `{$this->tablePrefix}_status` WHERE `name`='{$exp_name}'";
+		$result = $this->db->query($sql);
+		$result = $result->fetch_assoc();
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']}";
+		$result = $this->db->query($sql);
+		if($result)
+			return 1;
+		else return 0;
 	}
 }

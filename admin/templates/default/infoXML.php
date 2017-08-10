@@ -46,8 +46,8 @@
 		// }else {$status_2 = "";}
 
 		// $xml .= "<status2>".$status_2."</status2>\n";
-		$xml .= "<helptimes>".$row['help_times']." 次</helptimes>\n";
-		$xml .= "<failtimes>".$row['fail_times']." 次</failtimes>\n";
+		$xml .= "<helptimes>".$row['help_times']."</helptimes>\n";
+		$xml .= "<failtimes>".$row['fail_times']."</failtimes>\n";
 		if($row['grade']){
 			$xml .= "<grade>".$row['grade']."</grade>";
 		}else{
