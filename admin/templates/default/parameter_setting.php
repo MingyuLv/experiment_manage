@@ -15,6 +15,9 @@
 	}
 
 	$exp_name = $_GET['exp_name'];
+	if($exp_name=='thermal_conductivity'){
+
+	}
 
 	include dirname(__FILE__).'/include/header.php';
 
@@ -71,6 +74,37 @@
 					}
 					echo "</table>";
 				break;
+			case 'thermal_conductivity':
+		?>
+				<!--本实验不用设置参数-->
+				<script>window.onload = modified_course_status('thermal_conductivity')</script>
+		<?php
+				break;
+			case 'newton':
+				echo ("实验仪器参数设置 &nbsp;>&nbsp;&nbsp;&nbsp;");
+		?>
+				<a href='javascript:void(0)' class='confirm' onclick="modified_course_status_newton()">点击确认</a><br><br>
+		<?php
+
+					$out = "
+						<table class='table-search-result' style='width: 500px'>
+							<tr>
+								<th width='150px'>组号</th>
+								<th>曲率半径(m)</th>
+							</tr>";
+					echo $out;
+
+
+					if( isset($_GET['action']) && $_GET['action'] == "set"){
+						echo set_parameter($_GET['exp_name']);
+					}
+					else if( isset($_GET['action']) && $_GET['action']=="modified"){
+						echo query_parameter($_GET['exp_name']);
+					}
+					echo "</table>";
+				break;
+		?>
+		<?php
 
 		}
 		?>

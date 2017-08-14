@@ -124,6 +124,12 @@ class database{
 			case 'potentioneter':
 				$result = $this->save_data_potentioneter($time, $user_id);
 				break;
+			case 'thermal_conductivity':
+				$result = $this->save_data_thermal_conductivity($time, $user_id);
+				break;
+			case 'newton':
+				$result = $this->save_data_newton($time, $user_id);
+				break;
 			default:
 				break;
 		}
@@ -190,6 +196,64 @@ class database{
 		$teacher = $teacher['name'];
 		//插入一条课堂记录
 		$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_course` (`exp_name`,`time`,`teacher`,`exp_name_en`)VALUES ('电位差计','$time','$teacher','potentioneter')");
+		if(!$re) return 0;
+
+		return 1;
+	}
+
+	function save_data_thermal_conductivity($time, $user_id){
+		$data = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_thermal_conductivity`");
+		while($result = $data->fetch_assoc()){
+			//var_dump($result['stu_num']);
+			if($result['stu_num']==null) continue;
+			$sql = "INSERT INTO `{$this->tablePrefix}_data_thermal_conductivity` (
+			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`T_1`,`T_2`,`t1`,`t2`,`t3`,`t4`,`t5`,`t6`,`t7`,`t8`,`t9`,`t10`,`te1`,`te2`,`te3`,`te4`,`te5`,`te6`,`te7`,`te8`,`te9`,`te10`,`change_rate`,`hb1`,`hb2`,`hb3`,`hb4`,`hb5`,`hb6`,`hb_ave`,`db`,`hc1`,`hc2`,`hc3`,`hc4`,`hc5`,`hc6`,`hc_ave`,`dc`,`m`,`remark`
+			) VALUES (
+				'$user_id','稳态法测量物体的导热系数','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}','{$result['fail_times']}','{$result['T_1']}','{$result['T_2']}','{$result['t1']}','{$result['t2']}','{$result['t3']}','{$result['t4']}','{$result['t5']}','{$result['t6']}','{$result['t7']}','{$result['t8']}','{$result['t9']}','{$result['t10']}','{$result['te1']}','{$result['te2']}','{$result['te3']}','{$result['te4']}','{$result['te5']}','{$result['te6']}','{$result['te7']}','{$result['te8']}','{$result['te9']}','{$result['te10']}','{$result['change_rate']}','{$result['hb1']}','{$result['hb2']}','{$result['hb3']}','{$result['hb4']}','{$result['hb5']}','{$result['hb6']}','{$result['hb_ave']}','{$result['db']}','{$result['hc1']}','{$result['hc2']}','{$result['hc3']}','{$result['hc4']}','{$result['hc5']}','{$result['hc6']}','{$result['hc_ave']}','{$result['dc']}','{$result['m']}','{$result['remark']}'
+			)"; 
+			$re = $this->db->query($sql);
+			if(!$re) return 0;	
+			// echo('here1');
+			$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_student` (`stu_num`,`stu_name`,`exp_name_ch`,`exp_name_en`,`help_times`,`fail_times`,`grade`,`time`) VALUES ('{$result['stu_num']}','{$result['stu_name']}','稳态法测量物体的导热系数','thermal_conductivity','{$result['help_times']}','{$result['fail_times']}','{$result['grade']}','$time' )");
+			if(!$re) return 0;
+			// echo('here2');
+
+		}
+		//找到teacher的名字
+		$teacher = $this->db->query("SELECT `name` FROM `{$this->tablePrefix}_user` WHERE `uid`='$user_id'");
+		$teacher = $teacher->fetch_assoc();
+		$teacher = $teacher['name'];
+		//插入一条课堂记录
+		$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_course` (`exp_name`,`time`,`teacher`,`exp_name_en`)VALUES ('稳态法测量物体的导热系数','$time','$teacher','thermal_conductivity')");
+		if(!$re) return 0;
+
+		return 1;
+	}
+
+	function save_data_newton($time, $user_id){
+		$data = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_newton`");
+		while($result = $data->fetch_assoc()){
+			//var_dump($result['stu_num']);
+			if($result['stu_num']==null) continue;
+			$sql = "INSERT INTO `{$this->tablePrefix}_data_newton` (
+			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`radius`,`L6`,`L7`,`L8`,`L9`,`L10`,`L11`,`L12`,`L13`,`L14`,`L15`,`R6`,`R7`,`R8`,`R9`,`R10`,`R11`,`R12`,`R13`,`R14`,`R15`,`d6`,`d7`,`d8`,`d9`,`d10`,`d11`,`d12`,`d13`,`d14`,`d15`,`q6`,`q7`,`q8`,`q9`,`q10`,`q11`,`q12`,`q13`,`q14`,`q15`,`remark`
+			) VALUES (
+				'$user_id','光的干涉--牛顿环','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}','{$result['fail_times']}','{$result['radius']}','{$result['L6']}','{$result['L7']}','{$result['L8']}','{$result['L9']}','{$result['L10']}','{$result['L11']}','{$result['L12']}','{$result['L13']}','{$result['L14']}','{$result['L15']}','{$result['R6']}','{$result['R7']}','{$result['R8']}','{$result['R9']}','{$result['R10']}','{$result['R11']}','{$result['R12']}','{$result['R13']}','{$result['R14']}','{$result['R15']}','{$result['d6']}','{$result['d7']}','{$result['d8']}','{$result['d9']}','{$result['d10']}','{$result['d11']}','{$result['d12']}','{$result['d13']}','{$result['d14']}','{$result['d15']}','{$result['q6']}','{$result['q7']}','{$result['q8']}','{$result['q9']}','{$result['q10']}','{$result['q11']}','{$result['q12']}','{$result['q13']}','{$result['q14']}','{$result['q15']}','{$result['remark']}'
+			)"; 
+			$re = $this->db->query($sql);
+			if(!$re) return 0;	
+			 // echo('here1');
+			$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_student` (`stu_num`,`stu_name`,`exp_name_ch`,`exp_name_en`,`help_times`,`fail_times`,`grade`,`time`) VALUES ('{$result['stu_num']}','{$result['stu_name']}','光的干涉--牛顿环','newton','{$result['help_times']}','{$result['fail_times']}','{$result['grade']}','$time' )");
+			if(!$re) return 0;
+			 // echo('here2');
+
+		}
+		//找到teacher的名字
+		$teacher = $this->db->query("SELECT `name` FROM `{$this->tablePrefix}_user` WHERE `uid`='$user_id'");
+		$teacher = $teacher->fetch_assoc();
+		$teacher = $teacher['name'];
+		//插入一条课堂记录
+		$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_course` (`exp_name`,`time`,`teacher`,`exp_name_en`)VALUES ('光的干涉--牛顿环','$time','$teacher','newton')");
 		if(!$re) return 0;
 
 		return 1;
@@ -357,5 +421,41 @@ class database{
 		if($result)
 			return 1;
 		else return 0;
+	}
+
+	function modified_course_status_newton($user_id, $para){
+		// vardump($para);
+		$para = json_decode($para);
+
+		// for($i = 4; $i<=40; $i++){
+		// 	$this->db->query("INSERT INTO `physics_course_newton` (`group_num`, `stu_num`, `stu_name`, `grade`, `help_times`, `fail_times`, `evaluation`, `radius`, `L6`, `L7`, `L8`, `L9`, `L10`, `L11`, `L12`, `L13`, `L14`, `L15`, `R6`, `R7`, `R8`, `R9`, `R10`, `R11`, `R12`, `R13`, `R14`, `R15`, `d6`, `d7`, `d8`, `d9`, `d10`, `d11`, `d12`, `d13`, `d14`, `d15`, `q6`, `q7`, `q8`, `q9`, `q10`, `q11`, `q12`, `q13`, `q14`, `q15`, `status_1`, `remark`) VALUES ('$i', '081510311', '1212', '12', '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '')");
+		// }
+
+
+		for($i = 1; $i<=40; $i++){
+			$data = $para[$i-1];
+			// echo $data;
+			// sleep(1000);
+			$result = $this->db->query("UPDATE `physics_course_newton` SET `radius`='$data' WHERE `group_num`='$i'");
+			if(!$result) return 0;
+		}
+
+		//教师插入上课记录
+		$sql = "SELECT `course_id` FROM `{$this->tablePrefix}_status` WHERE `name`='newton'";
+		$result = $this->db->query($sql);
+		$result = $result->fetch_assoc();
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']}";
+		$result = $this->db->query($sql);
+	    // echo('gaga');
+		if(!$result)
+			return 0;
+		return 1;
+	}
+
+	function has_para_newton(){
+		$result = $this->db->query("SELECT `radius` FROM `{$this->tablePrefix}_course_newton` WHERE `radius`");
+		// var_dump($result);
+		if( ($result->num_rows) == 0) return null;
+		else return $result;
 	}
 }

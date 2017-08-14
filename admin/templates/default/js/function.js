@@ -101,6 +101,37 @@ function modified_course_status(exp_name){
 	xmlobj.send();
 }
 
+function modified_course_status_newton(){
+ 	//牛顿环实验必须全部手动输入仪器参数
+
+	var user_id = (document.getElementById("uid")).getAttribute("name");  
+	var tr = document.getElementsByTagName("tr");
+	var para = [];
+	for(var i = 1; i<=40; i++){
+		data = tr[i].getElementsByTagName("input")[0].value;
+		if( !data) {
+			alert("请设置好全部参数！");
+			break;
+		}
+	 	para.push(data);
+	}
+
+		para = JSON.stringify(para);
+
+	var xmlobj = createXMLHttpRequest();
+	xmlobj.open("GET","./templates/default/infoAjax.php?action=modified_course_status_newton&user_id="+user_id+"&para="+para,true);
+	xmlobj.onreadystatechange = function(){
+		if( xmlobj.readyState == 4 && xmlobj.status == 200){
+			if(xmlobj.responseText == 1){
+				window.location.href= './index.php?exp_name=newton';		
+			}
+		}
+	}
+	xmlobj.send();	
+
+	console.log(para);
+}
+
 function close_course(){
 	var experiment_name;
 	var user_id = (document.getElementById("uid")).getAttribute("name");
@@ -208,7 +239,11 @@ function infoAjax(status_count){
 						//添加"详情"和"评分"按钮
 						if(!(td[len_tag+1].hasChildNodes())){
 							var button_insert_1 = document.createElement("button");
+							if(exp_name == 'newton'){
+								button_insert_1.setAttribute("onclick","show_detail_table(this,1)");
+							}else{
 								button_insert_1.setAttribute("onclick","show_detail_table(this,2)");
+							}
 								button_insert_1.setAttribute("class","button-detail");
 								button_insert_1.innerHTML = "详情";
 							td[len_tag+1].appendChild(button_insert_1);
@@ -520,11 +555,16 @@ function show_detail_option(li,status_count){
 			}
 
 			exp_name = (document.getElementsByClassName("container"))[0].getAttribute("name");
+			console.log(exp_name);
 
 			if(exp_name=='oscillograph'){
 				show_detail_oscillograph(result);
-			}else if( exp_name='potentioneter'){
+			}else if( exp_name=='potentioneter'){
 				show_detail_potentioneter(result);
+			}else if( exp_name=='thermal_conductivity'){
+				show_detail_thermal_conductivity(result);
+			}else if( exp_name=='newton'){
+				show_detail_newton(result);
 			}
 
 		}
@@ -710,6 +750,115 @@ function show_detail_potentioneter(result){
 		}
 		document.getElementById("error_E").innerHTML = (error_E*100).toFixed(2)+"%";
 		
+}
+
+function show_detail_thermal_conductivity(result){
+	var tb = document.getElementsByClassName("tb-content");
+	document.getElementById("T_1").innerHTML = result['T_1'];
+	document.getElementById("T_2").innerHTML = result['T_2'];
+	document.getElementById("change_rate").innerHTML = result['change_rate'];
+
+	//将改变过的td颜恢复到初始状态
+	td = tb[0].getElementsByTagName("td");
+	for(var i = 1; i<td.length; i++){
+		td[i].style.color = "rgba(21, 20, 20, 0.67";
+	}
+	td = tb[1].getElementsByTagName("td");
+	for(var i = 1; i<td.length; i++){
+		td[i].style.color = "rgba(21, 20, 20, 0.67";
+	}
+
+	td = tb[0].getElementsByTagName("td");
+	td[15].innerHTML = result['t1'];
+	td[16].innerHTML = result['t2'];
+	td[17].innerHTML = result['t3'];
+	td[18].innerHTML = result['t4'];
+	td[19].innerHTML = result['t5'];
+	td[20].innerHTML = result['t6'];
+	td[21].innerHTML = result['t7'];
+	td[22].innerHTML = result['t8'];
+	td[23].innerHTML = result['t9'];
+	td[24].innerHTML = result['t10'];
+
+	td[26].innerHTML = result['te1'];
+	td[27].innerHTML = result['te2'];
+	td[28].innerHTML = result['te3'];
+	td[29].innerHTML = result['te4'];
+	td[30].innerHTML = result['te5'];
+	td[31].innerHTML = result['te6'];
+	td[32].innerHTML = result['te7'];
+	td[33].innerHTML = result['te8'];
+	td[34].innerHTML = result['te9'];
+	td[35].innerHTML = result['te10'];
+
+	//C的数值大小应该在a和b的中间
+	if( parseFloat(result['T_2']) >= parseFloat(result['te6']) || parseFloat(result['T_2']) <= parseFloat(result['te5'])){
+		document.getElementById("T_2").style.color = "rgb(244, 88, 88)";
+		td[30].style.color = "rgb(244, 88, 88)";
+		td[31].style.color = "rgb(244, 88, 88)";
+	}
+
+	td = tb[1].getElementsByTagName("td");
+	td[10].innerHTML = result['hb1'];
+	td[11].innerHTML = result['hb2'];
+	td[12].innerHTML = result['hb3'];
+	td[13].innerHTML = result['hb4'];
+	td[14].innerHTML = result['hb5'];
+	td[15].innerHTML = result['hb6'];
+	td[16].innerHTML = result['hb_ave'];
+
+	td[18].innerHTML = result['db'];
+
+	td[21].innerHTML = result['hc1'];
+	td[22].innerHTML = result['hc2'];
+	td[23].innerHTML = result['hc3'];
+	td[24].innerHTML = result['hc4'];
+	td[25].innerHTML = result['hc5'];
+	td[26].innerHTML = result['hc6'];
+	td[27].innerHTML = result['hc_ave'];
+
+	td[29].innerHTML = result['dc'];
+
+	td[31].innerHTML = result['m'];
+
+	//所有长度的数值应该保留三个小数，且最后一位数字为偶数，
+	var len;
+	for(var i = 10; i<=16; i++){
+		len = td[i].innerHTML.length;
+		if( td[i].innerHTML[len-4] != '.' || td[i].innerHTML[len-1]%2 != 0){
+			td[i].style.color = "rgb(244, 88, 88)";
+		}
+	}
+	for(var i = 21; i<=27; i++){
+		len = td[i].innerHTML.length;
+		if( td[i].innerHTML[len-4] != '.' || td[i].innerHTML[len-1]%2 != 0){
+			td[i].style.color = "rgb(244, 88, 88)";
+		}
+	}
+	len = td[18].innerHTML.length;
+	if( td[18].innerHTML[len-4] != '.' || td[i].innerHTML[len-1]%2 != 0){
+		td[18].style.color = "rgb(244, 88, 88)";
+	}
+	len = td[29].innerHTML.length;
+	if( td[29].innerHTML[len-4] != '.' || td[i].innerHTML[len-1]%2 != 0){
+		td[29].style.color = "rgb(244, 88, 88)";
+	}
+
+}
+
+function show_detail_newton(result){
+	var i, j;
+	var index;
+	var tb = document.getElementsByClassName("tb-content");
+	tr = tb[0].getElementsByTagName("tr");
+	for( i = 2; i<=11; i++){
+		td = tr[i].getElementsByTagName("td");
+		index = td[0].innerHTML; 
+		td[1].innerHTML = result['L'+index];
+		td[2].innerHTML = result['R'+index];
+		td[3].innerHTML = result['d'+index];
+		td[4].innerHTML = result['q'+index];
+	}
 }
 
 function mark(node){

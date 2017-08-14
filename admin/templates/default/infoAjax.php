@@ -100,6 +100,9 @@
 	}else if( $_GET['action']=='modified_course_status'){
 		$result = modified_course_status($_GET['exp_name'],$_GET['user_id']);
 		echo $result;
+	}else if( $_GET['action']=='modified_course_status_newton'){
+		$result = modified_course_status_newton($_GET['user_id'],$_GET['para']);
+		echo $result;
 	}
 ?>
 

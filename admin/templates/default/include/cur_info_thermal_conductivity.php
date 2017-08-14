@@ -29,9 +29,10 @@
 		                <th>姓名</th>
 		                <th>温度示值</th>
 		                <th>尺寸和质量</th>
-		                <th>求助次数</th>
-		                <th>未通过次数</th>
-		                <th>原始数据</th>
+		                <th>求助</th>
+		                <th>未通过</th>
+		                <th width="120px">成绩</th>
+		                <th width="100px">原始数据</th>
 		            </tr>
 		        </thead>
 		        <tbody>
@@ -42,7 +43,7 @@
 	</div>
 
 	<div class="popup-bg" id="popup-bg">
-		 <div class="popup-detail">
+		 <div class="popup-detail" style='padding-top: 15px; height: 550px'>
 		 <button class="detail-close" onclick="close_popup()"><span aria-hidden="true">×</span></button>
 
 	        <div class="stu_info">
@@ -51,46 +52,46 @@
 	            <span>学号：<span id="stu_num"></span></span>
 	        </div>
 
-			<div class="table_titile">一、铜盘在T2附近自然冷却时的温度示值</div>
+			<div class="table_titile" style="margin-top: 20px">一、铜盘在T2附近自然冷却时的温度示值</div>
 
-	        <div class="detail-info-div">
+	        <table class="tb-content">
 	           
-		            <div>
-		                <span>稳态时的温度示值</span>
-					    <span>高温T1=  </span>
-					    <span>低温T2=  </span>
-		            </div>
+		            <tr>
+		                <td colspan="1" width="150px">稳态时的温度示值</td>
+					    <td colspan="5" style='text-align: left; padding-left: 50px'>高温T1=<span id="T_1"></span></td>
+					    <td colspan="5" style='text-align: left; padding-left: 50px'>低温T2= <span id="T_2"></span></td>
+		            </tr>
 	           
-		            <div>
-		                <span>次序</span>
-		                <span>1</span>
-		                <span>2</span>
-		                <span>3</span>
-		                <span>4</span>
-		                <span>5</span>
-		                <span>6</span>
-		                <span>7</span>
-		                <span>8</span>
-		                <span>9</span>
-		                <span>10</span>
-	           		</div>
+		            <tr>
+		                <td>次序</td>
+		                <td>1</td>
+		                <td>2</td>
+		                <td>3</td>
+		                <td>4</td>
+		                <td>5</td>
+		                <td>6</td>
+		                <td>7</td>
+		                <td>8</td>
+		                <td>9</td>
+		                <td>10</td>
+	           		</tr>
 
-	           		<div>
-		                <span>时间t/s</span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-		                <span></span>
-	           		</div>
+	           		<tr>
+		                <td>时间t/s</td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+	           		</tr>
 						
 					<tr>
-		                <th>温度示值T/C</th>
+		                <td>温度示值T/C</td>
 		                <td></td>
 		                <td></td>
 		                <td></td>
@@ -103,30 +104,30 @@
 		                <td></td>
 	           		</tr>
 
-	        </div>
-	           		<p>温度变化率：</p>      
+	        </table>
+	           		<p style="position: absolute; margin-left: 35px; margin-top: 10px; color: rgba(21, 20, 20, 0.67)">温度变化率：<span id="change_rate"></span> &nbsp;&#8451;/s</p>      
 
 	        <div class="popup_button">
 	            <button type="button" class="button_1" onclick="pass(1,2)">通过</button>
 	            <button type="button" class="button_1" onclick="fail(1,2)" style="margin-right: 35px">不通过</button>
 	        </div>
 
- 			<div class="table_titile">二、几何尺寸和质量的测量</div>
+ 			<div class="table_titile" style="margin-top: 0px">二、几何尺寸和质量的测量</div>
 
-	        <div class="tb-content" style='width:400px'>
+	        <table class="tb-content" style='width:600px;'>
 	            <tr>
-	                <th>次序</th>
-	                <td>1</td>
-	                <td>2</td>
-	                <td>3</td>
-	                <td>4</td>
-	                <td>5</td>
-	                <td>6</td>
-	                <td>平均</td>
+	                <td colspan="2">次序</td>
+	                <td width="50px">1</td>
+	                <td width="50px">2</td>
+	                <td width="50px">3</td>
+	                <td width="50px">4</td>
+	                <td width="50px">5</td>
+	                <td width="50px">6</td>
+	                <td width="50px">平均</td>
 	            </tr>
 	            <tr>
-	                <th>样品盘B</th>
-	                <th>厚度hB/cm</th>
+	                <td rowspan="2">样品盘B</td>
+	                <td>厚度h<sub>B</sub>/cm</td>
 	                <td></td>
 	                <td></td>
 	                <td></td>
@@ -137,46 +138,74 @@
 	            </tr>
 
 	            <tr>
-	             	<th style="border-top: 0"></th>
-	                <th>直径dB/cm</th>
+	                <td>直径d<sub>B</sub>/cm</td>
+	                <td colspan="7"></td>
+	            </tr>
+
+	             <tr>
+	                <td rowspan="3">散热铜盘C</td>
+	                <td>厚度h<sub>C</sub>/cm</td>
+	                <td></td>
+	                <td></td>
+	                <td></td>
+	                <td></td>
+	                <td></td>
+	                <td></td>
 	                <td></td>
 	            </tr>
 
 	             <tr>
-	                <th>散热铜盘C</th>
-	                <th>厚度hC/cm</th>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
+	                <td>直径d<sub>C</sub>/cm</td>
+	                <td colspan="7"></td>
 	            </tr>
 
 	             <tr>
-	             	<th style="border-top: 0"></th>
-	                <th>直径dC/cm</th>
-	                <td></td>
+	                <td>质量m/g</td>
+	                <td colspan="7"></td>
 	            </tr>
-
-	             <tr>
-	             	<th style="border-top: 0"></th>
-	                <th>质量m/g</th>
-	                <td></td>
-	            </tr>
-
-
-	        </div>
+				
+	        </table>
 			 
-			<div class="popup_button">
+			<div class="popup_button" style="margin-right: 27px">
 	            <button type="button" class="button_2" onclick="pass(2,2)" >通过</button>
-	            <button type="button" class="button_2" onclick="fail(2,2)" style="margin-right: 135px">不通过</button>
+	            <button type="button" class="button_2" onclick="fail(2,2)">不通过</button>
 	        </div>
 
 	    </div>
 	</div>
 	
+<div class="body1">
+	<div class="body-bg-1"></div>
+</div><!--end body1-->
+
+<!-- 老师评分弹窗 -->
+<div class="popup-bg-mark" id="popup-bg-mark">
+	<div class="popup-detail-mark">
+		<button class="detail-close" onclick="close_popup_mark()"><span aria-hidden="true">×</span></button>
+		<p class="t">成绩评定</p>			
+		<div>
+			<p class="mark_stu_info">
+				<span class="mark-title">组号</span><span class="mark-content" id="mark_group_num"></span>
+				<span class="mark-title">姓名</span><span class="mark-content" id="mark_name"></span>
+				<span class="mark-title">机评结果</span><span class="mark-content" id="grade_by_machine"></span>
+			</p>
+
+			<p style="margin-top: 45px"><span>修改意见</span></p>
+			<textarea class="remark" rows="6" cols="42" placeholder="在这里备注..." id="remark"></textarea>
+			<div style="margin-top: 15px; padding: 0">
+				<p class="modify">
+					<span class="class-icon"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
+					<input type="text" class="class-input" placeholder="修改分数" id="grade_modified">
+				</p>
+			</div>
+
+			<button type="submit" class="mark-submit" onclick="mark_modify()">提交</button>
+		</div>
+
+	</div>
+</div>
+
+
 <div class="body1">
 	<div class="body-bg-1"></div>
 </div><!--end body1-->

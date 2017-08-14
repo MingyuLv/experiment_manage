@@ -94,7 +94,7 @@
 			</div>
 			
 			<div class="index_card_container">
-				<a href="javascript:void(0)" onclick="startCourse(this,5)" name="" class="course_card">
+				<a href="javascript:void(0)" onclick="startCourse(this,5)" name="newton" class="course_card">
 					<div class="course_card_top color_red">
 						<i class="fa fa-credit-card"></i>
 						<span>光的干涉--牛顿环</span>

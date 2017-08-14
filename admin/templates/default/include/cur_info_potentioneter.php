@@ -154,5 +154,9 @@
 	</div>
 </div>
 
+<div class="body1">
+	<div class="body-bg-1"></div>
+</div><!--end body1-->
+
 
 <script type="text/javascript">window.onload=infoAjax(2);</script>

@@ -249,7 +249,27 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><button onclick='show_detail_table(this,2)' class='button-detail'>详 情</button></td>
+					<td></td>
+					<td></td>
+				</tr>";
+		}
+		echo $out;
+ 	}
+
+ 	function init_info_newton(){
+ 		//非公共函数
+ 		$out = "";
+ 		for( $i = 1; $i<=40; $i++){		
+			$out .="
+				<tr>
+					<td>".$i."</td>
+					<td style='width:90px'></td>
+					<td style='width:90px'></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>";
 		}
 		echo $out;
@@ -684,7 +704,35 @@
 		 		}
 		 		return $out;
 		 		break;
+		 	case 'newton':
+		 		if(($result = has_para_newton()) != null){
+		 			for( $i = 1; $i<=40; $i++){
+		 				$data = $result->fetch_assoc();
+		 				$out .= "
+							<tr>
+								<td>".$i."</td>
+								<td style='position: relative'><input type='text' class='newton-input' value='".$data['radius']."'></td>
+							</tr>
+			 			";
+	 				}
+		 		}else{
+		 			for( $i = 1; $i<=40; $i++){
+			 			$out .= "
+							<tr>
+								<td>".$i."</td>
+								<td style='position: relative'><input type='text' placeholder='点击设置参数' class='newton-input'></td>
+							</tr>
+			 			";
+		 			}
+		 		}
+		 		return $out;
+		 		break;
 	 	}
+ 	}
+
+ 	function has_para_newton(){
+ 		$obj = new database();
+ 		return $obj->has_para_newton();
  	}
 
  	function query_parameter($exp_name){
@@ -736,6 +784,13 @@
  		$obj = new database();
  		return  ($obj->modified_course_status($exp_name, $user_id));
  	}
+
+ 	function modified_course_status_newton($user_id, $para){
+ 		$obj = new database();
+ 		return  $obj->modified_course_status_newton($user_id, $para);
+ 	}
+
+
 
 ?>
 
