@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-08-17 15:00:02
+-- Generation Time: 2017-08-17 22:27:03
 -- 服务器版本： 5.7.14
 -- PHP Version: 5.6.25
 
@@ -392,46 +392,46 @@ CREATE TABLE `physics_course_spectrometer` (
 --
 
 INSERT INTO `physics_course_spectrometer` (`group_num`, `stu_num`, `stu_name`, `grade`, `help_times`, `fail_times`, `evaluation`, `lambda_1`, `lambda_2`, `lambda_3`, `constant`, `green_1`, `green_2`, `green_3`, `green_4`, `green_angle`, `yellow_inside_1`, `yellow_inside_2`, `yellow_inside_3`, `yellow_inside_4`, `yellow_inside_angle`, `yellow_outside_1`, `yellow_outside_2`, `yellow_outside_3`, `yellow_outside_4`, `yellow_outside_angle`, `status_1`, `d`, `E_d`, `lambda_yellow_inside`, `E_yellow_inside`, `lambda_yellow_outside`, `E_yellow_outside`, `D_color`, `D_color_theoretical`, `remark`) VALUES
-(1, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '8', '1', '2', '1', '2', '1', '1', '1', '2', '2', '3', '4', '3', '3', '3', '2', 0, '3', '3', '3', '3', '3', '23', '4', '3', ''),
-(2, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '84', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(3, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(4, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(5, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '45', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(6, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '45', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(7, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(8, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(9, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(10, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(11, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(12, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(13, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(14, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(15, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(16, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(17, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(18, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(19, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(20, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(21, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(22, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(23, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(24, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(25, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(26, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(27, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(28, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(29, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(30, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(31, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(32, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(33, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(34, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(35, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(36, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(37, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(38, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(39, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '89', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(40, '0811111111', '和其正', NULL, 0, 0, 0, '1', '1', '2', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '');
+(1, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '8', '1', '2', '1', '2', '1', '1', '1', '2', '2', '3', '4', '3', '3', '3', '2', 0, '3', '3', '3', '3', '3', '23', '4', '3', ''),
+(2, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '84', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(3, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(4, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(5, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '45', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(6, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '45', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(7, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(8, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(9, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(10, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(11, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(12, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(13, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(14, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(15, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(16, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(17, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(18, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(19, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(20, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(21, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(22, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(23, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(24, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(25, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(26, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(27, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(28, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(29, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(30, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(31, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(32, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(33, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(34, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(35, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(36, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(37, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(38, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(39, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '89', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(40, '0811111111', '和其正', 100, 0, 0, 0, '1', '1', '2', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -4055,7 +4055,87 @@ INSERT INTO `physics_data_spectrometer` (`exp_name`, `teacher_id`, `time`, `stu_
 ('分光计的使用及光栅衍射', 2, '2017/08/17 wrong time!', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('分光计的使用及光栅衍射', 2, '2017/08/17 wrong time!', '0811111111', NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('分光计的使用及光栅衍射', 2, '2017/08/17 wrong time!', '0811111111', '和其正', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('分光计的使用及光栅衍射', 2, '2017/08/17 wrong time!', '0811111111', '和其正', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+('分光计的使用及光栅衍射', 2, '2017/08/17 wrong time!', '0811111111', '和其正', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '8', '1', '2', '1', '2', '1', '1', '1', '2', '2', '3', '4', '3', '3', '3', '2', 0, '3', '3', '3', '3', '3', '23', '4', '3', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '84', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '5', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '45', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '45', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '5', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '12', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '12', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '2', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '89', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '3', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '8', '1', '2', '1', '2', '1', '1', '1', '2', '2', '3', '4', '3', '3', '3', '2', 0, '3', '3', '3', '3', '3', '23', '4', '3', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '84', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '5', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '45', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '45', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '54', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '5', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '46', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '64', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '12', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '12', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '2', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '89', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', ''),
+('分光计的使用及光栅衍射', 2, '2017/08/18 wrong time!', '0811111111', '和其正', 100, 0, 0, '1', '1', '2', '3', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -4256,7 +4336,9 @@ INSERT INTO `physics_historicaldata_course` (`order`, `exp_name`, `time`, `teach
 (106, '用气垫摆测量转动惯量', '2017/08/15 10:15--12:00', '山下', 'moment_inertia'),
 (107, '光的干涉--牛顿环', '2017/08/15 wrong time!', '山下', 'newton'),
 (108, '光的干涉--牛顿环', '2017/08/15 wrong time!', '山下', 'newton'),
-(109, '用气垫摆测量转动惯量', '2017/08/15 wrong time!', '山下', 'moment_inertia');
+(109, '用气垫摆测量转动惯量', '2017/08/15 wrong time!', '山下', 'moment_inertia'),
+(110, '分光计的使用及光栅衍射', '2017/08/18 wrong time!', '山下', 'spectrometer'),
+(111, '分光计的使用及光栅衍射', '2017/08/18 wrong time!', '山下', 'spectrometer');
 
 -- --------------------------------------------------------
 
@@ -4275,6 +4357,92 @@ CREATE TABLE `physics_historicaldata_student` (
   `grade` int(3) NOT NULL,
   `time` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `physics_historicaldata_student`
+--
+
+INSERT INTO `physics_historicaldata_student` (`order`, `stu_num`, `stu_name`, `exp_name_en`, `exp_name_ch`, `help_times`, `fail_times`, `grade`, `time`) VALUES
+(1, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(2, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(3, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(4, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(5, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(6, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(7, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(8, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(9, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(10, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(11, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(12, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(13, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(14, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(15, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(16, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(17, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(18, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(19, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(20, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(21, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(22, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(23, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(24, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(25, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(26, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(27, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(28, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(29, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(30, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(31, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(32, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(33, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(34, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(35, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(36, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(37, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(38, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(39, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(40, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(41, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(42, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(43, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(44, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(45, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(46, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(47, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(48, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(49, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(50, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(51, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(52, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(53, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(54, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(55, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(56, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(57, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(58, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(59, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(60, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(61, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(62, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(63, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(64, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(65, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(66, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(67, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(68, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(69, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(70, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(71, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(72, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(73, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(74, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(75, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(76, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(77, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(78, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(79, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!'),
+(80, '0811111111', '和其正', 'spectrometer', '分光计的使用及光栅衍射', 0, 0, 100, '2017/08/18 wrong time!');
 
 -- --------------------------------------------------------
 
@@ -4300,7 +4468,7 @@ INSERT INTO `physics_status` (`course_id`, `name`, `status`, `user_id`, `class_n
 (6, 'thermal_conductivity', 0, NULL, NULL),
 (5, 'newton', 0, NULL, NULL),
 (3, 'moment_inertia', 0, NULL, NULL),
-(4, 'spectrometer', 1, 2, NULL);
+(4, 'spectrometer', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4324,7 +4492,7 @@ CREATE TABLE `physics_user` (
 
 INSERT INTO `physics_user` (`uid`, `level`, `number`, `name`, `password`, `cur_course`, `pwd`) VALUES
 (1, '1', '081510123', 'admin', '7089d87fe52c3f948b2e0fdc6262ac9c', 4, '12580'),
-(2, '2', '081510127', '山下', '7089d87fe52c3f948b2e0fdc6262ac9c', 4, '12580'),
+(2, '2', '081510127', '山下', '7089d87fe52c3f948b2e0fdc6262ac9c', NULL, '12580'),
 (3, '2', '12345', '徐涛涛', 'e73118e5a71ae186aa100dd21c9e84a5', 4, '12345');
 
 --
@@ -4359,8 +4527,7 @@ ALTER TABLE `physics_course_potentioneter`
 -- Indexes for table `physics_course_spectrometer`
 --
 ALTER TABLE `physics_course_spectrometer`
-  ADD PRIMARY KEY (`group_num`),
-  ADD KEY `group_num` (`group_num`);
+  ADD PRIMARY KEY (`group_num`);
 
 --
 -- Indexes for table `physics_course_thermal_conductivity`
@@ -4411,12 +4578,12 @@ ALTER TABLE `physics_data_oscillograph`
 -- 使用表AUTO_INCREMENT `physics_historicaldata_course`
 --
 ALTER TABLE `physics_historicaldata_course`
-  MODIFY `order` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `order` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 --
 -- 使用表AUTO_INCREMENT `physics_historicaldata_student`
 --
 ALTER TABLE `physics_historicaldata_student`
-  MODIFY `order` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `order` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 --
 -- 使用表AUTO_INCREMENT `physics_user`
 --

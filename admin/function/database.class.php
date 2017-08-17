@@ -299,7 +299,7 @@ class database{
 		$data = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_spectrometer`");
 		while($result = $data->fetch_assoc()){
 			//var_dump($result['stu_num']);
-			echo 'here0 ';
+			// echo 'here0 ';
 			if($result['stu_num']==null) continue;
 			$sql = "INSERT INTO `{$this->tablePrefix}_data_spectrometer` (
 			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`lambda_1`,`lambda_2`,`lambda_3`,`constant`,`green_1`,`green_2`,`green_3`,`green_4`,`green_angle`,`yellow_inside_1`,`yellow_inside_2`,`yellow_inside_3`,`yellow_inside_4`,`yellow_inside_angle`,`yellow_outside_1`,`yellow_outside_2`,`yellow_outside_3`,`yellow_outside_4`,`yellow_outside_angle`,`status_1`,`d`,`E_d`,`lambda_yellow_inside`,`E_yellow_inside`,`lambda_yellow_outside`,`E_yellow_outside`,`D_color`,`D_color_theoretical`,`remark`
@@ -308,10 +308,10 @@ class database{
 			)"; 
 			$re = $this->db->query($sql);
 			if(!$re) return 0;	
-			 echo('here1 ');
+			 // echo('here1 ');
 			$re = $this->db->query("INSERT INTO `{$this->tablePrefix}_historicaldata_student` (`stu_num`,`stu_name`,`exp_name_ch`,`exp_name_en`,`help_times`,`fail_times`,`grade`,`time`) VALUES ('{$result['stu_num']}','{$result['stu_name']}','分光计的使用及光栅衍射','spectrometer','{$result['help_times']}','{$result['fail_times']}','{$result['grade']}','$time' )");
 			if(!$re) return 0;
-			 echo('here2 ');
+			 // echo('here2 ');
 
 		}
 		//找到teacher的名字
