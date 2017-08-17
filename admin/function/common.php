@@ -172,16 +172,21 @@
 
  	}
 
- 	function search_info_date($date){
+ 	function search_info_date($date,$user_name){
+ 		if($date==''){
+ 			$date1 = '全部显示';
+ 		}else{
+ 			$date1 = $date;
+ 		}
  		$out = "";
  		$obj = new database();
- 		$result = $obj->search_info_date($date);
+ 		$result = $obj->search_info_date($date,$user_name);
  		if($result){
 	 			$flag = 1;		
 	 			while($data = $result->fetch_assoc()){
 	 				if($flag == 1){
 	 					$out .= "<div class='search-stu-info' style='padding-left: 310px'>";
-	 					$out .= "查询日期：&nbsp;&nbsp;&nbsp;".$date."</div>";
+	 					$out .= "查询日期：&nbsp;&nbsp;&nbsp;".$date1."</div>";
 	 					$flag += 1;
 	 				}
 	 				$out .= "<tr name='".$data['order']."'>";	
@@ -275,6 +280,44 @@
 		echo $out;
  	}
  
+ 	function init_info_moment_inertia(){
+		//非公共函数
+ 		$out = "";
+ 		for( $i = 1; $i<=40; $i++){		
+			$out .="
+				<tr>
+					<td>".$i."</td>
+					<td style='width:90px'></td>
+					<td style='width:90px'></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>";
+		}
+		echo $out;
+ 	}
+
+ 	function init_info_spectrometer(){
+		//非公共函数
+ 		$out = "";
+ 		for( $i = 1; $i<=40; $i++){		
+			$out .="
+				<tr>
+					<td>".$i."</td>
+					<td style='width:90px'></td>
+					<td style='width:90px'></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>";
+		}
+		echo $out;
+ 	}
+
  	function init_help(){
  		//初始化求助栏
  		$out = "";
@@ -727,12 +770,40 @@
 		 		}
 		 		return $out;
 		 		break;
+		 	case 'spectrometer':
+		 		if(($result = has_para_spectrometer()) != null){
+		 			for( $i = 1; $i<=40; $i++){
+		 				$data = $result->fetch_assoc();
+		 				$out .= "
+							<tr>
+								<td>".$i."</td>
+								<td style='position: relative'><input type='text' class='newton-input' value='".$data['constant']."'></td>
+							</tr>
+			 			";
+	 				}
+		 		}else{
+		 			for( $i = 1; $i<=40; $i++){
+			 			$out .= "
+							<tr>
+								<td>".$i."</td>
+								<td style='position: relative'><input type='text' placeholder='点击设置参数' class='newton-input'></td>
+							</tr>
+			 			";
+		 			}
+		 		}
+		 		return $out;
+		 		break;
 	 	}
  	}
 
  	function has_para_newton(){
  		$obj = new database();
  		return $obj->has_para_newton();
+ 	}
+
+ 	function has_para_spectrometer(){
+ 		$obj = new database();
+ 		return $obj->has_para_spectrometer();
  	}
 
  	function query_parameter($exp_name){
@@ -788,6 +859,39 @@
  	function modified_course_status_newton($user_id, $para){
  		$obj = new database();
  		return  $obj->modified_course_status_newton($user_id, $para);
+ 	}
+
+ 	function modified_course_status_spectrometer($user_id, $para){
+ 		$obj = new database();
+ 		return  $obj->modified_course_status_spectrometer($user_id, $para);
+ 	}
+
+ 	function sepctrometer_lambda(){
+ 		$out = "";
+ 		if( ($result = has_para_lambda()) != null){
+ 			$result = $result->fetch_assoc();
+ 			$out .= "
+ 				<div class='sepctrometer_lambda'>
+					<span>&#955;<sub>黄绿</sub> = <input id='lambda_1' value='".$result['lambda_1']."'></span>
+					<span>&#955;<sub>黄内</sub> = <input id='lambda_2' value='".$result['lambda_2']."'></span>
+					<span>&#955;<sub>黄外</sub> = <input id='lambda_3' value='".$result['lambda_3']."'></span>
+ 				</div>
+ 			";
+ 		}else{
+ 			$out .= "
+ 				<div class='sepctrometer_lambda'>
+					<span>&#955;<sub>黄绿</sub> = <input id='lambda_1' placeholder='点击输入'></span>
+					<span>&#955;<sub>黄内</sub> = <input id='lambda_2' placeholder='点击输入'></span>
+					<span>&#955;<sub>黄外</sub> = <input id='lambda_3' placeholder='点击输入'></span>
+ 				</div>
+ 			";
+ 		}
+ 		return $out;
+ 	}
+
+ 	function has_para_lambda(){
+ 		$obj = new database();
+ 		return  $obj->has_para_lambda();
  	}
 
 

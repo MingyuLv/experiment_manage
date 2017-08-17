@@ -54,7 +54,7 @@
 
 
 			<div class="index_card_container">
-				<a href="javascript:void(0)" onclick="startCourse(this,3)" name="" class="course_card">
+				<a href="javascript:void(0)" onclick="startCourse(this,3)" name="moment_inertia" class="course_card">
 					<div class="course_card_top color_orange">
 						<i class="fa fa-credit-card"></i>
 						<span>用气垫摆测量转动惯量</span>
@@ -74,7 +74,7 @@
 			</div>
 
 			<div class="index_card_container">
-				<a href="javascript:void(0)" onclick="startCourse(this,4)" name="" class="course_card">
+				<a href="javascript:void(0)" onclick="startCourse(this,4)" name="spectrometer" class="course_card">
 					<div class="course_card_top color_blue">
 						<i class="fa fa-credit-card"></i>
 						<span>分光计的使用及光栅衍射</span>

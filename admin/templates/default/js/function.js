@@ -132,6 +132,51 @@ function modified_course_status_newton(){
 	console.log(para);
 }
 
+function modified_course_status_spectrometer(){
+	//分光计使用和光栅衍射实验必须全部手动输入仪器参数
+
+	var user_id = (document.getElementById("uid")).getAttribute("name");  
+	var tr = document.getElementsByTagName("tr");
+	var para = [];
+
+	var lambda_1 = document.getElementById("lambda_1").value;
+	var lambda_2 = document.getElementById("lambda_2").value;
+	var lambda_3 = document.getElementById("lambda_3").value;
+
+	if(!lambda_1 || !lambda_2 || !lambda_3){
+		alert("请设置好全部参数！");
+		return;
+	}else{
+		para.push(lambda_1);
+		para.push(lambda_2);
+		para.push(lambda_3);
+	}
+	// alert('here');
+	for(var i = 1; i<=40; i++){
+		data = tr[i].getElementsByTagName("input")[0].value;
+		if( !data) {
+			alert("请设置好全部参数！");
+			break;
+		}
+	 	para.push(data);
+	}
+
+		para = JSON.stringify(para);
+
+	var xmlobj = createXMLHttpRequest();
+	xmlobj.open("GET","./templates/default/infoAjax.php?action=modified_course_status_spectrometer&user_id="+user_id+"&para="+para,true);
+	xmlobj.onreadystatechange = function(){
+		if( xmlobj.readyState == 4 && xmlobj.status == 200){
+			if(xmlobj.responseText == 1){
+				window.location.href= './index.php?exp_name=spectrometer';		
+			}
+		}
+	}
+	xmlobj.send();	
+
+	console.log(para);
+}
+
 function close_course(){
 	var experiment_name;
 	var user_id = (document.getElementById("uid")).getAttribute("name");
@@ -239,7 +284,7 @@ function infoAjax(status_count){
 						//添加"详情"和"评分"按钮
 						if(!(td[len_tag+1].hasChildNodes())){
 							var button_insert_1 = document.createElement("button");
-							if(exp_name == 'newton'){
+							if(exp_name == 'newton' || exp_name == 'moment_inertia' || exp_name == 'spectrometer'){
 								button_insert_1.setAttribute("onclick","show_detail_table(this,1)");
 							}else{
 								button_insert_1.setAttribute("onclick","show_detail_table(this,2)");
@@ -565,6 +610,10 @@ function show_detail_option(li,status_count){
 				show_detail_thermal_conductivity(result);
 			}else if( exp_name=='newton'){
 				show_detail_newton(result);
+			}else if( exp_name=='moment_inertia'){
+				show_detail_moment_inertia(result);
+			}else if( exp_name=='spectrometer'){
+				show_detail_spectrometer(result);
 			}
 
 		}
@@ -761,7 +810,7 @@ function show_detail_thermal_conductivity(result){
 	//将改变过的td颜恢复到初始状态
 	td = tb[0].getElementsByTagName("td");
 	for(var i = 1; i<td.length; i++){
-		td[i].style.color = "rgba(21, 20, 20, 0.67";
+		td[i].style.color = "rgba(21, 20, 20, 0.67)";
 	}
 	td = tb[1].getElementsByTagName("td");
 	for(var i = 1; i<td.length; i++){
@@ -859,6 +908,154 @@ function show_detail_newton(result){
 		td[3].innerHTML = result['d'+index];
 		td[4].innerHTML = result['q'+index];
 	}
+
+	document.getElementById("R_commit").innerHTML = result['radius_commit'];
+	document.getElementById("R_set").innerHTML = result['radius'];
+	document.getElementById("E_R").innerHTML = result['E_R'];
+	document.getElementsByClassName("detail_picture")[0].style.backgroundImage = "url(./upload/newton/"+result['stu_num']+".jpg)";
+
+}
+
+function show_detail_moment_inertia(result){
+	var tb = document.getElementsByClassName("tb-content");
+
+	//将改变过的td颜恢复到初始状态
+	td = tb[0].getElementsByTagName("td");
+	for(var i = 1; i<td.length; i++){
+		td[i].style.color = "rgba(21, 20, 20, 0.67)";
+	}
+
+	tr = tb[0].getElementsByTagName("tr");
+	var i ,len;
+	for( i = 2; i<=7; i++){
+		td = tr[i].getElementsByTagName("td");
+		td[1].innerHTML = result['t0_'+(i-1)];
+		td[2].innerHTML = result['t1_'+(i-1)];
+		td[3].innerHTML = result['t2_'+(i-1)];
+		td[4].innerHTML = result['t3_'+(i-1)];
+	}
+	td = tr[8].getElementsByTagName("td");
+	td[1].innerHTML = result['t0_ave'];
+	td[2].innerHTML = result['t1_ave'];
+	td[3].innerHTML = result['t2_ave'];
+	td[4].innerHTML = result['t3_ave'];
+
+	tr = tb[1].getElementsByTagName("tr");
+
+	td = tr[1].getElementsByTagName("td");
+	for(i = 2; i<=7; i++){
+		//数据保留三个小数，且最后一位小数必须为偶数
+		len = td[i].innerHTML.length;
+		if( td[i].innerHTML[len-4] != '.' || td[i].innerHTML[len-1]%2 != 0){
+			td[i].style.color = "rgb(244, 88, 88)";
+		}
+		td[i].innerHTML = result["d"+(i-1)];
+	}
+	td[8].innerHTML = result['d_ave'];
+	td[8].style.color = "rgb(251, 189, 99)";
+	
+
+	td = tr[2].getElementsByTagName("td");
+	td[1].innerHTML = result["x"];
+	//数据保留三个小数，且最后一位小数必须为偶数
+	len = td[1].innerHTML.length;
+	if( td[1].innerHTML[len-4] != '.' || td[1].innerHTML[len-1]%2 != 0){
+		td[1].style.color = "rgb(244, 88, 88)";
+	}
+	td[2].innerHTML = result["x_theoretical"];
+
+	td = tr[3].getElementsByTagName("td");
+	for(i = 2; i<=7; i++){
+		//数据保留三个小数，且最后一位小数必须为偶数
+		len = td[i].innerHTML.length;
+		if( td[i].innerHTML[len-4] != '.' || td[i].innerHTML[len-1]%2 != 0){
+			td[i].style.color = "rgb(244, 88, 88)";
+		}
+		td[i].innerHTML = result["dn_"+(i-1)];
+	}
+	td[8].innerHTML = result['dn_ave'];
+	td[8].style.color = "rgb(251, 189, 99)";
+	
+
+	td = tr[4].getElementsByTagName("td");
+	for(i = 1; i<=6; i++){
+		//数据保留三个小数，且最后一位小数必须为偶数
+		len = td[i].innerHTML.length;
+		if( td[i].innerHTML[len-4] != '.' || td[i].innerHTML[len-1]%2 != 0){
+			td[i].style.color = "rgb(244, 88, 88)";
+		}
+		td[i].innerHTML = result["dw_"+i];
+	}
+	td[7].innerHTML = result['dw_ave'];
+	td[7].style.color = "rgb(251, 189, 99)";
+	
+
+	td = tr[5].getElementsByTagName("td");
+	td[2].innerHTML = result['m1'];
+
+	td = tr[6].getElementsByTagName("td");
+	td[1].innerHTML = result['m2'];
+}
+
+function  show_detail_spectrometer(result){
+	var tb = document.getElementsByClassName("tb-content");
+
+	//将改变过的td颜恢复到初始状态
+	td = tb[0].getElementsByTagName("td");
+	for(var i = 1; i<td.length; i++){
+		td[i].style.color = "rgba(21, 20, 20, 0.67)";
+	}
+
+	document.getElementById("d").innerHTML = result['d'];
+	//应该保留4个有效数字，否则显示红色
+	var len = result['d'].length;
+		var count = 0;
+		for( i = 0; i < len; i++){
+			if( result['d'][i] !='0' && result['d'][i]!='.'){
+				for( var j = i; j<len; j++){
+					if(result['d'][j] != '.') count++;
+				}
+				console.log(count)
+				break;
+			}
+		}
+		if(count!=4){
+			document.getElementById("d").style.color = "rgb(244, 88, 88)";
+		}
+
+	document.getElementById("d").innerHTML = result['d'];
+	document.getElementById("d_theoretical").innerHTML = result['constant'];
+	document.getElementById("E_d").innerHTML = result['E_d'];
+	document.getElementById("lambda_yellow_inside").innerHTML = result['lambda_yellow_inside'];
+	document.getElementById("E_lambda_yellow_inside").innerHTML = result['E_yellow_inside'];
+	document.getElementById("lambda_yellow_outside").innerHTML = result['lambda_yellow_inside'];
+	document.getElementById("E_lambda_yellow_outside").innerHTML = result['E_yellow_outside'];
+	document.getElementById("D").innerHTML = result['D_color'];
+	document.getElementById("D_theoretical").innerHTML = result['D_color_theoretical'];
+
+	document.getElementsByClassName("detail_picture_spectrometer")[0].style.backgroundImage = "url(./upload/spectrometer/"+result['stu_num']+".jpg)";
+
+	var i, j;
+	for( i = 10; i<=14; i++){
+		for( j = 1; j<=4; j++){
+			td[i].innerHTML = result['green_'+j];
+		}
+	}
+
+	for( i = 16; i<=20; i++){
+		for( j = 1; j<=4; j++){
+			td[i].innerHTML = result['yellow_inside_'+j];
+		}
+	}
+
+	for( i = 22; i<=26; i++){
+		for( j = 1; j<=4; j++){
+			td[i].innerHTML = result['yellow_outside_'+j];
+		}
+	}
+
+
+
 }
 
 function mark(node){

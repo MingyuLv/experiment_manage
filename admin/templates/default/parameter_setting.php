@@ -103,7 +103,40 @@
 					}
 					echo "</table>";
 				break;
+			case 'moment_inertia':
 		?>
+			<!--本实验不用设置参数-->
+				<script>window.onload = modified_course_status('moment_inertia')</script>
+		<?php		
+				break;
+
+				case 'spectrometer':
+					echo ("实验仪器参数设置 &nbsp;>&nbsp;&nbsp;&nbsp;");
+
+		?>
+				<a href='javascript:void(0)' class='confirm' onclick="modified_course_status_spectrometer()">点击确认</a><br><br>
+		<?php
+
+  				echo sepctrometer_lambda();
+				$out = "
+						<table class='table-search-result' style='width: 500px'>
+							<tr>
+								<th width='150px'>组号</th>
+								<th>光栅常数理论值(nm)</th>
+							</tr>";
+					echo $out;
+
+					if( isset($_GET['action']) && $_GET['action'] == "set"){
+						echo set_parameter($_GET['exp_name']);
+					}
+					else if( isset($_GET['action']) && $_GET['action']=="modified"){
+						echo query_parameter($_GET['exp_name']);
+					}
+					echo "</table>";
+				break;
+		?>
+
+		
 		<?php
 
 		}

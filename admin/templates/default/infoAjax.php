@@ -103,6 +103,9 @@
 	}else if( $_GET['action']=='modified_course_status_newton'){
 		$result = modified_course_status_newton($_GET['user_id'],$_GET['para']);
 		echo $result;
+	}else if( $_GET['action']=='modified_course_status_spectrometer'){
+		$result = modified_course_status_spectrometer($_GET['user_id'],$_GET['para']);
+		echo $result;
 	}
 ?>
 

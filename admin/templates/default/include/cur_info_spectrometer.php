@@ -9,7 +9,7 @@
 
 
 
-<div class="container" name="newton">
+<div class="container" name="spectrometer">
 	<div class="left_item">
 		<div class="widget evaluating">
 			<?php  init_evaluating();?>
@@ -27,7 +27,7 @@
 	                <th>组号</th>
 	                <th>学号</th>
 	                <th>姓名</th>
-	                <th>测量曲率半径</th>
+	                <th>光栅衍射实验</th>
 	                <th>求助</th>
 	                <th>未通过</th>
 	                <th width="120px">成绩</th>
@@ -35,7 +35,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	   			<?php init_info_newton();?>
+	   			<?php init_info_spectrometer();?>
 	        </tbody>
 	    </table>
     </div>
@@ -55,111 +55,72 @@
 		            <span>学号：<span id="stu_num"></span></span>
 		        </div>
 
-				<div class="table_titile" style="margin-top: 20px">一、测量曲率半径</div>
+				<div class="table_titile" style="margin-top: 40px">一、测量曲率半径</div>
 
 		        <table class="tb-content" >
-		           
-		           
-			            <tr>
-			                <td rowspan="2">环序/m</td>
-			                <td colspan="2">显微镜读数/mm</td>
-			                <td rowspan="2">环的直径d<sub>m</sub>/mm</td>
-			                <td rowspan="2">(d<sub>m</sub>)<sup>2</sup>/mm<sup>2</sup></td>
-		            	</tr>
+		           	<tr>
+		           		<td rowspan="2"></td>
+		           		<td colspan="2">k = 1</td>
+		           		<td colspan="2">k = -1</td>
+		           		<td>衍射角</td>
+		           	</tr>
 
-		            	<tr>
-		            		<td>左方</td>
-		            		<td>右方</td>
-		            	</tr>
+					<tr>
+						<td>&#934;<sub>1</sub></td>
+						<td>&#934;<sub>2</sub></td>
+						<td>&#934;<sub>10</sub></td>
+						<td>&#934;<sub>20</sub></td>
+						<td>&#966;</td>
+					</tr>	
 
-		            	<tr>
-		            		<td>6</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
+					<tr>
+						<td>绿光</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					<tr>
 
-		            	<tr>
-		            		<td>7</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
+					<tr>
+						<td>黄光(内)</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
 
-		            	<tr>
-		            		<td>8</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-
-		            	<tr>
-		            		<td>9</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-
-		            	<tr>
-		            		<td>10</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-
-		            	<tr>
-		            		<td>11</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-
-		            	<tr>
-		            		<td>12</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-
-		            	<tr>
-		            		<td>13</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-
-		            	<tr>
-		            		<td>14</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-
-		            	<tr>
-		            		<td>15</td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            		<td></td>
-		            	</tr>
-		            	
+					<tr>
+						<td>黄光(外)</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>	          
 		        </table>
 
-		        <div class="newton_result">
-		        	<span>逐差法计算结果： R = <span id="R_commit"></span></span>
-		        	<span>理论值 R'= <span id="R_set"></span></span>
-		        	<span style="margin-right: 0">相对误差 E = <span id="E_R"></span></span>    
-		        		
-		       	</div>
+		        <p class="spectrometer_p">
+		        	<span>d = <span id="d"></span>nm</span>
+		        	<span>d理论值 = <span id="d_theoretical"></span></span>
+		        	<span style="margin-right: 0">相对误差 E<sub>d</sub> = <span id="E_d"></span></span> 
+		        </p>
+
+		       	<p class="spectrometer_p">   
+		        	<span>&#955;<sub>黄内</sub> = <span id="lambda_yellow_inside"></span></span>
+		        	<span>E<sub>黄内</sub> = <span id="E_lambda_yellow_inside"></span></span>
+		        </p>
+
+		        <p class="spectrometer_p">   
+		        	<span>&#955;<sub>黄外</sub> = <span id="lambda_yellow_outside"></span></span>
+		        	<span>E<sub>黄外</sub> = <span id="E_lambda_yellow_outside"></span></span>
+		        </p>
+		        
+		       	<p class="spectrometer_p">
+		        	<span>色速率 D = <span id="D"></span></span>
+		        	<span>D理论值 = <span id="D_theoretical"></span></span>
+		       	</p>
 
 		        <div class="popup_button" style="margin-top: 20px; float: right; margin-right: -135px">
 		            <button type="button" class="button_1" onclick="pass(1,2)">通过</button>
@@ -167,7 +128,7 @@
 		        </div>
 		    </div>
 
-	        <div class="detail_picture"></div>
+	        <div class="detail_picture_spectrometer"></div>
 				
 	    </div>
 	</div>
