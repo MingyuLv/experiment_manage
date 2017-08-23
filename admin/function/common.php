@@ -872,15 +872,15 @@
  			$result = $result->fetch_assoc();
  			$out .= "
  				<div class='sepctrometer_lambda'>
-					<span>&#955;<sub>黄绿</sub> = <input id='lambda_1' value='".$result['lambda_1']."'></span>
-					<span>&#955;<sub>黄内</sub> = <input id='lambda_2' value='".$result['lambda_2']."'></span>
-					<span>&#955;<sub>黄外</sub> = <input id='lambda_3' value='".$result['lambda_3']."'></span>
+					<span>&#955;<sub>绿</sub> = <input id='lambda_1' value='".$result['lambda_1']." nm'></span>
+					<span>&#955;<sub>黄内</sub> = <input id='lambda_2' value='".$result['lambda_2']." nm'></span>
+					<span>&#955;<sub>黄外</sub> = <input id='lambda_3' value='".$result['lambda_3']." nm'></span>
  				</div>
  			";
  		}else{
  			$out .= "
  				<div class='sepctrometer_lambda'>
-					<span>&#955;<sub>黄绿</sub> = <input id='lambda_1' placeholder='点击输入'></span>
+					<span>&#955;<sub>绿</sub> = <input id='lambda_1' placeholder='点击输入'></span>
 					<span>&#955;<sub>黄内</sub> = <input id='lambda_2' placeholder='点击输入'></span>
 					<span>&#955;<sub>黄外</sub> = <input id='lambda_3' placeholder='点击输入'></span>
  				</div>
