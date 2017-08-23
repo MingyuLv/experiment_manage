@@ -62,7 +62,7 @@
 	                <th>ls(m)</th>
 	                <th>U<sub>0</sub>(V/m<sup>-1</sup>)</th>
 	                <th>U<sub>AB</sub>(V)</th>
-	                <th>误差E</th>
+	                <th>电源电压E</th>
 	            </tr>
             </thead>
             <tbody>

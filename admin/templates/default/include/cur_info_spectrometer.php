@@ -55,7 +55,7 @@
 		            <span>学号：<span id="stu_num"></span></span>
 		        </div>
 
-				<div class="table_titile" style="margin-top: 40px">一、测量曲率半径</div>
+				<div class="table_titile" style="margin-top: 40px">一、光栅衍射</div>
 
 		        <table class="tb-content" >
 		           	<tr>
@@ -103,17 +103,17 @@
 
 		        <p class="spectrometer_p">
 		        	<span>d = <span id="d"></span>nm</span>
-		        	<span>d理论值 = <span id="d_theoretical"></span></span>
+		        	<span>d理论值 = <span id="d_theoretical"></span>nm</span>
 		        	<span style="margin-right: 0">相对误差 E<sub>d</sub> = <span id="E_d"></span></span> 
 		        </p>
 
 		       	<p class="spectrometer_p">   
-		        	<span>&#955;<sub>黄内</sub> = <span id="lambda_yellow_inside"></span></span>
+		        	<span>&#955;<sub>黄内</sub> = <span id="lambda_yellow_inside"></span>nm</span>
 		        	<span>E<sub>黄内</sub> = <span id="E_lambda_yellow_inside"></span></span>
 		        </p>
 
 		        <p class="spectrometer_p">   
-		        	<span>&#955;<sub>黄外</sub> = <span id="lambda_yellow_outside"></span></span>
+		        	<span>&#955;<sub>黄外</sub> = <span id="lambda_yellow_outside"></span>nm</span>
 		        	<span>E<sub>黄外</sub> = <span id="E_lambda_yellow_outside"></span></span>
 		        </p>
 		        
