@@ -894,6 +894,23 @@
  		return  $obj->has_para_lambda();
  	}
 
+ 	function echo_course_status($num){
+ 		$obj = new database();
+ 		$result = $obj->echo_course_status($num);
+ 		if($result == null)
+ 			echo "<span style='color: #404f47'>未开课</span>";
+ 		else echo $result."正在上课";
+ 	}
+
+ 	function cur_user($course_id){
+ 		$obj = new database();
+ 		$result = $obj->echo_course_status($course_id);
+ 		if($result == null)
+ 			return 0;
+ 		else 
+ 			return $result;
+ 	}
+
 
 
 ?>

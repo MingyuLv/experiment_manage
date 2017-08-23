@@ -26,10 +26,10 @@
 						   2）学习使用示波器测量电信号的幅度和频率的方法
 						</p>
 					</div>
-					<!-- <div class="course_card_bottom">
-						<div class="course_card_info">712人在学</div>
-						<div class="course-card-price">￥288.00</div>
-					</div> -->
+					<div class="course_card_bottom">
+						<!-- <div class="course_card_info">712人在学</div> -->
+						<div class="course-card-price"><?php echo_course_status(1);?></div>
+					</div>
 				</a>
 				<div class="course_card_img course_img_1 "></div>	
 			</div>
@@ -50,10 +50,10 @@
 
 						
 					</div>
-					<!-- <div class="course_card_bottom">
-						<div class="course_card_info">712人在学</div>
-						<div class="course-card-price">￥288.00</div>
-					</div> -->
+					<div class="course_card_bottom">
+						<!-- <div class="course_card_info">712人在学</div> -->
+						<div class="course-card-price"><?php echo_course_status(2);?></div>
+					</div>
 				</a>
 				<div class="course_card_img course_img_2 "></div>	
 			</div>
@@ -74,10 +74,10 @@
 							3）验证转动惯量平行轴定理<br>
 						</p>
 					</div>
-					<!-- <div class="course_card_bottom">
-						<div class="course_card_info">712人在学</div>
-						<div class="course-card-price">￥288.00</div>
-					</div> -->
+					<div class="course_card_bottom">
+						<!-- <div class="course_card_info">712人在学</div> -->
+						<div class="course-card-price"><?php echo_course_status(3);?></div>
+					</div>
 				</a>
 				<div class="course_card_img course_img_3 "></div>	
 			</div>
@@ -96,10 +96,10 @@
 						   2）利用分光计测量光栅常数，光波长和角色散率
 						</p>
 					</div>
-					<!-- <div class="course_card_bottom">
-						<div class="course_card_info">712人在学</div>
-						<div class="course-card-price">进行中</div>
-					</div> -->
+					<div class="course_card_bottom">
+						<!-- <div class="course_card_info">712人在学</div> -->
+						<div class="course-card-price"><?php echo_course_status(4);?></div>
+					</div>
 				</a>
 				<div class="course_card_img course_img_4 "></div>	
 			</div>
@@ -118,10 +118,10 @@
            				   2）学习最小二乘法，逐差法处理数据
 						</p>
 					</div>
-					<!-- <div class="course_card_bottom">
-						<div class="course_card_info">712人在学</div>
-						<div class="course-card-price">￥288.00</div>
-					</div> -->
+					<div class="course_card_bottom">
+						<!-- <div class="course_card_info">712人在学</div> -->
+						<div class="course-card-price"><?php echo_course_status(5);?></div>
+					</div>
 				</a>
 				<div class="course_card_img course_img_5 "></div>	
 			</div>
@@ -140,10 +140,10 @@
 						   2）用稳态法测定材料的导热系数
      					</p>
 					</div>
-					<!-- <div class="course_card_bottom">
-						<div class="course_card_info">712人在学</div>
-						<div class="course-card-price">￥288.00</div>
-					</div> -->
+					<div class="course_card_bottom">
+						<!-- <div class="course_card_info">712人在学</div> -->
+						<div class="course-card-price"><?php echo_course_status(6);?></div>
+					</div>
 				</a>
 				<div class="course_card_img course_img_1 "></div>	
 			</div>

@@ -106,6 +106,9 @@
 	}else if( $_GET['action']=='modified_course_status_spectrometer'){
 		$result = modified_course_status_spectrometer($_GET['user_id'],$_GET['para']);
 		echo $result;
+	}else if( $_GET['action']=='cur_user'){
+		$result = cur_user($_GET['course_id']);
+		echo $result;
 	}
 ?>
 

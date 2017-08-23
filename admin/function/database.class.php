@@ -577,4 +577,11 @@ class database{
 		if( ($result->num_rows) == 0) return null;
 		else return $result;
 	}
+
+	function echo_course_status($num){
+		$result = $this->db->query("SELECT `name` FROM `{$this->tablePrefix}_user` WHERE `cur_course`='$num'");
+		if(!$result) return null;
+		$result = $result->fetch_assoc();
+		return $result['name'];
+	}
 }

@@ -17,6 +17,13 @@ function startCourse(obj,course_id){
 		alert("开课时间最早为上课前半小时！");
 		return;
 	}
+	var current_user = document.getElementsByClassName("course-card-price")[course_id-1];
+
+	if( current_user.innerHTML[0] != '<'){
+		alert(current_user.innerHTML+"正在上课！请联系该老师");
+		return;
+	}
+
 	var user_id = (document.getElementById("uid")).getAttribute("name");
 	var experiment_name = document.getElementById("experiment_name");
 	obj1 = (obj.getElementsByTagName("span"))[0];
@@ -53,6 +60,22 @@ function startCourse(obj,course_id){
 
 function if_course_time(){
 	return 1;
+}
+
+function cur_user(course_id){
+	var xmlobj = createXMLHttpRequest();		
+	xmlobj.open("GET","./templates/default/infoAjax.php?action=cur_user&course_id="+course_id,false);
+	xmlobj.onreadystatechange = function(){
+		if( xmlobj.readyState == 4 && xmlobj.status == 200){
+			// alert('here');
+			console.log(xmlobj.responseText);
+			if( xmlobj.responseText == 0){
+				return null;
+			}else
+				return xmlobj.responseText;
+		}
+	}
+	xmlobj.send();	
 }
 
 function if_cur_course(course_id){

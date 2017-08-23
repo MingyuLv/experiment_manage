@@ -722,6 +722,8 @@ table.tb-content td{
 
 .course_card_bottom .course-card-price{
 	float: right;
+	margin-top: 30px;
+	margin-right: 5px;
     color: #f01414;
     font-weight: 200;
 }
