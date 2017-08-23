@@ -630,79 +630,83 @@ function show_detail_oscillograph(result){
 	for(var i = 1; i<td.length; i++){
 		td[i].style.color = "rgba(21, 20, 20, 0.67";
 	}
+	td = tb[1].getElementsByTagName("td");
+	for(var i = 1; i<td.length; i++){
+		td[i].style.color = "rgba(21, 20, 20, 0.67";
+	}
 			
-		td = tb[0].getElementsByTagName("td");
-		td[0].innerHTML = result['v_std'];
-		td[1].innerHTML = result['f_std'];
-		td[2].innerHTML = result['V_DIV'];
-		td[3].innerHTML = result['Dy'];
-		td[4].innerHTML = result['v_up'];
-		td[5].innerHTML = result['E_v'];
-		td[6].innerHTML = result['TIME_DIV'];
-		td[7].innerHTML = result['n'];
-		td[8].innerHTML = result['Dx'];
-		td[9].innerHTML = result['T'];
-		td[10].innerHTML = result['f_up'];
-		td[11].innerHTML = result['E_f'];
+	td = tb[0].getElementsByTagName("td");
+	td[0].innerHTML = result['v_std'];
+	td[1].innerHTML = result['f_std'];
+	td[2].innerHTML = result['V_DIV'];
+	td[3].innerHTML = result['Dy'];
+	td[4].innerHTML = result['v_up'];
+	td[5].innerHTML = result['E_v'];
+	td[6].innerHTML = result['TIME_DIV'];
+	td[7].innerHTML = result['n'];
+	td[8].innerHTML = result['Dx'];
+	td[9].innerHTML = result['T'];
+	td[10].innerHTML = result['f_up'];
+	td[11].innerHTML = result['E_f'];
 
-		//Dx和Dy应该保留一位小数
-		var len = result['Dy'].length;
-		if( result['Dy'][len-2] != '.') {
-			td[3].style.color = "rgb(244, 88, 88)";
-		}
-		len = result['Dx'].length;
-		if( result['Dx'][len-2] != '.') {
-			td[8].style.color = "rgb(244, 88, 88)";
-		}
-		//误差大于10%标记为红色
-		// console.log(parseFloat(result['E_v']));
-		// console.log(parseFloat(result['E_f']));
-		if( parseFloat(result['E_v'])>10){
-			td[5].style.color = "rgb(244, 88, 88)";
-		}
-		if( parseFloat(result['E_f'])>10){
-			td[11].style.color = "rgb(244, 88, 88)";
-		}
+	//Dx和Dy应该保留一位小数
+	var len = result['Dy'].length;
+	if( result['Dy'][len-2] != '.') {
+		td[3].style.color = "rgb(244, 88, 88)";
+	}
+	len = result['Dx'].length;
+	if( result['Dx'][len-2] != '.') {
+		td[8].style.color = "rgb(244, 88, 88)";
+	}
+	//误差大于10%标记为红色
+	// console.log(parseFloat(result['E_v']));
+	// console.log(parseFloat(result['E_f']));
+	if( parseFloat(result['E_v'])>10){
+		td[5].style.color = "rgb(244, 88, 88)";
+	}
+	if( parseFloat(result['E_f'])>10){
+		td[11].style.color = "rgb(244, 88, 88)";
+	}
 
 
-		td = tb[1].getElementsByTagName("td");
-		td[0].innerHTML = result['Nx1'];
-		td[1].innerHTML = result['Nx2'];
-		td[2].innerHTML = result['Nx3'];
-		td[3].innerHTML = result['Nx4'];
-		td[4].innerHTML = result['Ny1'];
-		td[5].innerHTML = result['Ny2'];
-		td[6].innerHTML = result['Ny3'];
-		td[7].innerHTML = result['Ny4'];
-		td[8].innerHTML = result['fy1'];
-		td[9].innerHTML = result['fy2'];
-		td[10].innerHTML = result['fy3'];
-		td[11].innerHTML = result['fy4'];
+	td = tb[1].getElementsByTagName("td");
+	td[0].innerHTML = result['Nx1'];
+	td[1].innerHTML = result['Nx2'];
+	td[2].innerHTML = result['Nx3'];
+	td[3].innerHTML = result['Nx4'];
+	td[4].innerHTML = result['Ny1'];
+	td[5].innerHTML = result['Ny2'];
+	td[6].innerHTML = result['Ny3'];
+	td[7].innerHTML = result['Ny4'];
+	td[8].innerHTML = result['fy1'];
+	td[9].innerHTML = result['fy2'];
+	td[10].innerHTML = result['fy3'];
+	td[11].innerHTML = result['fy4'];
 
-		//满足fx/fy=Ny/Nx （fx固定为500）
-		if( 500/result['fy1'] != result['Ny1']/result['Nx1']) {
-			td[0].style.color = "rgb(244, 88, 88)";
-			td[4].style.color = "rgb(244, 88, 88)";
-			td[8].style.color = "rgb(244, 88, 88)";
-		}
+	//满足fx/fy=Ny/Nx （fx固定为500）
+	if( 500/result['fy1'] != result['Ny1']/result['Nx1']) {
+		td[0].style.color = "rgb(244, 88, 88)";
+		td[4].style.color = "rgb(244, 88, 88)";
+		td[8].style.color = "rgb(244, 88, 88)";
+	}
 
-		if( 500/result['fy2'] != result['Ny2']/result['Nx2']) {
-			td[1].style.color = "rgb(244, 88, 88)";
-			td[5].style.color = "rgb(244, 88, 88)";
-			td[9].style.color = "rgb(244, 88, 88)";
-		}
+	if( 500/result['fy2'] != result['Ny2']/result['Nx2']) {
+		td[1].style.color = "rgb(244, 88, 88)";
+		td[5].style.color = "rgb(244, 88, 88)";
+		td[9].style.color = "rgb(244, 88, 88)";
+	}
 
-		if( 500/result['fy3'] != result['Ny3']/result['Nx3']) {
-			td[2].style.color = "rgb(244, 88, 88)";
-			td[6].style.color = "rgb(244, 88, 88)";
-			td[10].style.color = "rgb(244, 88, 88)";
-		}
+	if( 500/result['fy3'] != result['Ny3']/result['Nx3']) {
+		td[2].style.color = "rgb(244, 88, 88)";
+		td[6].style.color = "rgb(244, 88, 88)";
+		td[10].style.color = "rgb(244, 88, 88)";
+	}
 
-		if( 500/result['fy4'] != result['Ny4']/result['Nx4']) {
-			td[3].style.color = "rgb(244, 88, 88)";
-			td[7].style.color = "rgb(244, 88, 88)";
-			td[11].style.color = "rgb(244, 88, 88)";
-		}
+	if( 500/result['fy4'] != result['Ny4']/result['Nx4']) {
+		td[3].style.color = "rgb(244, 88, 88)";
+		td[7].style.color = "rgb(244, 88, 88)";
+		td[11].style.color = "rgb(244, 88, 88)";
+	}
 
 }
 function show_detail_potentioneter(result){
@@ -712,6 +716,11 @@ function show_detail_potentioneter(result){
 		for(var i = 1; i<td.length; i++){
 			td[i].style.color = "rgba(21, 20, 20, 0.67";
 		}
+		td = tb[1].getElementsByTagName("td");
+		for(var i = 1; i<td.length; i++){
+			td[i].style.color = "rgba(21, 20, 20, 0.67";
+		}
+
 		
 		td = tb[0].getElementsByTagName("td");
 		td[0].innerHTML = result['U_ab'];
@@ -923,6 +932,10 @@ function show_detail_moment_inertia(result){
 	td = tb[0].getElementsByTagName("td");
 	for(var i = 1; i<td.length; i++){
 		td[i].style.color = "rgba(21, 20, 20, 0.67)";
+	}
+	td = tb[1].getElementsByTagName("td");
+	for(var i = 1; i<td.length; i++){
+		td[i].style.color = "rgba(21, 20, 20, 0.67";
 	}
 
 	tr = tb[0].getElementsByTagName("tr");
