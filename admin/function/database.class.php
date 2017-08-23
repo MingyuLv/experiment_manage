@@ -103,8 +103,12 @@ class database{
 	}
 
 	function close_course($user_id, $course_name){
+		//结束课堂
+
+		//修改status表
 		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=0,`user_id`=null,`class_num`=null WHERE `name`='{$course_name}'";
 		$result = $this->db->query($sql);
+		//修改user表
 		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`=null WHERE `uid`='{$user_id}'";
 		$result1 = $this->db->query($sql);
 		if($result && $result1) return 1;
@@ -487,7 +491,7 @@ class database{
 		$sql = "SELECT `course_id` FROM `{$this->tablePrefix}_status` WHERE `name`='{$exp_name}'";
 		$result = $this->db->query($sql);
 		$result = $result->fetch_assoc();
-		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']}";
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']} WHERE `uid`='$user_id'";
 		$result = $this->db->query($sql);
 		if($result)
 			return 1;

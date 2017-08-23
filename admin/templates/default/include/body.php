@@ -20,14 +20,16 @@
 					</div>
 					<div class="course_card_content">
 						<h3 class="course_card_name">
-							BAT大咖助力 全面升级Android面试
+							实验内容：
 						</h3>
-						<p>2017最全面的Android面试课程，赢取称心offer的不二之选</p>
+						<p>1）学习使用示波器观察电信号波形和李萨如图形<br>
+						   2）学习使用示波器测量电信号的幅度和频率的方法
+						</p>
 					</div>
-					<div class="course_card_bottom">
+					<!-- <div class="course_card_bottom">
 						<div class="course_card_info">712人在学</div>
 						<div class="course-card-price">￥288.00</div>
-					</div>
+					</div> -->
 				</a>
 				<div class="course_card_img course_img_1 "></div>	
 			</div>
@@ -40,14 +42,18 @@
 					</div>
 					<div class="course_card_content">
 						<h3 class="course_card_name">
-							BAT大咖助力 全面升级Android面试
+							实验内容：
 						</h3>
-						<p>2017最全面的Android面试课程，赢取称心offer的不二之选</p>
+						<p>1）了解电位差计的工作原理<br>
+						   2）学习使用电位差计测量电源电动势
+						</p>
+
+						
 					</div>
-					<div class="course_card_bottom">
+					<!-- <div class="course_card_bottom">
 						<div class="course_card_info">712人在学</div>
 						<div class="course-card-price">￥288.00</div>
-					</div>
+					</div> -->
 				</a>
 				<div class="course_card_img course_img_2 "></div>	
 			</div>
@@ -61,14 +67,17 @@
 					</div>
 					<div class="course_card_content">
 						<h3 class="course_card_name">
-							BAT大咖助力 全面升级Android面试
+							实验内容：
 						</h3>
-						<p>2017最全面的Android面试课程，赢取称心offer的不二之选</p>
+						<p> 1）掌握转动惯量的概念和测量原理<br>
+							2）掌握游标卡尺的使用方法<br>
+							3）验证转动惯量平行轴定理<br>
+						</p>
 					</div>
-					<div class="course_card_bottom">
+					<!-- <div class="course_card_bottom">
 						<div class="course_card_info">712人在学</div>
 						<div class="course-card-price">￥288.00</div>
-					</div>
+					</div> -->
 				</a>
 				<div class="course_card_img course_img_3 "></div>	
 			</div>
@@ -81,14 +90,16 @@
 					</div>
 					<div class="course_card_content">
 						<h3 class="course_card_name">
-							BAT大咖助力 全面升级Android面试
+								实验内容：
 						</h3>
-						<p>2017最全面的Android面试课程，赢取称心offer的不二之选</p>
+						<p>1）学习分光计的结构和调节方法
+						   2）利用分光计测量光栅常数，光波长和角色散率
+						</p>
 					</div>
-					<div class="course_card_bottom">
+					<!-- <div class="course_card_bottom">
 						<div class="course_card_info">712人在学</div>
-						<div class="course-card-price">￥288.00</div>
-					</div>
+						<div class="course-card-price">进行中</div>
+					</div> -->
 				</a>
 				<div class="course_card_img course_img_4 "></div>	
 			</div>
@@ -101,14 +112,16 @@
 					</div>
 					<div class="course_card_content">
 						<h3 class="course_card_name">
-							BAT大咖助力 全面升级Android面试
+								实验内容：
 						</h3>
-						<p>2017最全面的Android面试课程，赢取称心offer的不二之选</p>
+						<p>1）观察光的等厚干涉现象<br>
+           				   2）学习最小二乘法，逐差法处理数据
+						</p>
 					</div>
-					<div class="course_card_bottom">
+					<!-- <div class="course_card_bottom">
 						<div class="course_card_info">712人在学</div>
 						<div class="course-card-price">￥288.00</div>
-					</div>
+					</div> -->
 				</a>
 				<div class="course_card_img course_img_5 "></div>	
 			</div>
@@ -121,14 +134,16 @@
 					</div>
 					<div class="course_card_content">
 						<h3 class="course_card_name">
-							BAT大咖助力 全面升级Android面试
+								实验内容：
 						</h3>
-						<p>2017最全面的Android面试课程，赢取称心offer的不二之选</p>
+						<p>1）了解热传导的物理过程<br>
+						   2）用稳态法测定材料的导热系数
+     					</p>
 					</div>
-					<div class="course_card_bottom">
+					<!-- <div class="course_card_bottom">
 						<div class="course_card_info">712人在学</div>
 						<div class="course-card-price">￥288.00</div>
-					</div>
+					</div> -->
 				</a>
 				<div class="course_card_img course_img_1 "></div>	
 			</div>
