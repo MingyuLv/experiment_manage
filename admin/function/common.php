@@ -173,15 +173,33 @@
  	}
 
  	function search_info_date($date,$user_name){
- 		if($date==''){
- 			$date1 = '全部显示';
- 		}else{
- 			$date1 = $date;
- 		}
  		$out = "";
  		$obj = new database();
  		$result = $obj->search_info_date($date,$user_name);
- 		if($result){
+
+ 		if($date==''){
+ 			$date1 = '全部显示';
+ 			if($result){
+	 			$flag = 1;		
+	 			while($data = $result->fetch_assoc()){
+	 				if($flag == 1){
+	 					$out .= "<div class='search-stu-info' style='padding-left: 310px'>";
+	 					$out .= "查询日期：&nbsp;&nbsp;&nbsp;".$date1."</div>";
+	 					$flag += 1;
+	 				}
+	 				$out .= "<tr name='".$data['order']."'>";	
+	 					$time = $data['time'];
+	 					$out .= "<td class='exp_time' name='".$data['time']."'>".$time."</td>";
+		 				$out .= "<td class='exp_name' name='".$data['exp_name_en']."'>".$data['exp_name']."</td>";
+		 				$out .= "<td>".$data['teacher']."</td>";
+		 				$out .= "<td><button onclick='detail_via_date(this)' class='button-detail'>查看</button></td>";
+	 				$out .= "</tr>";
+	 			}
+	 	
+	 	}
+ 		}else{
+ 			$date1 = $date;
+ 			if($result){
 	 			$flag = 1;		
 	 			while($data = $result->fetch_assoc()){
 	 				if($flag == 1){
@@ -199,6 +217,8 @@
 	 			}
 	 	
 	 	}
+ 		}
+ 		
  		return $out;
  	}
 
@@ -349,8 +369,13 @@
 	 			$result = $result->fetch_assoc();
 	 			$out .= "
 					<div class='popup-bg' id='popup-bg' style='display: block'>
-						 <div class='popup-detail' >
-						 <button class='detail-close' onclick='search_close_popup()'><span aria-hidden='true'>×</span></button>
+						<div class='popup-detail' >
+						<button class='detail-close' onclick='search_close_popup()'><span aria-hidden='true'>×</span></button>
+
+						<div class='stu_info' style='margin-top: 0px'>
+					        <span>姓名：<span id='stu_name'>".$result['stu_name']."</span></span>
+					        <span>学号：<span id='stu_num'>".$result['stu_num']."</span></span>
+					    </div>
 
 				 		 <div class='table_titile' style='margin-top: 80px; margin-bottom: 35px'>一、测量正弦波</div>
 				         <table class='tb-content'>
@@ -421,11 +446,15 @@
 	 			$result = $result->fetch_assoc();
 	 			$out .= "
 					<div class='popup-bg' id='popup-bg' style='display: block'>
-						 <div class='popup-detail' >
-						 <button class='detail-close' onclick='search_close_popup()'><span aria-hidden='true'>×</span></button>
+						<div class='popup-detail' >
+						<button class='detail-close' onclick='search_close_popup()'><span aria-hidden='true'>×</span></button>
 
-				 		 <div class='table_titile' style='margin-top: 80px; margin-bottom: 35px'>一、定标</div>
-				         <table class='tb-content'>
+						<div class='stu_info' style='margin-top: 0px'>
+					        <span>姓名：<span id='stu_name'>".$result['stu_name']."</span></span>
+					        <span>学号：<span id='stu_num'>".$result['stu_num']."</span></span>
+					    </div>
+				 		<div class='table_titile' style='margin-top: 80px; margin-bottom: 35px'>一、定标</div>
+				        <table class='tb-content'>
 							<thead>
 					            <tr>
 					                <th>U_ab</th>
@@ -480,6 +509,527 @@
 				    </div>
 				</div>";
 				break;
+			case 'moment_inertia':
+	 			$result = $result->fetch_assoc();
+	 			$out .= "
+					<div class='popup-bg' id='popup-bg' style='display: block'>
+						 <div class='popup-detail' style='height: 670px; width: 770px'>
+						 <button class='detail-close' onclick='close_popup()' style='margin-top: -25px'><span aria-hidden='true'>×</span></button>
+
+					        <div class='stu_info' style='margin-top: 0px'>
+					            <span>姓名：<span id='stu_name'>".$result['stu_name']."</span></span>
+					            <span>学号：<span id='stu_num'>".$result['stu_num']."</span></span>
+					        </div>
+
+							<div class='table_titile' style='margin-top: 10px'>数据表一、</div>
+
+					        <table class='tb-content' >
+
+						            <tr>
+						                <td>物体</td>
+						                <td width='100px'>摆轮</td>
+						                <td>摆轮+圆环</td>
+						                <td width='120px'>摆轮+飞机模型</td>
+						                <td width='120px'>摆轮+两圆柱</td>
+					            	</tr>
+
+					            	 <tr>
+						                <td style='position: relative;'>
+						                	<div class='moment_inertia_time'>时间t</div>
+						                <!-- 	<div class='moment_inertia_slash'></div> -->
+						                 	<canvas id='moment_inertia_slash' width='120px' height='47px'></canvas>
+						                	<div class='moment_inertia_order'>次数</div>
+						                </td>
+
+						                <script type='text/javascript'>
+						                	//绘制斜线
+						                	var canvas = document.getElementById('moment_inertia_slash');
+				        					var context = canvas.getContext('2d');//二维
+						                	context.lineWidth = 0.2; // 线条宽度
+				       						context.strokeStyle = 'rgb(0, 0, 0)'; // 线条颜色
+				        					context.lineCap = 'round'; // 线头形状
+				       						context.moveTo(0, 0); // 起点
+				       						context.lineTo(120, 47); // 终点
+									        // 绘制
+									        context.stroke();
+						                </script>
+
+						                <td>t<sub>0</sub></td>
+						                <td>t<sub>1</sub></td>
+						                <td>t<sub>2</sub></td>
+						                <td>t<sub>3</sub></td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>1</td>
+					            		<td>".$result['t0_1']."</td>
+					            		<td>".$result['t1_1']."</td>
+					            		<td>".$result['t2_1']."</td>
+					            		<td>".$result['t3_1']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>2</td>
+					            		<td>".$result['t0_2']."</td>
+					            		<td>".$result['t1_2']."</td>
+					            		<td>".$result['t2_2']."</td>
+					            		<td>".$result['t3_2']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>3</td>
+					            		<td>".$result['t0_3']."</td>
+					            		<td>".$result['t1_3']."</td>
+					            		<td>".$result['t2_3']."</td>
+					            		<td>".$result['t3_3']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>4</td>
+					            		<td>".$result['t0_4']."</td>
+					            		<td>".$result['t1_4']."</td>
+					            		<td>".$result['t2_4']."</td>
+					            		<td>".$result['t3_4']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>5</td>
+					            		<td>".$result['t0_5']."</td>
+					            		<td>".$result['t1_5']."</td>
+					            		<td>".$result['t2_5']."</td>
+					            		<td>".$result['t3_5']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>6</td>
+					            		<td>".$result['t0_6']."</td>
+					            		<td>".$result['t1_6']."</td>
+					            		<td>".$result['t2_6']."</td>
+					            		<td>".$result['t3_6']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>t（平均）</td>
+					            		<td>".$result['t0_ave']."</td>
+					            		<td>".$result['t1_ave']."</td>
+					            		<td>".$result['t2_ave']."</td>
+					            		<td>".$result['t3_ave']."</td>
+					            	</tr>
+
+					        </table>
+
+					        <div class='table_titile' style='margin-top: 20px'>数据表二、</div>
+
+					        <table class='tb-content'>
+					        	<tr>
+									<td colspan='2' width='200px'>次序</td>
+									<td width='60px'>1</td>
+									<td width='60px'>2</td>
+									<td width='60px'>3</td>
+									<td width='60px'>4</td>
+									<td width='60px'>5</td>
+									<td width='60px'>6</td>
+									<td width='60px'>平均</td>
+					        	</tr>
+
+					        	<tr>
+					        		<td rowspan='2'>圆柱</td>
+					        		<td>直径d/cm</td>
+					        		<td>".$result['d1']."</td>
+					        		<td>".$result['d2']."</td>
+					        		<td>".$result['d3']."</td>
+					        		<td>".$result['d4']."</td>
+					        		<td>".$result['d5']."</td>
+					        		<td>".$result['d6']."</td>
+					        		<td>".$result['d_ave']."</td>
+					        	</tr>
+
+					        	<tr>
+					        		<td>距离x/cm</td>
+					        		<td colspan='4'>".$result['x']."</td>
+					        		<td colspan='4'>".$result['x_theoretical']."</td>
+					        	</tr>
+
+
+					        	<tr>
+					        		<td rowspan='2'>圆环</td>
+					        		<td>d<sub>内</sub>/cm</td>
+					        		<td>".$result['dn_1']."</td>
+					        		<td>".$result['dn_2']."</td>
+					        		<td>".$result['dn_3']."</td>
+					        		<td>".$result['dn_4']."</td>
+					        		<td>".$result['dn_5']."</td>
+					        		<td>".$result['dn_6']."</td>
+					        		<td>".$result['dn_ave']."</td>
+					        	</tr>
+
+					        	<tr>
+					        		<td>d<sub>外</sub>/cm</td>
+					        		<td>".$result['dw_1']."</td>
+					        		<td>".$result['dw_2']."</td>
+					        		<td>".$result['dw_3']."</td>
+					        		<td>".$result['dw_4']."</td>
+					        		<td>".$result['dw_5']."</td>
+					        		<td>".$result['dw_6']."</td>
+					        		<td>".$result['dw_ave']."</td>
+					        	</tr>
+
+					        	<tr>
+					        		<td rowspan='2'>质量</td>
+					        		<td>圆环m1/g</td>
+					        		<td colspan='7'>".$result['m1']."</td>
+					        	</tr>
+
+					        	<tr>
+					        		<td>圆环m1/g</td>
+					        		<td colspan='7'>".$result['m2']."</td>
+					        	</tr>
+
+					        </table>
+
+					    </div>
+					</div>
+					";
+				break;
+			case 'spectrometer':
+				$result = $result->fetch_assoc();
+				$out .= "
+					<div class='popup-bg' id='popup-bg' style='display: block'>
+						<div class='popup-detail' style='height: 550px; width: 1100px' >
+							<button class='detail-close' onclick='search_close_popup()'><span aria-hidden='true'>×</span></button>
+							
+							<div class='detail_content'>
+								<div class='stu_info' style='margin-top: 20px; margin-left: 30px'>
+							        <span>姓名：<span id='stu_name'>".$result['stu_name']."</span></span>
+							        <span>学号：<span id='stu_num'>".$result['stu_num']."</span></span>
+							    </div>
+					
+							    <div class='table_titile' style='margin-top: 40px'>一、光栅衍射</div>
+
+						        <table class='tb-content' >
+						           	<tr>
+						           		<td rowspan='2'></td>
+						           		<td colspan='2'>k = 1</td>
+						           		<td colspan='2'>k = -1</td>
+						           		<td>衍射角</td>
+						           	</tr>
+
+									<tr>
+										<td>&#934;<sub>1</sub></td>
+										<td>&#934;<sub>2</sub></td>
+										<td>&#934;<sub>10</sub></td>
+										<td>&#934;<sub>20</sub></td>
+										<td>&#966;</td>
+									</tr>	
+
+									<tr>
+										<td>绿光</td>
+										<td>".$result['green_1']."</td>
+										<td>".$result['green_2']."</td>
+										<td>".$result['green_3']."</td>
+										<td>".$result['green_4']."</td>
+										<td>".$result['green_angle']."</td>
+									<tr>
+
+									<tr>
+										<td>黄光(内)</td>
+										<td>".$result['yellow_inside_1']."</td>
+										<td>".$result['yellow_inside_2']."</td>
+										<td>".$result['yellow_inside_3']."</td>
+										<td>".$result['yellow_inside_4']."</td>
+										<td>".$result['yellow_inside_angle']."</td>
+									</tr>
+
+									<tr>
+										<td>黄光(外)</td>
+										<td>".$result['yellow_outside_1']."</td>
+										<td>".$result['yellow_outside_2']."</td>
+										<td>".$result['yellow_outside_3']."</td>
+										<td>".$result['yellow_outside_4']."</td>
+										<td>".$result['yellow_outside_angle']."</td>
+									</tr>	          
+						        </table>
+
+								        <p class='spectrometer_p'>
+								        	<span>d = <span id='d'>".$result['d']."</span>nm</span>
+								        	<span>d理论值 = <span id='d_theoretical'>".$result['constant']."</span>nm</span>
+								        	<span style='margin-right: 0'>相对误差 E<sub>d</sub> = <span id='E_d'>".$result['E_d']."</span></span> 
+								        </p>
+
+								       	<p class='spectrometer_p'>   
+								        	<span>&#955;<sub>黄内</sub> = <span id='lambda_yellow_inside'>".$result['lambda_yellow_inside']."</span>nm</span>
+								        	<span>E<sub>黄内</sub> = <span id='E_lambda_yellow_inside'>".$result['E_yellow_inside']."</span></span>
+								        </p>
+
+								        <p class='spectrometer_p'>   
+								        	<span>&#955;<sub>黄外</sub> = <span id='lambda_yellow_outside'>".$result['lambda_yellow_outside']."</span>nm</span>
+								        	<span>E<sub>黄外</sub> = <span id='E_lambda_yellow_outside'>".$result['E_yellow_outside']."</span></span>
+								        </p>
+								        
+								       	<p class='spectrometer_p'>
+								        	<span>色速率 D = <span id='D'>".$result['D_color']."</span></span>
+								        	<span>D理论值 = <span id='D_theoretical'>".$result['D_color_theoretical']."</span></span>
+								       	</p>
+
+							</div>
+								
+							<div class='detail_picture_spectrometer' style='background-image: url(./upload/spectrometer/".$result['stu_num'].".jpg)'></div>
+										
+						</div>
+					</div>
+
+				";
+				break;
+			case 'newton':
+				$result = $result->fetch_assoc();
+				// var_dump($result);
+				$out .= "
+					<div class='popup-bg' id='popup-bg'  style='display: block'>
+						<div class='popup-detail' style='height: 550px; width: 1100px'>
+							<button class='detail-close' onclick='search_close_popup()''><span aria-hidden='true'>×</span></button>
+							<div class='detail_content'>
+		        				<div class='stu_info' style='margin-top: 20px; margin-left: 30px'>
+						            <span>姓名：<span id='stu_name'>".$result['stu_name']."</span></span>
+							        <span>学号：<span id='stu_num'>".$result['stu_num']."</span></span>
+		        				</div>
+
+								<div class='table_titile' style='margin-top: 20px'>一、测量曲率半径</div>
+
+						        <table class='tb-content' >
+						            <tr>
+						                <td rowspan='2'>环序/m</td>
+						                <td colspan='2'>显微镜读数/mm</td>
+						                <td rowspan='2'>环的直径d<sub>m</sub>/mm</td>
+						                <td rowspan='2'>(d<sub>m</sub>)<sup>2</sup>/mm<sup>2</sup></td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>左方</td>
+					            		<td>右方</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>6</td>
+					            		<td>".$result['L6']."</td>
+					            		<td>".$result['R6']."</td>
+					            		<td>".$result['d6']."</td>
+					            		<td>".$result['q6']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>7</td>
+					            		<td>".$result['L7']."</td>
+					            		<td>".$result['R7']."</td>
+					            		<td>".$result['d7']."</td>
+					            		<td>".$result['q7']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>8</td>
+					            		<td>".$result['L8']."</td>
+					            		<td>".$result['R8']."</td>
+					            		<td>".$result['d8']."</td>
+					            		<td>".$result['q8']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>9</td>
+					            		<td>".$result['L9']."</td>
+					            		<td>".$result['R9']."</td>
+					            		<td>".$result['d9']."</td>
+					            		<td>".$result['q9']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>10</td>
+					            		<td>".$result['L10']."</td>
+					            		<td>".$result['R10']."</td>
+					            		<td>".$result['d10']."</td>
+					            		<td>".$result['q10']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>11</td>
+					            		<td>".$result['L11']."</td>
+					            		<td>".$result['R11']."</td>
+					            		<td>".$result['d11']."</td>
+					            		<td>".$result['q11']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>12</td>
+					            		<td>".$result['L12']."</td>
+					            		<td>".$result['R12']."</td>
+					            		<td>".$result['d12']."</td>
+					            		<td>".$result['q12']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>13</td>
+					            		<td>".$result['L13']."</td>
+					            		<td>".$result['R13']."</td>
+					            		<td>".$result['d13']."</td>
+					            		<td>".$result['q13']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>14</td>
+					            		<td>".$result['L14']."</td>
+					            		<td>".$result['R14']."</td>
+					            		<td>".$result['d14']."</td>
+					            		<td>".$result['q14']."</td>
+					            	</tr>
+
+					            	<tr>
+					            		<td>15</td>
+					            		<td>".$result['L15']."</td>
+					            		<td>".$result['R15']."</td>
+					            		<td>".$result['d15']."</td>
+					            		<td>".$result['q15']."</td>
+					            	</tr>
+					            	
+					       		</table>
+
+						        <div class='newton_result'>
+						        	<span>逐差法计算结果： R = <span id='R_commit'>".$result['radius_commit']."</span></span>
+						        	<span>理论值 R'= <span id='R_set'>".$result['radius']."</span></span>
+						        	<span style='margin-right: 0'>相对误差 E = <span id='E_R'>".$result['E_R']."</span></span>    
+						        		
+						       	</div>
+
+						    </div>
+
+					        <div class='detail_picture' style='background-image: url(./upload/newton/".$result['stu_num'].".jpg)'></div>
+								
+					    </div>
+					</div>
+				";
+				break;
+			case 'thermal_conductivity':
+				$result = $result->fetch_assoc();
+				$out .= "
+					<div class='popup-bg' id='popup-bg' style='display: block'>
+		 				<div class='popup-detail' style='padding-top: 15px; height: 550px'>
+						    <button class='detail-close' onclick='search_close_popup()''><span aria-hidden='true'>×</span></button>
+
+					        <div class='stu_info'>
+					            <span>姓名：<span id='stu_name'>".$result['stu_name']."</span></span>
+							    <span>学号：<span id='stu_num'>".$result['stu_num']."</span></span>
+					        </div>
+
+							<div class='table_titile' style='margin-top: 20px'>一、铜盘在T2附近自然冷却时的温度示值</div>
+
+	        				<table class='tb-content'>
+	           
+				            <tr>
+				                <td colspan='1' width='150px'>稳态时的温度示值</td>
+							    <td colspan='5' style='text-align: left; padding-left: 50px'>高温T1=<span id='T_1'>".$result['T_1']."</span></td>
+							    <td colspan='5' style='text-align: left; padding-left: 50px'>低温T2= <span id='T_2'>".$result['T_2']."</span></td>
+				            </tr>
+			           
+				            <tr>
+				                <td>次序</td>
+				                <td>1</td>
+				                <td>2</td>
+				                <td>3</td>
+				                <td>4</td>
+				                <td>5</td>
+				                <td>6</td>
+				                <td>7</td>
+				                <td>8</td>
+				                <td>9</td>
+				                <td>10</td>
+		           			</tr>
+
+			           		<tr>
+				                <td>时间t/s</td>
+				                <td>".$result['t1']."</td>
+				                <td>".$result['t2']."</td>
+				                <td>".$result['t3']."</td>
+				                <td>".$result['t4']."</td>
+				                <td>".$result['t5']."</td>
+				                <td>".$result['t6']."</td>
+				                <td>".$result['t7']."</td>
+				                <td>".$result['t8']."</td>
+				                <td>".$result['t9']."</td>
+				                <td>".$result['t10']."</td>
+			           		</tr>
+								
+							<tr>
+				                <td>温度示值T/C</td>
+				                <td>".$result['te1']."</td>
+				                <td>".$result['te2']."</td>
+				                <td>".$result['te3']."</td>
+				                <td>".$result['te4']."</td>
+				                <td>".$result['te5']."</td>
+				                <td>".$result['te6']."</td>
+				                <td>".$result['te7']."</td>
+				                <td>".$result['te8']."</td>
+				                <td>".$result['te9']."</td>
+				                <td>".$result['te10']."</td>
+			           		</tr>
+
+			      		</table>
+			           		<p style='position: absolute; margin-left: 35px; margin-top: 10px; color: rgba(21, 20, 20, 0.67)'>温度变化率：<span id='change_rate'>".$result['change_rate']."</span> &nbsp;&#8451;/s</p>      
+
+
+		 				<div class='table_titile' style='margin-top: 40px'>二、几何尺寸和质量的测量</div>
+
+			      	    <table class='tb-content' style='width:600px;'>
+				            <tr>
+				                <td colspan='2'>次序</td>
+				                <td width='50px'>1</td>
+				                <td width='50px'>2</td>
+				                <td width='50px'>3</td>
+				                <td width='50px'>4</td>
+				                <td width='50px'>5</td>
+				                <td width='50px'>6</td>
+				                <td width='50px'>平均</td>
+				            </tr>
+				            <tr>
+				                <td rowspan='2'>样品盘B</td>
+				                <td>厚度h<sub>B</sub>/cm</td>
+				                <td>".$result['hb1']."</td>
+				                <td>".$result['hb2']."</td>
+				                <td>".$result['hb3']."</td>
+				                <td>".$result['hb4']."</td>
+				                <td>".$result['hb5']."</td>
+				                <td>".$result['hb6']."</td>
+				                <td>".$result['hb_ave']."</td>
+				            </tr>
+
+				            <tr>
+				                <td>直径d<sub>B</sub>/cm</td>
+				                <td colspan='7'>".$result['db']."</td>
+				            </tr>
+
+				             <tr>
+				                <td rowspan='3'>散热铜盘C</td>
+				                <td>厚度h<sub>C</sub>/cm</td>
+				                <td>".$result['hc1']."</td>
+				                <td>".$result['hc2']."</td>
+				                <td>".$result['hc3']."</td>
+				                <td>".$result['hc4']."</td>
+				                <td>".$result['hc5']."</td>
+				                <td>".$result['hc6']."</td>
+				                <td>".$result['hc_ave']."</td>
+				            </tr>
+
+				             <tr>
+				                <td>直径d<sub>C</sub>/cm</td>
+				                <td colspan='7'>".$result['dc']."</td>
+				            </tr>
+
+				             <tr>
+				                <td>质量m/g</td>
+				                <td colspan='7'>".$result['m']."</td>
+				            </tr>
+							
+				        </table>
+
+				    </div>
+				</div>
+				";
 			default: 
 				break;
  		}
@@ -493,48 +1043,49 @@
  		$out = "";
  		//var_dump($result);
 
-		switch($exp_name){
+ 		switch($exp_name){
  			case 'oscillograph':
- 				$out .= "
+ 				$exp_name_ch = '示波器与李萨如图形';
+ 				break;
+ 			case 'potentioneter':
+ 				$exp_name_ch = '电位差计';
+ 				break;
+ 			case 'moment_inertia':
+ 				$exp_name_ch = '用气垫摆测量转动惯量';
+ 				break;
+ 			case 'spectrometer':
+ 				$exp_name_ch = '分光计的使用和光栅衍射';
+ 				break;
+ 			case 'newton':
+ 				$exp_name_ch = '光的干涉--牛顿环';
+ 				break;
+ 			case 'thermal_conductivity':
+ 				$exp_name_ch = '稳态法测量物体的导热系数';
+ 				break;
+ 		}
+
+ 		$out .= "
 					<div class='search-popup-bg' id='search-popup-bg' style='display: block; '>
 						 <div class='search-detail-top'></div>
 						 <div class='search-popup-detail'>
-						 <a class='search-detail-close' onclick='close_popup_result()'><span aria-hidden='true' style='margin-right: 125px'><i class='fa fa-reply' style='margin-right: 20px'></i>返回</span></a>
-						
-						<table class='search_detail'>
-							<thead>
-							<tr> 
-								<th>学号</th>
-								<th>姓名</th>
-								<th>分数</th>
-								<th>求助次数</th>
-								<th>失败次数</th>
-							    <th>Vp-p（标准）</th>
-				                <th>f（标准）</th>
-				                <th>V/DIV</th>
-				                <th>Dy</th>
-				                <th>V'p-p</th>
-				                <th>Ev</th>
-				                <th>TIME/DIV</th>
-				                <th>n</th>
-				                <th>Dx</th>
-				                <th>T'</th>
-				                <th>f'</th>
-				                <th>Ef</th>
-				                <th>Nx1</th>
-				                <th>Ny1</th>
-				                <th>fy1</th>
-				                <th>Nx2</th>
-				                <th>Ny2</th>
-				                <th>fy2</th>
-				                <th>Nx3</th>
-				                <th>Ny3</th>
-				                <th>fy3</th>
-				                <th>Nx4</th>
-				                <th>Ny4</th>
-				                <th>fy4</th>
-							</tr>
-							</thead>";
+							 <a class='search-detail-close' onclick='close_popup_result()'><span aria-hidden='true' style='margin-right: 125px'><i class='fa fa-reply' style='margin-right: 20px'></i>返回</span></a>
+
+							 <div class='detail_head_info'>
+								<span>时间：<span id='detail_time'></span></span>
+								<span id='detail_exp_name' name='".$exp_name."'>实验名称：".$exp_name_ch."</span>
+							 </div>
+							
+							<table class='search_detail'>
+								<thead>
+								<tr> 
+									<th width='150px'>学号</th>
+									<th width='150px'>姓名</th>
+									<th width='100px'>分数</th>
+									<th width='100px'>求助次数</th>
+									<th width='100px'>失败次数</th>
+									<th width='120px'>原始数据</th>
+								</tr>
+								</thead>";
 				$out .= "<tbody>";
 	 			while( $data = $result->fetch_assoc()){
 	 				//echo ($data['stu_num'].' '.$exp_time.' '.$exp_name);
@@ -550,30 +1101,7 @@
 							<td>".$data['grade']."</td>
 							<td>".$data['help_times']."</td>
 							<td>".$data['fail_times']."</td>
-						    <td>".$data['v_std']."</td>
-			                <td>".$data['f_std']."</td>
-			                <td>".$data['V_DIV']."</td>
-			                <td>".$data['Dy']."</td>
-			                <td>".$data['v_up']."</td>
-			                <td>".$data['E_v']."</td>
-			                <td>".$data['TIME_DIV']."</td>
-			                <td>".$data['n']."</td>
-			                <td>".$data['Dx']."</td>
-			                <td>".$data['T']."</td>
-			                <td>".$data['f_up']."</td>
-			                <td>".$data['E_f']."</td>
-			                <td>".$data['Nx1']."</td>
-			                <td>".$data['Ny1']."</td>
-			                <td>".$data['fy1']."</td>
-			                <td>".$data['Nx2']."</td>
-			                <td>".$data['Ny2']."</td>
-			                <td>".$data['fy2']."</td>
-			                <td>".$data['Nx3']."</td>
-			                <td>".$data['Ny3']."</td>
-			                <td>".$data['fy3']."</td>
-			                <td>".$data['Nx4']."</td>
-			                <td>".$data['Ny4']."</td>
-			                <td>".$data['fy4']."</td>
+							<td><buttons class='button-detail' onclick='data_detail(this)'>详情</button></td>
 		                </tr>";
 	 			}
 				   $out .= " 
@@ -581,86 +1109,679 @@
 				       </table>
 				    </div>
 				</div>";
- 				
-	 			break;
 
-	 		case 'potentioneter':
-	 			$out  .= "
-		 			<div class='search-popup-bg' id='search-popup-bg' style='display: block; '>
-							 <div class='search-detail-top'></div>
-							 <div class='search-popup-detail'>
-							 <a class='search-detail-close' onclick='close_popup_result()'><span aria-hidden='true' style='margin-right: 125px'><i class='fa fa-reply' style='margin-right: 20px'></i>返回</span></a>
-							
-							<table class='search_detail'>
-								<thead>
-								<tr> 
-									<th>学号</th>
-									<th>姓名</th>
-									<th>分数</th>
-									<th>求助次数</th>
-									<th>失败次数</th>
-								    <th>E</th>
-					                <th>E真实值</th>
-					                <th>E误差</th>
-					                <th>U_ab</th>
-					                <th>U_0</th>
-					                <th>I_s</th>
-					                <th>U0</th>
-					                <th>Uab</th>
-					                <th>Lx1</th>
-					                <th>Lx2</th>
-					                <th>Lx3</th>
-					                <th>Lx4</th>
-					                <th>Lx5</th>
-					                <th>Lx6</th>
-					                <th>Lx_ave</th>
-								</tr>
-								</thead>";
-					$out .= "<tbody>";
-		 			while( $data = $result->fetch_assoc()){
-		 				//echo ($data['stu_num'].' '.$exp_time.' '.$exp_name);
-		 				
-		 				$data = $obj->return_from_exp_data($data['stu_num'],$exp_time);
-		 				$data = $data->fetch_assoc();
-		 			
-		 				if($data == null) continue;
-		 				
-		 				$out .= "
-		 					<tr>
-			 					<td>".$data['stu_num']."</td>
-								<td>".$data['stu_name']."</td>
-								<td>".$data['grade']."</td>
-								<td>".$data['help_times']."</td>
-								<td>".$data['fail_times']."</td>
-							    <td>".$data['E']."</td>
-				                <td>".$data['E_std']."</td>
-				                <td>".$data['E_e']."</td>
-				                <td>".$data['U_ab']."</td>
-				                <td>".$data['U_0']."</td>
-				                <td>".$data['I_s']."</td>
-				                <td>".$data['U0']."</td>
-				                <td>".$data['Uab']."</td>
-				                <td>".$data['Lx1']."</td>
-				                <td>".$data['Lx2']."</td>
-				                <td>".$data['Lx3']."</td>
-				                <td>".$data['Lx4']."</td>
-				                <td>".$data['Lx5']."</td>
-				                <td>".$data['Lx6']."</td>
-				                <td>".$data['Lx_ave']."</td>
-			                </tr>";
-						          
-		 			}
-					   $out .= " 
-					   	   </tbody> 
-					       </table>
+				if($exp_name=='oscillograph'){
+					$out .="
+					<div class='popup-bg' id='popup-bg'>
+			 			<div class='popup-detail'>
+				 			<button class='detail-close' onclick='close_popup()'><span aria-hidden='true'>×</span></button>
+
+					        <div class='stu_info'>
+					            <span>姓名：<span id='stu_info_stu_name'></span></span>
+					            <span>学号：<span id='stu_info_stu_num'></span></span>
+					        </div>
+
+							<div class='table_titile'>一、测量正弦波</div>
+
+					        <table class='tb-content'>
+					            <thead>
+						            <tr>
+						                <th width='10%'>Vp-p标(V)</th>
+						                <th>f标(Hz)</th>
+						                <th>V/DIV<br>(V)</th>
+						                <th>Dy</th>
+						                <th width='13%'>V'p-p<br>(V)</th>
+						                <th>Vp-p误差</th>
+						                <th>TIME<br>/DIV</th>
+						                <th>n</th>
+						                <th>Dx</th>
+						                <th>T'(ms)</th>
+						                <th>f'(Hz)</th>
+						                <th width='10%'>f误差</th>
+						            </tr>
+					            </thead>
+					            <tbody>
+						            <tr>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+					            </tr>
+					            </tbody>
+					        </table>
+
+				 			<div class='table_titile'>二、李萨如图形</div>
+
+					        <table class='tb-content' style='width:350px'>
+					            <tr>
+					                <th width='100px'>Nx</th>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					            </tr>
+					            <tr>
+					                <th>Ny</th>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					            </tr>
+					            <tr>
+					                <th>fy（hz）</th>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					            </tr>
+					        </table>
+						</div>
+					</div>
+					";
+				}else if( $exp_name=='potentioneter'){
+					$out .= "
+						<div class='popup-bg' id='popup-bg'>
+							 <div class='popup-detail'>
+						 	<button class='detail-close' onclick='close_popup()'><span aria-hidden='true'>×</span></button>
+
+					        <div class='stu_info'>
+					            <span>姓名：<span id='stu_info_stu_name'></span></span>
+					            <span>学号：<span id='stu_info_stu_num'></span></span>
+					        </div>
+
+							<div class='table_titile'>一、定标</div>
+
+					        <table class='tb-content'>
+					            <thead>
+						            <tr>
+						                <th>U'<sub>AB</sub>(V)</th>
+						                <th>U'<sub>0</sub>(V/m<sup>-1</sup>)</th>
+						                <th>l's(m)</th>
+						                <th>R<sub>AB</sub>(&Omega;)</th>
+						                <th>ls(m)</th>
+						                <th>U<sub>0</sub>(V/m<sup>-1</sup>)</th>
+						                <th>U<sub>AB</sub>(V)</th>
+						                <th>电源电压E</th>
+						            </tr>
+					            </thead>
+					            <tbody>
+						            <tr>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+						                <td></td>
+					           		</tr>
+					            </tbody>
+					        </table>
+
+							<div class='table_titile'>二、测量电动势</div>
+
+					        <table class='tb-content' style='width: 425px; height: 70px; margin-left: 35px'>
+					             <tr>
+						                <th>次数n</th>
+						                <th>1</th>
+						                <th>2</th>
+						                <th>3</th>
+						                <th>4</th>
+						                <th>5</th>
+						                <th>6</th>
+						                <th width='23%'>平均值lx(m)</th>
+						        </tr>
+					      
+					           
+					            <tr>
+					                <th width='20%'>lx(m)</th>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					            </tr>
+
+					        </table>
+						
+					        <div class='potentioneter-stu-result' style='margin-top: -76px'>
+					        	<p>待测电动势理论值: <span id='Exs'></span>V</p>
+					        	<p>测量结果: E<sub>x</sub>=<span id='measure_E'></span>V</p>
+					        	<p>相对误差: E=<span id='error_E'></span></p>
+					        </div>
+
 					    </div>
-					</div>";
-	 				
-		 			break;
+					</div>
+					";
+				}else if( $exp_name=='thermal_conductivity'){
+					$out .= "
+					<div class='popup-bg' id='popup-bg'>
+						<div class='popup-detail' style='padding-top: 15px; height: 550px'>
+						<button class='detail-close' onclick='close_popup()'><span aria-hidden='true'>×</span></button>
 
-	 		default: break;
- 		}
- 		return $out;
+				        <div class='stu_info'>
+				            <span>姓名：<span id='stu_info_stu_name'></span></span>
+				            <span>学号：<span id='stu_info_stu_num'></span></span>
+				        </div>
+
+						<div class='table_titile' style='margin-top: 20px'>一、铜盘在T2附近自然冷却时的温度示值</div>
+
+				        <table class='tb-content'>
+				           
+					            <tr>
+					                <td colspan='1' width='150px'>稳态时的温度示值</td>
+								    <td colspan='5' style='text-align: left; padding-left: 50px'>高温T1=<span id='T_1'></span></td>
+								    <td colspan='5' style='text-align: left; padding-left: 50px'>低温T2= <span id='T_2'></span></td>
+					            </tr>
+				           
+					            <tr>
+					                <td>次序</td>
+					                <td>1</td>
+					                <td>2</td>
+					                <td>3</td>
+					                <td>4</td>
+					                <td>5</td>
+					                <td>6</td>
+					                <td>7</td>
+					                <td>8</td>
+					                <td>9</td>
+					                <td>10</td>
+				           		</tr>
+
+				           		<tr>
+					                <td>时间t/s</td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+				           		</tr>
+									
+								<tr>
+					                <td>温度示值T/C</td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+					                <td></td>
+				           		</tr>
+
+				        </table>
+				           		<p style='position: absolute; margin-left: 35px; margin-top: 10px; color: rgba(21, 20, 20, 0.67)'>温度变化率：<span id='change_rate'></span> &nbsp;&#8451;/s</p>      
+
+			 			<div class='table_titile' style='margin-top: 40px'>二、几何尺寸和质量的测量</div>
+
+				        <table class='tb-content' style='width:600px;'>
+				            <tr>
+				                <td colspan='2'>次序</td>
+				                <td width='50px'>1</td>
+				                <td width='50px'>2</td>
+				                <td width='50px'>3</td>
+				                <td width='50px'>4</td>
+				                <td width='50px'>5</td>
+				                <td width='50px'>6</td>
+				                <td width='50px'>平均</td>
+				            </tr>
+				            <tr>
+				                <td rowspan='2'>样品盘B</td>
+				                <td>厚度h<sub>B</sub>/cm</td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				            </tr>
+
+				            <tr>
+				                <td>直径d<sub>B</sub>/cm</td>
+				                <td colspan='7'></td>
+				            </tr>
+
+				             <tr>
+				                <td rowspan='3'>散热铜盘C</td>
+				                <td>厚度h<sub>C</sub>/cm</td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				            </tr>
+
+				             <tr>
+				                <td>直径d<sub>C</sub>/cm</td>
+				                <td colspan='7'></td>
+				            </tr>
+
+				             <tr>
+				                <td>质量m/g</td>
+				                <td colspan='7'></td>
+				            </tr>
+							
+				        </table>
+
+				    </div>
+				</div>
+	
+					";
+				}else if( $exp_name=='newton'){
+					$out .= "
+						<div class='popup-bg' id='popup-bg' >
+							<div class='popup-detail' style='height: 550px; width: 1100px'>
+								<button class='detail-close' onclick='close_popup()'><span aria-hidden='true'>×</span></button>
+								<div class='detail_content'>
+							        <div class='stu_info' style='margin-top: 20px; margin-left: 30px'>
+							            <span>姓名：<span id='stu_info_stu_name'></span></span>
+							            <span>学号：<span id='stu_info_stu_num'></span></span>
+							        </div>
+
+									<div class='table_titile' style='margin-top: 20px'>一、测量曲率半径</div>
+
+							        <table class='tb-content' >
+							           
+							           
+								            <tr>
+								                <td rowspan='2'>环序/m</td>
+								                <td colspan='2'>显微镜读数/mm</td>
+								                <td rowspan='2'>环的直径d<sub>m</sub>/mm</td>
+								                <td rowspan='2'>(d<sub>m</sub>)<sup>2</sup>/mm<sup>2</sup></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>左方</td>
+							            		<td>右方</td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>6</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>7</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>8</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>9</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>10</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>11</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>12</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>13</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>14</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+
+							            	<tr>
+							            		<td>15</td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            		<td></td>
+							            	</tr>
+							            	
+							        </table>
+
+							        <div class='newton_result'>
+							        	<span>逐差法计算结果： R = <span id='R_commit'></span></span>
+							        	<span>理论值 R'= <span id='R_set'></span></span>
+							        	<span style='margin-right: 0'>相对误差 E = <span id='E_R'></span></span>    
+							        		
+							       	</div>
+							    </div>
+
+						        <div class='detail_picture'></div>
+									
+						    </div>
+						</div>
+
+					";
+				}else if( $exp_name=='moment_inertia'){
+					$out .= "
+						<div class='popup-bg' id='popup-bg' >
+							<div class='popup-detail' style='height: 670px; width: 770px'>
+							<button class='detail-close' onclick='close_popup()'' style='margin-top: -25px'><span aria-hidden='true'>×</span></button>
+
+						        <div class='stu_info' style='margin-top: 0px'>
+						            <span>姓名：<span id='stu_info_stu_name'></span></span>
+						            <span>学号：<span id='stu_info_stu_num'></span></span>
+						        </div>
+
+								<div class='table_titile' style='margin-top: 10px'>数据表一、</div>
+
+						        <table class='tb-content' >
+
+							            <tr>
+							                <td>物体</td>
+							                <td width='100px'>摆轮</td>
+							                <td>摆轮+圆环</td>
+							                <td width='120px'>摆轮+飞机模型</td>
+							                <td width='120px'>摆轮+两圆柱</td>
+						            	</tr>
+
+						            	 <tr>
+							                <td style='position: relative;'>
+							                	<div class='moment_inertia_time'>时间t</div>
+							                <!-- 	<div class='moment_inertia_slash'></div> -->
+							                 	<canvas id='moment_inertia_slash' width='120px' height='47px'></canvas>
+							                	<div class='moment_inertia_order'>次数</div>
+							                </td>
+
+							                <script type='text/javascript'>
+							                	//绘制斜线
+							                	var canvas = document.getElementById('moment_inertia_slash');
+					        					var context = canvas.getContext('2d');//二维
+							                	context.lineWidth = 0.2; // 线条宽度
+					       						context.strokeStyle = 'rgb(0, 0, 0)'; // 线条颜色
+					        					context.lineCap = 'round'; // 线头形状
+					       						context.moveTo(0, 0); // 起点
+					       						context.lineTo(120, 47); // 终点
+										        // 绘制
+										        context.stroke();
+							                </script>
+
+							                <td>t<sub>0</sub></td>
+							                <td>t<sub>1</sub></td>
+							                <td>t<sub>2</sub></td>
+							                <td>t<sub>3</sub></td>
+						            	</tr>
+
+						            	<tr>
+						            		<td>1</td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            	</tr>
+
+						            	<tr>
+						            		<td>2</td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            	</tr>
+
+						            	<tr>
+						            		<td>3</td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            	</tr>
+
+						            	<tr>
+						            		<td>4</td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            	</tr>
+
+						            	<tr>
+						            		<td>5</td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            	</tr>
+
+						            	<tr>
+						            		<td>6</td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            	</tr>
+
+						            	<tr>
+						            		<td>t（平均）</td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            		<td></td>
+						            	</tr>
+
+						        </table>
+
+						        <div class='table_titile' style='margin-top: 20px'>数据表二、</div>
+
+						        <table class='tb-content'>
+						        	<tr>
+										<td colspan='2' width='200px'>次序</td>
+										<td width='60px'>1</td>
+										<td width='60px'>2</td>
+										<td width='60px'>3</td>
+										<td width='60px'>4</td>
+										<td width='60px'>5</td>
+										<td width='60px'>6</td>
+										<td width='60px'>平均</td>
+						        	</tr>
+
+						        	<tr>
+						        		<td rowspan='2'>圆柱</td>
+						        		<td>直径d/cm</td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        	</tr>
+
+						        	<tr>
+						        		<td>距离x/cm</td>
+						        		<td colspan='4'></td>
+						        		<td colspan='4'></td>
+						        	</tr>
+
+
+						        	<tr>
+						        		<td rowspan='2'>圆环</td>
+						        		<td>d<sub>内</sub>/cm</td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        	</tr>
+
+						        	<tr>
+						        		<td>d<sub>外</sub>/cm</td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        		<td></td>
+						        	</tr>
+
+						        	<tr>
+						        		<td rowspan='2'>质量</td>
+						        		<td>圆环m1/g</td>
+						        		<td colspan='7'></td>
+						        	</tr>
+
+						        	<tr>
+						        		<td>圆环m1/g</td>
+						        		<td colspan='7'></td>
+						        	</tr>
+
+
+
+						        </table>
+
+						    </div>
+						</div>
+
+					";
+				}else if( $exp_name=='spectrometer'){
+					$out .= "
+						<div class='popup-bg' id='popup-bg' >
+							<div class='popup-detail' style='height: 550px; width: 1100px'>
+								<button class='detail-close' onclick='close_popup()''><span aria-hidden='true'>×</span></button>
+								<div class='detail_content'>
+							        <div class='stu_info' style='margin-top: 20px; margin-left: 30px'>
+							            <span>姓名：<span id='stu_info_stu_name'></span></span>
+							            <span>学号：<span id='stu_info_stu_num'></span></span>
+							        </div>
+
+									<div class='table_titile' style='margin-top: 40px'>一、光栅衍射</div>
+
+							        <table class='tb-content' >
+							           	<tr>
+							           		<td rowspan='2'></td>
+							           		<td colspan='2'>k = 1</td>
+							           		<td colspan='2'>k = -1</td>
+							           		<td>衍射角</td>
+							           	</tr>
+
+										<tr>
+											<td>&#934;<sub>1</sub></td>
+											<td>&#934;<sub>2</sub></td>
+											<td>&#934;<sub>10</sub></td>
+											<td>&#934;<sub>20</sub></td>
+											<td>&#966;</td>
+										</tr>	
+
+										<tr>
+											<td>绿光</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										<tr>
+
+										<tr>
+											<td>黄光(内)</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+
+										<tr>
+											<td>黄光(外)</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>	          
+							        </table>
+
+							        <p class='spectrometer_p'>
+							        	<span>d = <span id='d'></span>nm</span>
+							        	<span>d理论值 = <span id='d_theoretical'></span>nm</span>
+							        	<span style='margin-right: 0'>相对误差 E<sub>d</sub> = <span id='E_d'></span></span> 
+							        </p>
+
+							       	<p class='spectrometer_p'>   
+							        	<span>&#955;<sub>黄内</sub> = <span id='lambda_yellow_inside'></span>nm</span>
+							        	<span>E<sub>黄内</sub> = <span id='E_lambda_yellow_inside'></span></span>
+							        </p>
+
+							        <p class='spectrometer_p'>   
+							        	<span>&#955;<sub>黄外</sub> = <span id='lambda_yellow_outside'></span>nm</span>
+							        	<span>E<sub>黄外</sub> = <span id='E_lambda_yellow_outside'></span></span>
+							        </p>
+							        
+							       	<p class='spectrometer_p'>
+							        	<span>色速率 D = <span id='D'></span></span>
+							        	<span>D理论值 = <span id='D_theoretical'></span></span>
+							       	</p>
+
+							    </div>
+
+						        <div class='detail_picture_spectrometer'></div>
+									
+						    </div>
+						</div>
+
+					";
+				}
+  		return $out;
  	}
 
  	function user_manage(){
@@ -741,7 +1862,7 @@
 		 			$out .= "
 		 				<tr>
 		 					<td>".$data['group_num']."</td>
-		 					<td>".$data['E_std']."</td>
+		 					<td>".$data['Exs']."</td>
 		 					<td><button onclick='change_parameter(this)' class='button-detail'>修改</button></td>
 		 				</tr>";
 		 		}
@@ -828,7 +1949,7 @@
 		 			$out .= "
 		 				<tr>
 		 					<td>".$data['group_num']."</td>
-		 					<td>".$data['E_std']."</td>
+		 					<td>".$data['Exs']."</td>
 		 					<td><button onclick='change_parameter(this)' class='button-detail'>修改</button></td>
 		 				</tr>";
 		 		}
@@ -872,9 +1993,9 @@
  			$result = $result->fetch_assoc();
  			$out .= "
  				<div class='sepctrometer_lambda'>
-					<span>&#955;<sub>绿</sub> = <input id='lambda_1' value='".$result['lambda_1']." nm'></span>
-					<span>&#955;<sub>黄内</sub> = <input id='lambda_2' value='".$result['lambda_2']." nm'></span>
-					<span>&#955;<sub>黄外</sub> = <input id='lambda_3' value='".$result['lambda_3']." nm'></span>
+					<span>&#955;<sub>绿</sub> = <input id='lambda_1' value='".$result['lambda_1']."'>nm</span>
+					<span>&#955;<sub>黄内</sub> = <input id='lambda_2' value='".$result['lambda_2']."'>nm</span>
+					<span>&#955;<sub>黄外</sub> = <input id='lambda_3' value='".$result['lambda_3']."'>nm</span>
  				</div>
  			";
  		}else{
@@ -909,6 +2030,12 @@
  			return 0;
  		else 
  			return $result;
+ 	}
+
+ 	function data_detail($exp_name,$stu_num){
+ 		$obj = new database();
+ 		$result = $obj->data_detail($exp_name,$stu_num);
+ 		return $result;
  	}
 
 

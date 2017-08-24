@@ -81,6 +81,7 @@
 				echo search_info_date($_POST['date'],$_SESSION['user_name']);
 				echo "</table>";
 			}
+
 		}
 		?>
 

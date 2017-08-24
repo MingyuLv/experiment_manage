@@ -62,7 +62,7 @@
 	                <th>ls(m)</th>
 	                <th>U<sub>0</sub>(V/m<sup>-1</sup>)</th>
 	                <th>U<sub>AB</sub>(V)</th>
-	                <th>电源电压E</th>
+	                <th>E(V)</th>
 	            </tr>
             </thead>
             <tbody>
@@ -119,8 +119,8 @@
         </div>
 
         <div class="potentioneter-stu-result">
-        	<p>待测电动势理论值: <span id="Exs">1.450</span>V</p>
-        	<p>测量结果: E<sub>x</sub>=<span id='measure_E'>1.4341</span>V</p>
+        	<p>待测电动势理论值: <span id="Exs"></span>V</p>
+        	<p>测量结果: E<sub>x</sub>=<span id='measure_E'></span>V</p>
         	<p>相对误差: E=<span id="error_E"></span></p>
         </div>
 

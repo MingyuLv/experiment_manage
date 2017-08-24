@@ -183,14 +183,17 @@ class database{
 	}
 
 	function save_data_potentioneter($time, $user_id){
+		// for($i = 5; $i<=40; $i++){
+		// 	$this->db->query("INSERT INTO `physics_course_potentioneter` (`group_num`, `stu_num`, `stu_name`, `help_times`, `fail_times`, `grade`, `seek_help`, `evaluation`, `E`, `U_ab`, `U_0`, `I_s`, `Rab`, `Is`, `U0`, `Uab`, `status_1`, `Lx1`, `Lx2`, `Lx3`, `Lx4`, `Lx5`, `Lx6`, `Lx_ave`, `status_2`, `remark`, `Exs`, `Ex`, `E_e`) VALUES ('$i', '081510117', 'Jack', '0', '0', '95', '0', '0', '2', '2', '3', '34', '42', '42', '6', '74', '74', '4', '4', '6', '7', '5', '6', '3', '2', NULL, NULL, NULL, NULL)");
+		// }
 		$data = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_potentioneter`");
 		while($result = $data->fetch_assoc()){
 			//var_dump($result['stu_num']);
 			if($result['stu_num']==null) continue;
 			$sql = "INSERT INTO `{$this->tablePrefix}_data_potentioneter` (
-			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`E`,`E_std`,`E_e`,`U_ab`,`U_0`,`I_s`,`Rab`,`Is`,`U0`,`Uab`,`Lx1`,`Lx2`,`Lx3`,`Lx4`,`Lx5`,`Lx6`,`Lx_ave`,`remark`
+			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`E`,`U_ab`,`U_0`,`I_s`,`Rab`,`Is`,`U0`,`Uab`,`Lx1`,`Lx2`,`Lx3`,`Lx4`,`Lx5`,`Lx6`,`Lx_ave`,`Exs`,`Ex`,`E_e`,`remark`
 			) VALUES (
-				'$user_id','电位差计','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}','{$result['fail_times']}','{$result['E']}','{$result['E_std']}','{$result['E_e']}','{$result['U_ab']}','{$result['U_0']}','{$result['I_s']}','{$result['Rab']}','{$result['Is']}','{$result['U0']}','{$result['Uab']}','{$result['Lx1']}','{$result['Lx2']}','{$result['Lx3']}','{$result['Lx4']}','{$result['Lx5']}','{$result['Lx6']}','{$result['Lx_ave']}','{$result['remark']}'
+				'$user_id','电位差计','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}','{$result['fail_times']}','{$result['E']}','{$result['U_ab']}','{$result['U_0']}','{$result['I_s']}','{$result['Rab']}','{$result['Is']}','{$result['U0']}','{$result['Uab']}','{$result['Lx1']}','{$result['Lx2']}','{$result['Lx3']}','{$result['Lx4']}','{$result['Lx5']}','{$result['Lx6']}','{$result['Lx_ave']}','{$result['Exs']}','{$result['Ex']}','{$result['E_e']}','{$result['remark']}'
 			)"; 
 			$re = $this->db->query($sql);
 			if(!$re) return 0;	
@@ -246,9 +249,9 @@ class database{
 			//var_dump($result['stu_num']);
 			if($result['stu_num']==null) continue;
 			$sql = "INSERT INTO `{$this->tablePrefix}_data_newton` (
-			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`radius`,`L6`,`L7`,`L8`,`L9`,`L10`,`L11`,`L12`,`L13`,`L14`,`L15`,`R6`,`R7`,`R8`,`R9`,`R10`,`R11`,`R12`,`R13`,`R14`,`R15`,`d6`,`d7`,`d8`,`d9`,`d10`,`d11`,`d12`,`d13`,`d14`,`d15`,`q6`,`q7`,`q8`,`q9`,`q10`,`q11`,`q12`,`q13`,`q14`,`q15`,`remark`
+			 `teacher_id`,`exp_name`,`time`,`stu_num`,`stu_name`,`grade`,`help_times`,`fail_times`,`radius`,`radius_commit`,`E_R`,`L6`,`L7`,`L8`,`L9`,`L10`,`L11`,`L12`,`L13`,`L14`,`L15`,`R6`,`R7`,`R8`,`R9`,`R10`,`R11`,`R12`,`R13`,`R14`,`R15`,`d6`,`d7`,`d8`,`d9`,`d10`,`d11`,`d12`,`d13`,`d14`,`d15`,`q6`,`q7`,`q8`,`q9`,`q10`,`q11`,`q12`,`q13`,`q14`,`q15`,`remark`
 			) VALUES (
-				'$user_id','光的干涉--牛顿环','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}','{$result['fail_times']}','{$result['radius']}','{$result['L6']}','{$result['L7']}','{$result['L8']}','{$result['L9']}','{$result['L10']}','{$result['L11']}','{$result['L12']}','{$result['L13']}','{$result['L14']}','{$result['L15']}','{$result['R6']}','{$result['R7']}','{$result['R8']}','{$result['R9']}','{$result['R10']}','{$result['R11']}','{$result['R12']}','{$result['R13']}','{$result['R14']}','{$result['R15']}','{$result['d6']}','{$result['d7']}','{$result['d8']}','{$result['d9']}','{$result['d10']}','{$result['d11']}','{$result['d12']}','{$result['d13']}','{$result['d14']}','{$result['d15']}','{$result['q6']}','{$result['q7']}','{$result['q8']}','{$result['q9']}','{$result['q10']}','{$result['q11']}','{$result['q12']}','{$result['q13']}','{$result['q14']}','{$result['q15']}','{$result['remark']}'
+				'$user_id','光的干涉--牛顿环','$time','{$result['stu_num']}','{$result['stu_name']}','{$result['grade']}','{$result['help_times']}','{$result['fail_times']}','{$result['radius']}','{$result['radius_commit']}'	,'{$result['E_R']}','{$result['L6']}','{$result['L7']}','{$result['L8']}','{$result['L9']}','{$result['L10']}','{$result['L11']}','{$result['L12']}','{$result['L13']}','{$result['L14']}','{$result['L15']}','{$result['R6']}','{$result['R7']}','{$result['R8']}','{$result['R9']}','{$result['R10']}','{$result['R11']}','{$result['R12']}','{$result['R13']}','{$result['R14']}','{$result['R15']}','{$result['d6']}','{$result['d7']}','{$result['d8']}','{$result['d9']}','{$result['d10']}','{$result['d11']}','{$result['d12']}','{$result['d13']}','{$result['d14']}','{$result['d15']}','{$result['q6']}','{$result['q7']}','{$result['q8']}','{$result['q9']}','{$result['q10']}','{$result['q11']}','{$result['q12']}','{$result['q13']}','{$result['q14']}','{$result['q15']}','{$result['remark']}'
 			)"; 
 			$re = $this->db->query($sql);
 			if(!$re) return 0;	
@@ -270,6 +273,10 @@ class database{
 	}
 
 	function save_data_moment_inertia($time, $user_id){
+		// for($i=4; $i<=40; $i++){
+		// 	$this->db->query("INSERT INTO `physics_course_moment_inertia` (`group_num`, `stu_num`, `stu_name`, `grade`, `help_times`, `fail_times`, `evaluation`, `t0_1`, `t0_2`, `t0_3`, `t0_4`, `t0_5`, `t0_6`, `t0_ave`, `t1_1`, `t1_2`, `t1_3`, `t1_4`, `t1_5`, `t1_6`, `t1_ave`, `t2_1`, `t2_2`, `t2_3`, `t2_4`, `t2_5`, `t2_6`, `t2_ave`, `t3_1`, `t3_2`, `t3_3`, `t3_4`, `t3_5`, `t3_6`, `t3_ave`, `status_1`, `d1`, `d2`, `d3`, `d4`, `d5`, `d6`, `d_ave`, `x`, `x_theoretical`, `dn_1`, `dn_2`, `dn_3`, `dn_4`, `dn_5`, `dn_6`, `dn_ave`, `dw_1`, `dw_2`, `dw_3`, `dw_4`, `dw_5`, `dw_6`, `dw_ave`, `m1`, `m2`, `remark`) VALUES ('$i', '081510111', 'Wall', '96', '0', '0', '0', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '')");
+		// }
+
 		$data = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_moment_inertia`");
 		while($result = $data->fetch_assoc()){
 			//var_dump($result['stu_num']);
@@ -300,6 +307,7 @@ class database{
 	}
 
 	function save_data_spectrometer($time, $user_id){
+
 		$data = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_spectrometer`");
 		while($result = $data->fetch_assoc()){
 			//var_dump($result['stu_num']);
@@ -452,11 +460,11 @@ class database{
 				break;
 			case 'potentioneter':
 				for( $i = 1; $i <= 40; $i++){
-					$E_std = rand(1,8)*0.5 + 1;
-					$E_std = sprintf("%.1f",$E_std);   //Exs范围： 
-					$this->db->query("UPDATE `{$this->tablePrefix}_course_oscillograph` SET `E_std`='$E_std' WHERE `group_num`='$i'");
+					$Exs = rand(1,8)*0.5 + 1;
+					$Exs = sprintf("%.1f",$Exs);   //Exs范围： 
+					$this->db->query("UPDATE `{$this->tablePrefix}_course_oscillograph` SET `Exs`='$Exs' WHERE `group_num`='$i'");
 				}
-				$result = $this->db->query("SELECT `group_num`,`E_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+				$result = $this->db->query("SELECT `group_num`,`Exs` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
 				break;
 			default:
 				$result = null; 
@@ -471,7 +479,7 @@ class database{
 	}
 
 	function query_parameter_potentioneter(){
-		$result = $this->db->query("SELECT `group_num`,`E_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+		$result = $this->db->query("SELECT `group_num`,`Exs` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
 		return $result;
 	}
 
@@ -481,8 +489,8 @@ class database{
 		else return 0;
 	}
 
-	function change_parameter_potentioneter($group_num, $E_std){
-		$result = $this->db->query("UPDATE `{$this->tablePrefix}_course_potentioneter` SET `E_std`='$E_std' WHERE `group_num`='$group_num'");
+	function change_parameter_potentioneter($group_num, $Exs){
+		$result = $this->db->query("UPDATE `{$this->tablePrefix}_course_potentioneter` SET `Exs`='$Exs' WHERE `group_num`='$group_num'");
 		if( $result) return 1;
 		else return 0;
 	}
@@ -506,6 +514,10 @@ class database{
 		// 	$this->db->query("INSERT INTO `physics_course_newton` (`group_num`, `stu_num`, `stu_name`, `grade`, `help_times`, `fail_times`, `evaluation`, `radius`, `L6`, `L7`, `L8`, `L9`, `L10`, `L11`, `L12`, `L13`, `L14`, `L15`, `R6`, `R7`, `R8`, `R9`, `R10`, `R11`, `R12`, `R13`, `R14`, `R15`, `d6`, `d7`, `d8`, `d9`, `d10`, `d11`, `d12`, `d13`, `d14`, `d15`, `q6`, `q7`, `q8`, `q9`, `q10`, `q11`, `q12`, `q13`, `q14`, `q15`, `status_1`, `remark`) VALUES ('$i', '081510311', '1212', '12', '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '')");
 		// }
 
+		// for($i=4; $i<=40; $i++){
+		// 	$this->db->query("INSERT INTO `physics_course_thermal_conductivity` (`group_num`, `stu_num`, `stu_name`, `grade`, `help_times`, `fail_times`, `evaluation`, `T_1`, `T_2`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6`, `t7`, `t8`, `t9`, `t10`, `te1`, `te2`, `te3`, `te4`, `te5`, `te6`, `te7`, `te8`, `te9`, `te10`, `change_rate`, `hb1`, `hb2`, `hb3`, `hb4`, `hb5`, `hb6`, `hb_ave`, `db`, `status_1`, `hc1`, `hc2`, `hc3`, `hc4`, `hc5`, `hc6`, `hc_ave`, `dc`, `m`, `status_2`, `remark`) VALUES ('$i', '081510188', 'Rose', '100', '0', '0', '0', '2', '2', '2', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '8', '5', '5', '5', '5', '4', '4', '8', '8', '8', '8', '8', '89', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '6', NULL);");
+		// }
+
 
 		for($i = 1; $i<=40; $i++){
 			$data = $para[$i-1];
@@ -519,7 +531,7 @@ class database{
 		$sql = "SELECT `course_id` FROM `{$this->tablePrefix}_status` WHERE `name`='newton'";
 		$result = $this->db->query($sql);
 		$result = $result->fetch_assoc();
-		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']}";
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']} WHERE `uid`='$user_id'";
 		$result = $this->db->query($sql);
 	    // echo('gaga');
 		if(!$result)
@@ -528,6 +540,10 @@ class database{
 	}
 
 	function modified_course_status_spectrometer($user_id, $para){
+		// 	for($i=2; $i<=40; $i++){
+		// 	$this->db->query("
+		// 	INSERT INTO `physics_course_spectrometer` (`group_num`, `stu_num`, `stu_name`, `grade`, `help_times`, `fail_times`, `evaluation`, `lambda_1`, `lambda_2`, `lambda_3`, `constant`, `green_1`, `green_2`, `green_3`, `green_4`, `green_angle`, `yellow_inside_1`, `yellow_inside_2`, `yellow_inside_3`, `yellow_inside_4`, `yellow_inside_angle`, `yellow_outside_1`, `yellow_outside_2`, `yellow_outside_3`, `yellow_outside_4`, `yellow_outside_angle`, `status_1`, `d`, `E_d`, `lambda_yellow_inside`, `E_yellow_inside`, `lambda_yellow_outside`, `E_yellow_outside`, `D_color`, `D_color_theoretical`, `remark`) VALUES ('$i', '081510111', '和其正', '99', '0', '0', '0', '1', '2', '2', '2', '2', '6', '5', '5', '6', '65', '5', '5', '5', '5', '5', '5', '5', '5', '6', '65', '3', '2', '5', '5', '5', '3', '6', '6', '')");
+		// }
 
 		$para = json_decode($para);
 
@@ -545,7 +561,7 @@ class database{
 		$sql = "SELECT `course_id` FROM `{$this->tablePrefix}_status` WHERE `name`='spectrometer'";
 		$result = $this->db->query($sql);
 		$result = $result->fetch_assoc();
-		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']}";
+		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`={$result['course_id']} WHERE `uid`='$user_id'";
 		$result = $this->db->query($sql);
 	    // echo('gaga');
 		if(!$result)
@@ -561,10 +577,7 @@ class database{
 	}
 
 	function has_para_spectrometer(){
-		// for($i=1; $i<=40; $i++){
-		// 	$this->db->query("
-		// 	INSERT INTO `physics_course_spectrometer` (`group_num`, `stu_num`, `stu_name`, `grade`, `help_times`, `fail_times`, `evaluation`, `lambda_1`, `lambda_2`, `lambda_3`, `constant`, `green_1`, `green_2`, `green_3`, `green_4`, `green_angle`, `yellow_inside_1`, `yellow_inside_2`, `yellow_inside_3`, `yellow_inside_4`, `yellow_inside_angle`, `yellow_outside_1`, `yellow_outside_2`, `yellow_outside_3`, `yellow_outside_4`, `yellow_outside_angle`, `status_1`, `d`, `E_d`, `lambda_yellow_inside`, `E_yellow_inside`, `lambda_yellow_outside`, `E_yellow_outside`, `D_color`, `D_color_theoretical`, `remark`) VALUES ('$i', '0811111111', '和其正', NULL, '0', '0', '0', NULL, NULL, NULL, '600', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '');");
-		// }
+	
 		$result = $this->db->query("SELECT `constant` FROM `{$this->tablePrefix}_course_spectrometer` WHERE `constant`");
 		 // var_dump($result);
 		if( ($result->num_rows) == 0) return null;
@@ -583,5 +596,12 @@ class database{
 		if(!$result) return null;
 		$result = $result->fetch_assoc();
 		return $result['name'];
+	}
+
+	function data_detail($exp_name,$stu_num){
+		$result = $this->db->query("SELECT * FROM `{$this->tablePrefix}_data_{$exp_name}` WHERE `stu_num`='$stu_num'");
+		if(!$result) return null;
+		$result = $result->fetch_assoc();
+		return $result;
 	}
 }

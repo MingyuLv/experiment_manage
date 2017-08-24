@@ -936,6 +936,7 @@ span.flag_stu_num{
 }
 
 table.search_detail{
+	margin: 0 auto;
 	width: 90%;
 	border-spacing: 0;
 	/*表格单元的外边距*/
@@ -950,7 +951,7 @@ table.search_detail{
 
 table.search_detail th,
 table.search_detail td{
-	padding: 5px;
+	padding: 8px;
 	background-color: #fff;
 	font-size: 16px;
 	color: rgba(21, 20, 20, 0.67);
@@ -994,6 +995,7 @@ table.search_detail > tbody > tr:nth-child(odd) > td{
 }
 
 .search-detail-close{
+	margin-left: 165px;
 	position: fixed;
 	margin-top: -62px;
 	font-size: 18px;
@@ -1015,6 +1017,11 @@ table.search_detail > tbody > tr:nth-child(odd) > td{
 	z-index: 999;
 	overflow-y: scroll; 
 	padding-bottom: 40px;
+}
+
+.search-popup-bg table.search_detail{
+	width: 60%;
+	margin-left: 180px;
 }
 
 .popup-bg-adduser{
@@ -1419,6 +1426,19 @@ table.search_detail > tbody > tr:nth-child(odd) > td{
 	padding: 0;
 	/*background-color: yellow;*/
 	margin-right: 80px;
+}
+
+.detail_head_info{
+	margin-top: 30px;
+	margin-left: 253px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #768176;
+    font-family: monospace;
+}
+
+.detail_head_info span{
+	margin-right: 50px;
 }
 
 

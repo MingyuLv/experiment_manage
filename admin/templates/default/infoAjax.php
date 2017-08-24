@@ -94,7 +94,7 @@
 		if( $_GET['exp_name']=="oscillograph"){
 			$result = change_parameter_oscillograph($_GET['group_num'], $_GET['v_std'], $_GET['f_std']);
 		}else if( $_GET['exp_name']=='potentionter'){
-			$result = change_parameter_potentioneter($_GET['group_num'], $_GET['E_std']);
+			$result = change_parameter_potentioneter($_GET['group_num'], $_GET['Exs']);
 		}
 		echo $result;
 	}else if( $_GET['action']=='modified_course_status'){
@@ -109,6 +109,10 @@
 	}else if( $_GET['action']=='cur_user'){
 		$result = cur_user($_GET['course_id']);
 		echo $result;
+	}else if( $_GET['action']=='data_detail'){
+		$result = data_detail($_GET['exp_name'],$_GET['stu_num']);
+		echo json_encode($result);
+
 	}
 ?>
 

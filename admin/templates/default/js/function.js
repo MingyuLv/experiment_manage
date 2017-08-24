@@ -20,7 +20,7 @@ function startCourse(obj,course_id){
 	var current_user = document.getElementsByClassName("course-card-price")[course_id-1];
 
 	if( current_user.innerHTML[0] != '<'){
-		alert(current_user.innerHTML+"正在上课！请联系该老师");
+		alert(current_user.innerHTML+"！请联系该老师");
 		return;
 	}
 
@@ -814,22 +814,27 @@ function show_detail_potentioneter(result){
 			}
 		}
 
-		var measure_E = document.getElementById("measure_E");
-		len = measure_E.innerHTML.length;
-		console.log(len);
+		document.getElementById("Exs").innerHTML = result['Exs'];
+		document.getElementById("measure_E").innerHTML = result['Ex'];
+		document.getElementById("error_E").innerHTML = result['E_e'];
+
+		// var measure_E = document.getElementById("measure_E");
+		// len = measure_E.innerHTML.length;
+		// console.log(len);
 		if(measure_E.innerHTML[len-5] != '.'){
 			measure_E.style.color = "rgb(244, 88, 88)";
 		}
 
-		var Exs = document.getElementById("Exs");
-			Exs = parseFloat(Exs.innerHTML);
-			Ex = parseFloat(measure_E.innerHTML);
-		var error_E = Math.abs((Ex-Exs)/Exs);
-		console.log(error_E);
-		if(error_E > 0.1){
+
+		// var Exs = document.getElementById("Exs");
+		// 	Exs = parseFloat(Exs.innerHTML);
+		// 	Ex = parseFloat(measure_E.innerHTML);
+		// var error_E = Math.abs((Ex-Exs)/Exs);
+		// console.log(error_E);
+		if(result['E_e'] > 0.1){
 			document.getElementById("error_E").style.color = "rgb(244, 88, 88)";
 		}
-		document.getElementById("error_E").innerHTML = (error_E*100).toFixed(2)+"%";
+		// document.getElementById("error_E").innerHTML = (error_E*100).toFixed(2)+"%";
 		
 }
 
@@ -1288,6 +1293,8 @@ function detail_via_date(this_node){
 		exp_name = exp_name.getElementsByClassName('exp_name')[0];
 		exp_name = exp_name.getAttribute("name");
 
+
+
 	var obj = createXMLHttpRequest();
 		obj.open("GET","./templates/default/infoAjax.php?action=show_detail_via_date&exp_time="+exp_time+"&exp_name="+exp_name);
 		obj.onreadystatechange = function(){
@@ -1299,6 +1306,11 @@ function detail_via_date(this_node){
 				//覆盖父元素滚动条
 				(document.getElementsByClassName("search-popup-bg")[0]).style.width = window.screen.width+"px";
 				//ocument.write(obj.responseText);
+
+				var time = this_node.parentNode.parentNode.getElementsByTagName("td");
+				// console.log(time[0]);
+					time = time[0].innerHTML;
+				document.getElementById("detail_time").innerHTML = time;
 			}
 		}
 	obj.send();
@@ -1414,10 +1426,10 @@ function change_para_submit_oscillograph(){
 
 function change_para_submit_potentioneter(){
 	var group_num = document.getElementById("para_group_num").innerHTML;		
-	var E_std = document.getElementById("E_std").value;
+	var Exs = document.getElementById("Exs").value;
 
 	var obj = createXMLHttpRequest();
-	obj.open("GET","./templates/default/infoAjax.php?action=change_parameter&exp_name=potentionter&group_num="+group_num+"&E_std="+E_std);
+	obj.open("GET","./templates/default/infoAjax.php?action=change_parameter&exp_name=potentionter&group_num="+group_num+"&Exs="+Exs);
 	obj.onreadystatechange = function(){
 		if( obj.readyState == 4 && obj.status == 200){
 			console.log(obj.responseText);
@@ -1435,5 +1447,263 @@ function change_para_submit_potentioneter(){
 
 function close_popup_para(){
 	(document.getElementById("popup-bg-parameter")).style.display = "none";
+}
+
+function data_detail(this_node){
+	var stu_num = (this_node.parentNode.parentNode.getElementsByTagName("td")[0]).innerHTML;		
+	var exp_name = (document.getElementById("detail_exp_name")).getAttribute("name");
+
+	var obj = createXMLHttpRequest();
+	obj.open("GET","./templates/default/infoAjax.php?action=data_detail&exp_name="+exp_name+"&stu_num="+stu_num)	;
+	obj.onreadystatechange = function(){
+		if( obj.readyState == 4 && obj.status == 200){
+			console.log(obj.responseText);
+			var result = parseJson(obj.responseText);
+			document.getElementById("popup-bg").style.display = "block";
+			document.getElementById("stu_info_stu_name").innerHTML = (this_node.parentNode.parentNode.getElementsByTagName("td")[1]).innerHTML;	
+			document.getElementById("stu_info_stu_num").innerHTML = (this_node.parentNode.parentNode.getElementsByTagName("td")[0]).innerHTML;	
+
+			if(exp_name=='oscillograph'){
+				data_detail_oscillograph(result);
+			}else if( exp_name=='potentioneter'){
+				data_detail_potentioneter(result);
+			}else if( exp_name=='thermal_conductivity'){
+				data_detail_thermal_conductivity(result);
+			}else if( exp_name=='newton'){
+				data_detail_newton(result);
+			}else if( exp_name=='moment_inertia'){
+				data_detail_moment_inertia(result);
+			}else if( exp_name=='spectrometer'){
+				data_detail_spectrometer(result);
+			}
+			
+		}
+	}
+	obj.send();	
+} 
+
+function data_detail_oscillograph(result){
+
+	var tb = document.getElementsByClassName("tb-content");
+			
+	td = tb[0].getElementsByTagName("td");
+	td[0].innerHTML = result['v_std'];
+	td[1].innerHTML = result['f_std'];
+	td[2].innerHTML = result['V_DIV'];
+	td[3].innerHTML = result['Dy'];
+	td[4].innerHTML = result['v_up'];
+	td[5].innerHTML = result['E_v'];
+	td[6].innerHTML = result['TIME_DIV'];
+	td[7].innerHTML = result['n'];
+	td[8].innerHTML = result['Dx'];
+	td[9].innerHTML = result['T'];
+	td[10].innerHTML = result['f_up'];
+	td[11].innerHTML = result['E_f'];
+
+	td = tb[1].getElementsByTagName("td");
+	td[0].innerHTML = result['Nx1'];
+	td[1].innerHTML = result['Nx2'];
+	td[2].innerHTML = result['Nx3'];
+	td[3].innerHTML = result['Nx4'];
+	td[4].innerHTML = result['Ny1'];
+	td[5].innerHTML = result['Ny2'];
+	td[6].innerHTML = result['Ny3'];
+	td[7].innerHTML = result['Ny4'];
+	td[8].innerHTML = result['fy1'];
+	td[9].innerHTML = result['fy2'];
+	td[10].innerHTML = result['fy3'];
+	td[11].innerHTML = result['fy4'];
+}
+
+function data_detail_potentioneter(result){
+
+	var tb = document.getElementsByClassName("tb-content");
+	
+	td = tb[0].getElementsByTagName("td");
+	td[0].innerHTML = result['U_ab'];
+	td[1].innerHTML = result['U_0'];
+	td[2].innerHTML = result['I_s'];
+	td[3].innerHTML = result['Rab'];
+	td[4].innerHTML = result['Is'];
+	td[5].innerHTML = result['U0'];
+	td[6].innerHTML = result['Uab'];
+	td[7].innerHTML = result['E'];
+
+	td = tb[1].getElementsByTagName("td");
+	td[0].innerHTML = result['Lx1'];
+	td[1].innerHTML = result['Lx2'];
+	td[2].innerHTML = result['Lx3'];
+	td[3].innerHTML = result['Lx4'];
+	td[4].innerHTML = result['Lx5'];
+	td[5].innerHTML = result['Lx6'];
+	td[6].innerHTML = result['Lx_ave'];
+
+	document.getElementById("Exs").innerHTML = result['Exs'];
+	document.getElementById("measure_E").innerHTML = result['Ex'];
+	document.getElementById("error_E").innerHTML = result['E_e'];
+		
+}
+
+function data_detail_moment_inertia(result){
+	var tb = document.getElementsByClassName("tb-content");
+
+	tr = tb[0].getElementsByTagName("tr");
+	var i ,len;
+	for( i = 2; i<=7; i++){
+		td = tr[i].getElementsByTagName("td");
+		td[1].innerHTML = result['t0_'+(i-1)];
+		td[2].innerHTML = result['t1_'+(i-1)];
+		td[3].innerHTML = result['t2_'+(i-1)];
+		td[4].innerHTML = result['t3_'+(i-1)];
+	}
+	td = tr[8].getElementsByTagName("td");
+	td[1].innerHTML = result['t0_ave'];
+	td[2].innerHTML = result['t1_ave'];
+	td[3].innerHTML = result['t2_ave'];
+	td[4].innerHTML = result['t3_ave'];
+
+	tr = tb[1].getElementsByTagName("tr");
+
+	td = tr[1].getElementsByTagName("td");
+	for(i = 2; i<=7; i++){
+		td[i].innerHTML = result["d"+(i-1)];
+	}
+	td[8].innerHTML = result['d_ave'];
+	
+
+	td = tr[2].getElementsByTagName("td");
+	td[1].innerHTML = result["x"];
+	td[2].innerHTML = result["x_theoretical"];
+
+	td = tr[3].getElementsByTagName("td");
+	for(i = 2; i<=7; i++){
+		td[i].innerHTML = result["dn_"+(i-1)];
+	}
+	td[8].innerHTML = result['dn_ave'];
+
+	td = tr[4].getElementsByTagName("td");
+	for(i = 1; i<=6; i++){
+		td[i].innerHTML = result["dw_"+i];
+	}
+	td[7].innerHTML = result['dw_ave'];
+
+	td = tr[5].getElementsByTagName("td");
+	td[2].innerHTML = result['m1'];
+
+	td = tr[6].getElementsByTagName("td");
+	td[1].innerHTML = result['m2'];
+}
+
+function data_detail_spectrometer(result){
+	var tb = document.getElementsByClassName("tb-content");
+
+	var td = tb[0].getElementsByTagName("td");
+
+	document.getElementById("d").innerHTML = result['d'];
+	document.getElementById("d_theoretical").innerHTML = result['constant'];
+	document.getElementById("E_d").innerHTML = result['E_d'];
+	document.getElementById("lambda_yellow_inside").innerHTML = result['lambda_yellow_inside'];
+	document.getElementById("E_lambda_yellow_inside").innerHTML = result['E_yellow_inside'];
+	document.getElementById("lambda_yellow_outside").innerHTML = result['lambda_yellow_outside'];
+	document.getElementById("E_lambda_yellow_outside").innerHTML = result['E_yellow_outside'];
+	document.getElementById("D").innerHTML = result['D_color'];
+	document.getElementById("D_theoretical").innerHTML = result['D_color_theoretical'];
+
+	document.getElementsByClassName("detail_picture_spectrometer")[0].style.backgroundImage = "url(./upload/spectrometer/"+result['stu_num']+".jpg)";
+
+	var i, j;
+	for( i = 10; i<=14; i++){
+		for( j = 1; j<=4; j++){
+			td[i].innerHTML = result['green_'+j];
+		}
+	}
+
+	for( i = 16; i<=20; i++){
+		for( j = 1; j<=4; j++){
+			td[i].innerHTML = result['yellow_inside_'+j];
+		}
+	}
+
+	for( i = 22; i<=26; i++){
+		for( j = 1; j<=4; j++){
+			td[i].innerHTML = result['yellow_outside_'+j];
+		}
+	}
+
+}
+
+function data_detail_newton(result){
+	var i, j;
+	var index;
+	var tb = document.getElementsByClassName("tb-content");
+	tr = tb[0].getElementsByTagName("tr");
+	for( i = 2; i<=11; i++){
+		td = tr[i].getElementsByTagName("td");
+		index = td[0].innerHTML; 
+		td[1].innerHTML = result['L'+index];
+		td[2].innerHTML = result['R'+index];
+		td[3].innerHTML = result['d'+index];
+		td[4].innerHTML = result['q'+index];
+	}
+
+	document.getElementById("R_commit").innerHTML = result['radius_commit'];
+	document.getElementById("R_set").innerHTML = result['radius'];
+	document.getElementById("E_R").innerHTML = result['E_R'];
+	document.getElementsByClassName("detail_picture")[0].style.backgroundImage = "url(./upload/newton/"+result['stu_num']+".jpg)";
+
+}
+
+function data_detail_thermal_conductivity(result){
+	var tb = document.getElementsByClassName("tb-content");
+	document.getElementById("T_1").innerHTML = result['T_1'];
+	document.getElementById("T_2").innerHTML = result['T_2'];
+	document.getElementById("change_rate").innerHTML = result['change_rate'];
+
+	td = tb[0].getElementsByTagName("td");
+	td[15].innerHTML = result['t1'];
+	td[16].innerHTML = result['t2'];
+	td[17].innerHTML = result['t3'];
+	td[18].innerHTML = result['t4'];
+	td[19].innerHTML = result['t5'];
+	td[20].innerHTML = result['t6'];
+	td[21].innerHTML = result['t7'];
+	td[22].innerHTML = result['t8'];
+	td[23].innerHTML = result['t9'];
+	td[24].innerHTML = result['t10'];
+
+	td[26].innerHTML = result['te1'];
+	td[27].innerHTML = result['te2'];
+	td[28].innerHTML = result['te3'];
+	td[29].innerHTML = result['te4'];
+	td[30].innerHTML = result['te5'];
+	td[31].innerHTML = result['te6'];
+	td[32].innerHTML = result['te7'];
+	td[33].innerHTML = result['te8'];
+	td[34].innerHTML = result['te9'];
+	td[35].innerHTML = result['te10'];
+
+	td = tb[1].getElementsByTagName("td");
+	td[10].innerHTML = result['hb1'];
+	td[11].innerHTML = result['hb2'];
+	td[12].innerHTML = result['hb3'];
+	td[13].innerHTML = result['hb4'];
+	td[14].innerHTML = result['hb5'];
+	td[15].innerHTML = result['hb6'];
+	td[16].innerHTML = result['hb_ave'];
+
+	td[18].innerHTML = result['db'];
+
+	td[21].innerHTML = result['hc1'];
+	td[22].innerHTML = result['hc2'];
+	td[23].innerHTML = result['hc3'];
+	td[24].innerHTML = result['hc4'];
+	td[25].innerHTML = result['hc5'];
+	td[26].innerHTML = result['hc6'];
+	td[27].innerHTML = result['hc_ave'];
+
+	td[29].innerHTML = result['dc'];
+
+	td[31].innerHTML = result['m'];
+
 }
 
