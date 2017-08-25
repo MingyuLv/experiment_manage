@@ -7,7 +7,7 @@
 	require "../admin/config/database.php";
 	$db = new mysqli(HOSTNAME, HOSTUSER, HOSTPWD, HOSTDB);
 
-	$result = $db->query("SELECT `status` FROM `physics_status` WHERE `name`='oscillograph'");
+	$result = $db->query("SELECT `status` FROM `physics_status` WHERE `name`='thermal_conductivity'");
 	$result = $result->fetch_assoc();
 	if( $result['status']==0){
 		$arr = array(
@@ -40,7 +40,7 @@
 		// var_dump($group_num);
 		// var_dump($stu_num);
 		// var_dump($stu_name);
-		$sql = "UPDATE `physics_course_oscillograph` SET `stu_num`='{$stu_num}', `stu_name`='{$stu_name}' WHERE `group_num`='{$group_num}'";	
+		$sql = "UPDATE `physics_course_thermal_conductivity` SET `stu_num`='{$stu_num}', `stu_name`='{$stu_name}' WHERE `group_num`='{$group_num}'";	
 		$result = $db->query($sql);
 		if(!$result) {
 			$arr = array( 
@@ -58,51 +58,15 @@
     	}  
     	echo urldecode ( json_encode ($arr) ); 
 
-	}else if( isset($_GET['action']) && $_GET['action']=='require_data'){	
-	//根据组号返回请求的实验设备预设值
-
-		//获取老师输入的实验预期值
-		$group_num = $_GET['group_num'];
-		$result = $db->query("SELECT `v_std` , `f_std` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}" );
-		if( !$result){
-			$arr = array(
-				'status' => 0,
-				'msg' => "未查询到数据"	
-			);
-		}else{
-			$result = $result -> fetch_assoc();
-			$arr = array(	
-				'status' => 1,					
-				'v_std' => $result['v_std'],
-				'f_std' => $result['f_std']
-			);
-		}
-		foreach ( $arr as $key => $value ) {  		//防止中文乱码
-        	$arr[$key] = urlencode ( $value );  
-    	}  
-    	echo urldecode ( json_encode ($arr) ); 
-
+	
 	}else if( isset($_GET['action']) && $_GET['action']=='submit_1'){
 	//接收上传的实验数据
 		$group_num = $_GET['group_num'];
-		$result = $db -> query("SELECT `v_std`,`f_std` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");		//获取老师输入的实验预期值
+		$result = $db -> query("SELECT * FROM `physics_course_thermal_conductivity` WHERE `group_num`={$group_num}");		//获取老师输入的实验预期值
 		$data = $result -> fetch_assoc();
-		//var_dump($data);
-		$E_v = abs(($_GET['v'] - $data['v_std'])) / $data['v_std'];	//计算实验误差
-		$E_f = abs(($_GET['f'] - $data['f_std'])) / $data['f_std'];
+		
 
-		$E_v = (string)($E_v*100).'%';	//数据库中必须为字符串形式
-		$E_f = (string)($E_f*100).'%';
-		$v_up = $_GET['v'];
-		$f_up = $_GET['f'];
-		$V_DIV = $_GET['V_DIV'];
-		$Dy = $_GET['Dy'];
-		$TIME_DIV = $_GET['TIME_DIV'];
-		$n = $_GET['n'];
-		$Dx = $_GET['Dx'];
-		$T = $_GET['T'];
-
-		$result = $db -> query("UPDATE `physics_course_oscillograph` SET `evaluation`=1,`status_1`=2,`v_up`='$v_up',`f_up`='$f_up',`E_v`='$E_v',`E_f`='$E_f',`V_DIV`='$V_DIV',`Dy`='$Dy',`TIME_DIV`='$TIME_DIV',`n`='$n',`Dx`='$Dx',`T`='$T'  WHERE `group_num`={$group_num}");
+		$result = $db -> query("UPDATE `physics_course_thermal_conductivity` SET `evaluation`=1,`status_1`=2,`T_1`='{$_GET['T_1']}',`T_2`='{$_GET['T_2']}',`t1`='{$_GET['t1']}',`t2`='{$_GET['t2']}',`t3`='{$_GET['t3']}',`t4`='{$_GET['t4']}',`t5`='{$_GET['t5']}',`t6`='{$_GET['t6']}',`t7`='{$_GET['t7']}',`t8`='{$_GET['t8']}',`t9`='{$_GET['t9']}',`t10`='{$_GET['t10']}',`te1`='{$_GET['te1']}',`te2`='{$_GET['te2']}',`te3`='{$_GET['te3']}',`te4`='{$_GET['te4']}',`te5`='{$_GET['te5']}',`te6`='{$_GET['te6']}',`te7`='{$_GET['te7']}',`te8`='{$_GET['te8']}',`te9`='{$_GET['te9']}',`te10`='{$_GET['te10']}',`change_rate`='{$_GET['change_rate']}',`remark`=''  WHERE `group_num`={$group_num}");
 		if( !$result){
 			$arr = array(
 				'status' => '0',
@@ -122,20 +86,7 @@
 
 		$group_num = $_GET['group_num'];
 
-		$Nx1 = $_GET['Nx1'];
-		$Nx2 = $_GET['Nx2'];
-		$Nx3 = $_GET['Nx3'];
-		$Nx4 = $_GET['Nx4'];
-		$Ny1 = $_GET['Ny1'];
-		$Ny2 = $_GET['Ny2'];
-		$Ny3 = $_GET['Ny3'];
-		$Ny4 = $_GET['Ny4'];
-		$fy1 = $_GET['fy1'];
-		$fy2 = $_GET['fy2'];
-		$fy3 = $_GET['fy3'];
-		$fy4 = $_GET['fy4'];
-
-		$result = $db -> query("UPDATE `physics_course_oscillograph` SET `evaluation`=1,`status_2`='2',`Nx1`='$Nx1',`Nx2`='$Nx2',`Nx3`='$Nx3',`Nx4`='$Nx4',`Ny1`='$Ny1',`Ny2`='$Ny2',`Ny3`='$Ny3',`Ny4`='$Ny4',`fy1`='$fy1',`fy2`='$fy2',`fy3`='$fy3',`fy4`='$fy4'  WHERE `group_num`={$group_num}");
+		$result = $db -> query("UPDATE `physics_course_thermal_conductivity` SET `evaluation`=1,`status_2`='2',`hb1`='{$_GET['hb1']}',`hb2`='{$_GET['hb2']}',`hb3`='{$_GET['hb3']}',`hb4`='{$_GET['hb4']}',`hb5`='{$_GET['hb5']}',`hb6`='{$_GET['hb6']}',`hb_ave`='{$_GET['hb_ave']}',,`db`='{$_GET['db']}',`hc1`='{$_GET['hc1']}',`hc2`='{$_GET['hc2']}',`hc3`='{$_GET['hc3']}',`hc4`='{$_GET['hc4']}',`hc5`='{$_GET['hc5']}',`hc6`='{$_GET['hc6']}',`hc_ave`='{$_GET['hc_ave']}',`dc`='{$_GET['dc']}',`m`='{$_GET['m']}'  WHERE `group_num`={$group_num}");
 		if( !$result){
 			$arr = array(
 				'status' => '0',
@@ -154,7 +105,7 @@
 
 	}else if( isset($_GET['action']) && $_GET['action']=='check_info_1'){
 		$group_num = $_GET['group_num'];
-		$result = $db -> query("SELECT `status_1` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");
+		$result = $db -> query("SELECT `status_1` FROM `physics_course_thermal_conductivity` WHERE `group_num`={$group_num}");
 		$result = $result->fetch_assoc();
 		if($result['status_1']=='1'){
 			$arr = array(
@@ -179,7 +130,7 @@
 
 	}else if( isset($_GET['action']) && $_GET['action']=='check_info_2'){
 		$group_num = $_GET['group_num'];
-		$result = $db -> query("SELECT `status_2` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");
+		$result = $db -> query("SELECT `status_2` FROM `physics_course_thermal_conductivity` WHERE `group_num`={$group_num}");
 		$result = $result->fetch_assoc();
 		if($result['status_2']=='1'){
 			$arr = array(
