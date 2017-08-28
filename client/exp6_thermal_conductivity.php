@@ -6,6 +6,7 @@
 
 	require "../admin/config/database.php";
 	$db = new mysqli(HOSTNAME, HOSTUSER, HOSTPWD, HOSTDB);
+	$db->query('set names utf8');		//防止查询数据库乱码
 
 	$result = $db->query("SELECT `status` FROM `physics_status` WHERE `name`='thermal_conductivity'");
 	$result = $result->fetch_assoc();
