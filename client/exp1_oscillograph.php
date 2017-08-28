@@ -204,4 +204,16 @@
 	}else if( isset($_GET['action']) && $_GET['action']=='help'){
 		$group_num = $_GET['group_num'];
 		$result = $db -> query("UPDATE `physics_course_oscillograph` SET `seek_help`=1 WHERE `group_num`={$group_num}");
+		if($result){
+			$arr = array(
+				'status' => '1',
+				'msg' => '提交成功'
+			);
+		}else{
+			$arr = array(
+				'status' => '0',
+				'msg' => '提交失败'
+			);
+		}
+		echo urldecode ( json_encode ($arr) ); 
 	}
