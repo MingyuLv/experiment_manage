@@ -71,7 +71,16 @@ class database{
 	}
 
 	function solve_help($group_num){
+		$help_times = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_{$this->tb_name}` WHERE `group_num`={$group_num}");
+		$help_times = $help_times->fetch_assoc();
+		$help_times = $help_times['help_times'];
+		// var_dump($help_times);
+		$help_times = (int)$help_times;
+			// var_dump($help_times);
+		$help_times = $help_times + 1;
+		$this->db->query("UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `help_times`='$help_times' WHERE `group_num`={$group_num}");
 		$sql = "UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `seek_help`=0 WHERE `group_num`={$group_num}";
+
 		$result = $this->db->query($sql);
 	}
 
