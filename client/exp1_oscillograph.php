@@ -41,6 +41,36 @@
 		// var_dump($group_num);
 		// var_dump($stu_num);
 		// var_dump($stu_name);
+
+		//迟到-5，迟到界定为从上课时间开始到上课开始十五分钟内
+		$ifend = $db->query("SELECT `ifend` FROM `physics_course_oscillograph` WHERE `group_num`='{$group_num}'");
+		$ifend = $ifend->fetch_assoc();
+		if($ifend == 1){
+			//若已经为非上课时间
+			$arr = array( 
+				'status'=>'0',
+				'msg'=>'课堂已结束'
+			);
+		}else{
+			date_default_timezone_set('Asia/Shanghai');
+			$cur_time = getdate();
+			$hours = $cur_time['hours'];
+			$minutes = $cur_time['minutes'];
+			$compare = $hours*60 + $minutes;	
+
+			//上课开始十五分钟后为迟到			
+			$start_time = $db->query("SELECT `start_time` FROM `physics_course_oscillograph` WHERE `group_num`='{$group_num}'");
+			$start_time = $start_time->fetch_assoc();
+			if( $compare - $start_time > 15){
+				$data = $db->query("SELECT `grade` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");
+				$data = $data->fetch_assoc();
+				$grade = $data - 5;
+				$db->query("UPDATE 'physics_course_oscillograph' SET `grade`='$grade' WHERE `group_num`={$group_num}");		
+			}
+		}
+
+
+
 		$sql = "UPDATE `physics_course_oscillograph` SET `stu_num`='{$stu_num}', `stu_name`='{$stu_name}' WHERE `group_num`='{$group_num}'";	
 		$result = $db->query($sql);
 		if(!$result) {
@@ -172,6 +202,11 @@
 				'status' => '0',
 				'msg' => '未通过'
 			);
+			//未通过，每次累计减去2分
+			// $data = $db->query("SELECT `grade` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");
+			// $data = $data->fetch_assoc();
+			// $grade = $data - 2;
+			// $db->query("UPDATE 'physics_course_oscillograph' SET `grade`='$grade' WHERE `group_num`={$group_num}");	
 		}
 		foreach ( $arr as $key => $value ) {  		//防止中文乱码
         	$arr[$key] = urlencode ( $value );  
@@ -187,6 +222,9 @@
 				'status' => '1',
 				'msg' => '审核通过'
 			);
+			//全部审核通过就可以显示分数
+			$result = $db -> query("UPDATE `physics_course_oscillograph` SET `grade_status`=1 WHERE `group_num`={$group_num}");
+
 		}else if($result['status_2']=='2'){
 			$arr = array(
 				'status' => '0',
@@ -197,6 +235,12 @@
 				'status' => '0',
 				'msg' => '未通过'
 			);
+
+			// //未通过，每次累计减去2分
+			// $data = $db->query("SELECT `grade` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");
+			// 	$data = $data->fetch_assoc();
+			// 	$grade = $data - 2;
+			// 	$db->query("UPDATE 'physics_course_oscillograph' SET `grade`='$grade' WHERE `group_num`={$group_num}");	
 		}
 		foreach ( $arr as $key => $value ) {  		//防止中文乱码
         	$arr[$key] = urlencode ( $value );  
@@ -204,12 +248,20 @@
     	echo urldecode ( json_encode ($arr) ); 
 	}else if( isset($_GET['action']) && $_GET['action']=='help'){
 		$group_num = $_GET['group_num'];
+
+		// //求助，每次累计减去2分
+		// $data = $db->query("SELECT `grade` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");
+		// $grade = $data->fetch_assoc();
+		// $grade = $grade - 2;		
+		// $db->query("UPDATE `physics_course_oscillograph` SET `grade`='$grade' WHERE `group_num`={$group_num}");
+		
 		$result = $db -> query("UPDATE `physics_course_oscillograph` SET `seek_help`=1 WHERE `group_num`={$group_num}");
 		if($result){
 			$arr = array(
 				'status' => '1',
 				'msg' => '提交成功'
 			);
+
 		}else{
 			$arr = array(
 				'status' => '0',

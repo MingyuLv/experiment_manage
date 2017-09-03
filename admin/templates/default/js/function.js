@@ -268,6 +268,7 @@ function removeAllChild(node)
 
 //实时刷新后台数据
 function infoAjax(status_count){
+
 	var exp_name = (document.getElementsByClassName("container"))[0].getAttribute("name");
 	var xmlobj = createXMLHttpRequest();
 	xmlobj.open("GET","./templates/default/infoXML.php?exp=true&exp_name="+exp_name+"&status_count="+status_count,true);
@@ -422,6 +423,8 @@ function infoAjax(status_count){
 	setTimeout("infoAjax("+status_count+");",4000);
 	xmlobj.send();
 }
+
+
 
 //展开列表
 function eval_spread(){

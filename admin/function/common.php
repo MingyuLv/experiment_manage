@@ -2038,6 +2038,25 @@
  		return $result;
  	}
 
+ 	function end_when_time_out($exp_name){
+ 		$obj = new database();
+ 		$end_time = $obj->query_end_time($exp_name);
+
+ 		date_default_timezone_set('Asia/Shanghai');
+ 		$interval = 1;
+ 		do{
+			$cur_time = getdate();
+			$hours = $cur_time['hours'];
+			$minutes = $cur_time['minutes'];
+			
+			$compare = $hours*60 + $minutes;				
+			if( $compare > $end_time ){	
+				end_when_time_out($exp_name);
+			}
+			sleep($interval);
+		}while(true);
+ 	}
+
 
 
 ?>

@@ -48,7 +48,7 @@
 		// $xml .= "<status2>".$status_2."</status2>\n";
 		$xml .= "<helptimes>".$row['help_times']."</helptimes>\n";
 		$xml .= "<failtimes>".$row['fail_times']."</failtimes>\n";
-		if($row['grade']){
+		if($row['grade_status']!=0){
 			$xml .= "<grade>".$row['grade']."</grade>";
 		}else{
 			$xml .= "<grade>未评定</grade>";

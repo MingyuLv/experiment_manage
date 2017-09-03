@@ -54,12 +54,34 @@ class database{
 
 	function pass($option,$group_num){
 		$sql = "UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `status_{$option}`=1,`evaluation`=0 WHERE `group_num`={$group_num}";
+
+		//如果实验全部完成，计算机将自动评分的结果改为可显示，‘已评定’
+		// $flag = 1;
+		// for($i = 1; $i<=$option; $i++){
+		// 	$re = $this->db->query("SELECT `status_{$i}` FROM {$this->tablePrefix}_course_{$this->tb_name} WHERE `group_num`={$group_num}");
+		// 	$re = $re->fetch_assoc();
+		// 	if($re !=1){
+		// 		$flag = 0;
+		// 		break;
+		// 	}
+		// }
+		if($option==2){ 
+			$this->db->query("UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `grade_status`=1 WHERE `group_num`={$group_num}");
+		}
+
 		$result = $this->db->query($sql);
 		if($result) return 1;
 		else return 0;
 	}
 
 	function fail($option,$group_num){
+		// 未通过，每次累计减去2分
+		$data = $db->query("SELECT `grade` FROM `{$this->tablePrefix}_course_{$this->tb_name}` WHERE `group_num`={$group_num}");
+		$grade = $data->fetch_assoc();
+		$grade = $grade - 2;		
+		$this->$db->query("UPDATE `{$this->tablePrefix}_course_{$this->tb_name}` SET `grade`='$grade' WHERE `group_num`={$group_num}");
+	
+
 		$sql = "SELECT `fail_times` FROM `{$this->tablePrefix}_course_{$this->tb_name}` WHERE `group_num`={$group_num}";
 		$fail_times = $this->db->query($sql);
 		$fail_times = $fail_times->fetch_assoc();
@@ -71,6 +93,12 @@ class database{
 	}
 
 	function solve_help($group_num){
+		//求助，每次累计减去2分
+		$data = $this->$db->query("SELECT `grade` FROM `{$this->tablePrefix}_course_{$this->tb_name}` WHERE `group_num`={$group_num}");
+		$data = $data->fetch_assoc();
+		$grade = $data - 2;
+		$this->$db->query("UPDATE '{$this->tablePrefix}_course_{$this->tb_name}' SET `grade`='$grade' WHERE `group_num`={$group_num}");	
+		
 		$help_times = $this->db->query("SELECT * FROM `{$this->tablePrefix}_course_{$this->tb_name}` WHERE `group_num`={$group_num}");
 		$help_times = $help_times->fetch_assoc();
 		$help_times = $help_times['help_times'];
@@ -84,10 +112,12 @@ class database{
 		$result = $this->db->query($sql);
 	}
 
-	function course_status_start($course_id,$user_id){
-		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=1,`user_id`={$user_id} WHERE `course_id`={$course_id}";
-		$result = $this->db->query($sql);
-	}
+	// function course_status_start($course_id,$user_id){
+	// 	//修改status中的课程状态
+	// 	$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=1,`user_id`={$user_id} WHERE `course_id`={$course_id}";
+	// 	$result = $this->db->query($sql);
+			
+	// }
 
 	function if_cur_course($user_id){
 		$sql = "SELECT `cur_course` FROM `{$this->tablePrefix}_user` WHERE `uid`={$user_id}";
@@ -108,6 +138,36 @@ class database{
 	function start_course($user_id, $course_name, $classNum){
 		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=1,`user_id`={$user_id},`class_num`={$classNum} WHERE `name`='{$course_name}'";
 		$result = $this->db->query($sql);
+
+		//修改课程的起始时间
+		date_default_timezone_set('Asia/Shanghai');
+		$cur_time = getdate();
+		$hours = $cur_time['hours'];
+		$minutes = $cur_time['minutes'];
+		//$hours = 9; $minutes = 44;		//测试使用
+		$compare = $hours*60 + $minutes;				
+		if( $compare>=450 && $compare<=584){	//8:00--9:45
+			$start_time = '450'; 
+			$end_time = '584';   			
+		}else if( $compare>=585 && $compare<=719){	//10:15--12:00
+			$start_time = '585';
+			$end_time = '719';
+		}else if( $compare>=810 && $compare<=944){	//14:00--15:45
+			$start_time = "810";
+			$end_time = "944";
+		}else if( $compare>=945 && $compare<=1079){		//16:15--18:00
+			$start_time = '945';
+			$end_time = '1079';
+		}else if( $compare>=1110 && $compare<=1229){	//18:45--20:30
+			$start_time = '1110';
+			$end_time = '1229';
+		}
+	
+		$re = $this->db->query("UPDATE `{$this->tablePrefix}_status` SET `start_time`='{$start_time}',`end_time`='{$end_time}' WHERE `name`='{$course_name}'");
+		// echo '$start_time = '.$start_time;
+		// echo '$end_time='.$end_time;
+		// echo '$re = '.$re;
+
 		if( $result) return 1;
 	}
 
@@ -115,8 +175,11 @@ class database{
 		//结束课堂
 
 		//修改status表
-		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=0,`user_id`=null,`class_num`=null WHERE `name`='{$course_name}'";
+		$sql = "UPDATE `{$this->tablePrefix}_status` SET `status`=0,`user_id`=null,`class_num`=null,`start_time`=null,`end_time`=null WHERE `name`='{$course_name}'";
 		$result = $this->db->query($sql);
+
+		//若未完成实验则没有分数
+		$this->db->query("UPDATE `{$this->tablePrefix}_course_{$course_name}` SET `grade`=0 WHERE `grade_status`=0");
 		//修改user表
 		$sql = "UPDATE `{$this->tablePrefix}_user` SET `cur_course`=null WHERE `uid`='{$user_id}'";
 		$result1 = $this->db->query($sql);
@@ -465,7 +528,7 @@ class database{
 					$f_std = rand(1,18)*50 + 100;	   //f在100hz到1000hz之间，间隔步进50hz。
 					$this->db->query("UPDATE `{$this->tablePrefix}_course_oscillograph` SET `v_std`='$v_std',`f_std`='$f_std' WHERE `group_num`='$i'");
 				}
-				$result = $this->db->query("SELECT `group_num`,`v_std`,`f_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+				$result = $this->db->query("SELECT `group_num`,`v_std`,`f_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY `group_num`");
 				break;
 			case 'potentioneter':
 				for( $i = 1; $i <= 40; $i++){
@@ -473,7 +536,7 @@ class database{
 					$Exs = sprintf("%.1f",$Exs);   //Exs范围： 
 					$this->db->query("UPDATE `{$this->tablePrefix}_course_oscillograph` SET `Exs`='$Exs' WHERE `group_num`='$i'");
 				}
-				$result = $this->db->query("SELECT `group_num`,`Exs` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+				$result = $this->db->query("SELECT `group_num`,`Exs` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY `group_num`");
 				break;
 			default:
 				$result = null; 
@@ -483,12 +546,13 @@ class database{
 	}
 
 	function query_parameter_oscillograph(){
-		$result = $this->db->query("SELECT `group_num`,`v_std`,`f_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+		$result = $this->db->query("SELECT `group_num`,`v_std`,`f_std` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY `group_num`");
+
 		return $result;
 	}
 
 	function query_parameter_potentioneter(){
-		$result = $this->db->query("SELECT `group_num`,`Exs` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY 'group_num'");
+		$result = $this->db->query("SELECT `group_num`,`Exs` FROM `{$this->tablePrefix}_course_{$this->tb_name}` ORDER BY `group_num`");
 		return $result;
 	}
 
@@ -612,5 +676,17 @@ class database{
 		if(!$result) return null;
 		$result = $result->fetch_assoc();
 		return $result;
+	}
+
+	function query_end_time($exp_name){
+		$end_time = $this->db->query("SELECT `start_time`,`end_time` FROM `{$this->tablePrefix}_status` WHERE `name`='$exp_name'");
+		$end_time = $end_time->fetch_assoc();
+		$end_time = $end_time['end_time'];
+		return $end_time;
+	}
+
+	function end_when_time_out($exp_name, $count){
+		//如果一直到下课，学生仍没有提交数据，实验算为未完成，成绩为0
+		$this->db->query("UPDATE `{$this->tablePrefix}_course_{$exp_name}` SET `grade`=0, `grade_status`=1 WHERE `status_{$count}`=0");
 	}
 }
