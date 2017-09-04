@@ -162,4 +162,4 @@
 
 <script type="text/javascript">window.onload=infoAjax(2);</script>
 
-<?php end_when_time_out('oscillograph'); ?>
+ <?php //end_when_time_out('oscillograph'); ?>

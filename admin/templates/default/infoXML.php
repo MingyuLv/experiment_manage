@@ -53,6 +53,7 @@
 		}else{
 			$xml .= "<grade>未评定</grade>";
 		}
+		// $xml .= "<grade>100</grade>";
 		$xml .= "</student>\n";
 	}
 	//返回等待评测的组号
