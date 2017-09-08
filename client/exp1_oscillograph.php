@@ -59,12 +59,14 @@
 			$compare = $hours*60 + $minutes;	
 
 			//上课开始十五分钟后为迟到			
-			$start_time = $db->query("SELECT `start_time` FROM `physics_course_oscillograph` WHERE `group_num`='{$group_num}'");
+			$start_time = $db->query("SELECT `start_time` FROM `physics_status` WHERE `name`='oscillograph'");
 			$start_time = $start_time->fetch_assoc();
+			$start_time = intval($start_time);
+			// var_dump($start_time);
 			if( $compare - $start_time > 15){
 				$data = $db->query("SELECT `grade` FROM `physics_course_oscillograph` WHERE `group_num`={$group_num}");
 				$data = $data->fetch_assoc();
-				$grade = $data - 5;
+				$grade = intval($data) - 5;
 				$db->query("UPDATE 'physics_course_oscillograph' SET `grade`='$grade' WHERE `group_num`={$group_num}");		
 			}
 		}

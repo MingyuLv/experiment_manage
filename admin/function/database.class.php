@@ -145,7 +145,8 @@ class database{
 		$hours = $cur_time['hours'];
 		$minutes = $cur_time['minutes'];
 		//$hours = 9; $minutes = 44;		//测试使用
-		$compare = $hours*60 + $minutes;				
+		$compare = $hours*60 + $minutes;	
+
 		if( $compare>=450 && $compare<=584){	//8:00--9:45
 			$start_time = '450'; 
 			$end_time = '584';   			
@@ -161,12 +162,15 @@ class database{
 		}else if( $compare>=1110 && $compare<=1229){	//18:45--20:30
 			$start_time = '1110';
 			$end_time = '1229';
+		}else{
+			$start_time = '0';		//若以上时间都不符合，为测试用数据，使用时后台不会出现这样的情况
+			$end_time = '0';
 		}
-	
+		
 		$re = $this->db->query("UPDATE `{$this->tablePrefix}_status` SET `start_time`='{$start_time}',`end_time`='{$end_time}' WHERE `name`='{$course_name}'");
-		// echo '$start_time = '.$start_time;
-		// echo '$end_time='.$end_time;
-		// echo '$re = '.$re;
+		echo '$start_time = '.$start_time;
+		echo '$end_time='.$end_time;
+		echo '$re = '.$re;
 
 		if( $result) return 1;
 	}
